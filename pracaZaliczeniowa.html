@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ITPortfolio</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Krzysztof Włodowski" />
+    <link rel="stylesheet" href="pracaZaliczeniowa.css" />
+  </head>
+  <body>
+    <div class="flexStyleColumn">
+      <!-- SECTION CONTACT FORM MOBILE -->
+      <div class="paddingSectionContact formMobileSectionSendMessage">
+        <h3 class="contactHeadingMargin">Contact me</h3>
+        <div>
+          <form>
+            <div class="flexStyleColumn gapBetweenColumnInInput">
+              <div class="displayFlexInputNameAndEmail">
+                <div
+                  class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
+                >
+                  <label for="inputName" class="primaryStyleText">Name</label>
+                  <div class="flexStyleColumn fullSpaceInput">
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      id="inputName"
+                      required
+                      class="inputStyle"
+                    />
+                    <p class="errorInfo">
+                      The name must be at least 3 characters long
+                    </p>
+                    <p class="errorInfo">
+                      The name must not exceed 20 characters.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
+                >
+                  <label for="inputEmail" class="primaryStyleText">Email</label>
+                  <div class="flexStyleColumn fullSpaceInput">
+                    <input
+                      type="email"
+                      placeholder="email@example.com"
+                      id="inputEmail"
+                      required
+                      class="inputStyle inputEmailMargin"
+                    />
+                    <p class="errorInfo">Please enter a valid email address</p>
+                    <p class="errorInfo">Please enter a valid email address.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flexStyleColumn gapBetweenLabelAndInput">
+                <label for="inputMessage" class="primaryStyleText"
+                  >Message</label
+                >
+                <div class="flexStyleColumn fullSpaceInput">
+                  <input
+                    type="text"
+                    placeholder="Hello, my name is..."
+                    id="inputMessage"
+                    required
+                    class="inputStyle"
+                  />
+                  <p class="errorInfo">The message cannot be empty</p>
+                  <p class="errorInfo">
+                    The message must not exceed 100 characters.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- HEADER -->
+      <header class="paddingHeader positionRelative">
+        <div
+          class="displayFlex justifyContentSpaceBetween alignItemsFlexCenter"
+        >
+          <h1>
+            <span class="goldenLogo">ITP</span
+            ><span class="hideHeaderElement">ortfolio</span>
+          </h1>
+          <div>
+            <button id="menuButton" class="buttonMenuMobile hideMenuMobile">
+              <img
+                id="normalMenuMobile"
+                src="./images/hamburgerMenu.svg"
+                alt=" logo menu"
+              />
+              <img
+                id="goldMenuMobile"
+                src="./images/hamburgerMenuGold.svg"
+                alt="logo menu gold"
+                class="menuActiveElement"
+              />
+            </button>
+          </div>
+          <div
+            id="menuListMobile"
+            class="menuMobile hideMenuMobile menuActiveElement"
+          >
+            <hr class="hrStyle" />
+            <div class="paddingMenuMobile">
+              <nav>
+                <ul class="flexStyleColumn headerMenu">
+                  <li>HOME</li>
+                  <li>PROJECTS</li>
+                  <li>ABOUT</li>
+                  <li>CONTACT</li>
+                  <li>MESSAGES</li>
+                </ul>
+              </nav>
+            </div>
+            <hr class="hrStyle" />
+          </div>
+          <nav class="hideHeaderElement">
+            <ul class="displayFlex headerMenu">
+              <li>HOME</li>
+              <li>PROJECTS</li>
+              <li>ABOUT</li>
+              <li>CONTACT</li>
+              <li>MESSAGES</li>
+            </ul>
+          </nav>
+        </div>
+        <div class="flexStyleColumn justifyContentCenter alignItemsFlexCenter">
+          <div class="heroTextContainer">
+            <h2>KRZYSZTOF WŁODOWSKI</h2>
+            <p>WEB-DESIGNER</p>
+          </div>
+          <!-- <div class="heroTextContainer">
+          <h2>MY PROJECTS</h2>
+          <p>MADE WITH LOVE</p>
+        </div>
+        <div class="heroTextContainer">
+          <h2>ABOUT ME</h2>
+          <p>IT'S A ME, KRZYSZTOF</p>
+        </div>
+        <div class="heroTextContainer">
+          <h2>CONTACT ME</h2>
+          <p>SAY HELLO TO ME</p>
+        </div>
+        <div class="heroTextContainer">
+          <h2>MESSAGES</h2>
+          <p>MESSAGES FROM THE<br />INTERESTED PERSON</p>
+        </div> -->
+        </div>
+      </header>
+      <!-- SECTION CONTACT BUTTON MOBILE -->
+      <div
+        class="displayFlexJustifyCenter buttonSendMessageMargin paddingSectionContactButton buttonMobileSectionSendMessage"
+      >
+        <button>Send message</button>
+      </div>
+      <main id="mainContainer">
+        <!-- SECTION HOME -->
+        <!-- <section>
+        <div class="paddingSectionHome">
+          <div class="flexStyleColumn justify-content alignItemsFlexCenter">
+            <div
+              class="flexStyleColumn alignItemsFlexCenter mainContainerAboutMe"
+            >
+              <div class="imageMaleContainer"></div>
+              <div>
+                <h3 class="marginHeadingAboutMe">About me</h3>
+                <p>
+                  Hello! I'm Krzysztof Włodowski, a person passionate about
+                  continuous growth and exploring new paths. My background is
+                  diverse, and my<br />
+                  approach to life is rooted in acquiring knowledge and
+                  achieving goals with full dedication. Feel free to discover
+                  more about my<br />
+                  professional journey and interests!
+                </p>
+                <h3 class="marginHeadingMySkills">My skills</h3>
+              </div>
+              <div>
+                <div class="flexWrapLogoSkill gapInsideLogoSkillContainer">
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img src="./images/MySkills/HTML5.svg" alt=" logo HTML" />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>HTML</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img src="./images/MySkills/CSS3.svg" alt="logo CSS" />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>CSS</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img
+                        src="./images/MySkills/Javascript.svg"
+                        alt="logo Javascript"
+                      />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>Java Script</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img src="./images/MySkills/Shape.svg" alt="logo Git" />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>Git</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img src="./images/MySkills/Figma.svg" alt="logo Figma" />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>Figma</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img
+                        src="./images/MySkills/Google Chrome.svg"
+                        alt="logo Google"
+                      />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>Chrome</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img
+                        src="./images/MySkills/Visual Studio Code.svg"
+                        alt="logo Visual Studio Code"
+                      />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>VSCode</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                  <div
+                    class="displayFlex gapInsideLogoSkill logoSkillContainer"
+                  >
+                    <div class="dimensionSkillLogo">
+                      <img
+                        src="./images/MySkills/Vector.svg"
+                        alt="logo Github"
+                      />
+                    </div>
+                    <div class="flexStyleColumn justifyContentSpaceBetween">
+                      <p>Github</p>
+                      <div class="displayFlex gapBetweenCircles">
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 319.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                        <img
+                          src="./images/CircleAndDisc/Ellipse 323.svg"
+                          class="dotExperienceDismension"
+                        />
+                      </div>
+                      <p class="yearsOfExperience">1 years</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="displayGrid gapInsideMyProject gridColumnsProject marginProjectsCarousel"
+          >
+            <div class="imageProjectContainer">
+              <h4>Calculator</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Non-governmental organization</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+                <li>CSS</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Calculator program</h4>
+              <ul class="technologyUse">
+                <li>Java Script</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+          </div>
+          <div
+            class="displayFlexJustifyCenter alignItemsFlexCenter marginAndGapButton buttonsDesktop"
+          >
+            <button
+              class="dismensionButtonArrow displayFlexJustifyCenter alignItemsFlexCenter"
+            >
+              <img src="./images/IconLeft.svg" alt="icon left arrow" />
+            </button>
+            <button
+              class="dismensionButtonArrow displayFlexJustifyCenter alignItemsFlexCenter"
+            >
+              <img src="./images/IconRight.svg" alt="icon right arrow" />
+            </button>
+          </div>
+          <div
+            class="displayFlexJustifyCenter alignItemsFlexCenter marginAndGapButton buttonsMobile"
+          >
+            <button
+              class="dismensionButtonArrow displayFlexJustifyCenter alignItemsFlexCenter"
+            >
+              <img src="./images/iconDown.svg" alt="icon left arrow" />
+            </button>
+            <button
+              class="dismensionButtonArrow displayFlexJustifyCenter alignItemsFlexCenter"
+            >
+              <img src="./images/iconUp.svg" alt="icon right arrow" />
+            </button>
+          </div>
+        </div>
+      </section> -->
+        <!-- SECTION PROJECTS -->
+        <!-- <section>
+        <div class="paddingSectionProjectMe">
+          <div class="displayFlexJustifyCenter buttonAddProjectMargin">
+            <div>
+              <button class="flexStyleCenter gapInsideButton">
+                <img
+                  src="./images/Vector.svg"
+                  alt="icon plus sign"
+                  class="iconPlusButton"
+                />
+                Add project
+              </button>
+            </div>
+          </div>
+          <div class="displayGrid gapInsideMyProject gridColumnsProject">
+            <div class="imageProjectContainer">
+              <h4>Calculator</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Non-governmental organization</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+                <li>CSS</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Calculator program</h4>
+              <ul class="technologyUse">
+                <li>Java Script</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Calculator</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+            <div class="imageProjectContainer">
+              <h4>Non-governmental organization</h4>
+              <ul class="technologyUse">
+                <li>HTML</li>
+                <li>CSS</li>
+              </ul>
+              <button class="imageDeleteContainer"></button>
+            </div>
+          </div>
+        </div>
+      </section> -->
+        <!-- SECTION ABOUT ME -->
+        <!-- <section>
+        <div class="flexStyleColumn paddinSectionAboutMe gapBetweenElements">
+          <div class="imageMaleContainer"></div>
+          <div>
+            <article>
+              <h3>My background</h3>
+              <p class="marginBetweenHeadingAndParagraph">
+                I have a diverse background that enriches both my professional
+                career and personal growth.<br />
+                I am constantly striving to develop myself and make progress in
+                every area of life I am involved in.<br />
+                My professional experience has taught me to be diligent in
+                carrying out my responsibilities, take ownership of assigned
+                tasks, and aim for the best possible final result.
+              </p>
+            </article>
+          </div>
+          <div>
+            <article>
+              <h3>My hobbies and interests</h3>
+              <p class="marginBetweenHeadingAndParagraph">
+                In my free time, I enjoy developing my passions, especially
+                physical activity and DIY projects.<br />
+                Both of these hobbies allow me to spend my time creatively and
+                productively, while constantly growing and becoming better at
+                what I do.
+              </p>
+            </article>
+          </div>
+          <div class="displayFlexJustifyCenter buttonContactMeMargin">
+            <button class="flexStyleCenter gapInsideButton">
+              <img
+                src="./images/Arrow right.svg"
+                alt="icon arrow sign"
+                class="iconArrowButton"
+              />Contact me
+            </button>
+          </div>
+        </div>
+      </section> -->
+        <!-- SECTION CONTACT -->
+        <section class="hideSectionContact">
+          <div class="paddingSectionContact">
+            <h3 class="contactHeadingMargin">Contact me</h3>
+            <div>
+              <form>
+                <div class="flexStyleColumn gapBetweenColumnInInput">
+                  <div class="displayFlexInputNameAndEmail">
+                    <div
+                      class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
+                    >
+                      <label for="inputName" class="primaryStyleText"
+                        >Name</label
+                      >
+                      <div class="flexStyleColumn fullSpaceInput">
+                        <input
+                          type="text"
+                          placeholder="Your name"
+                          id="inputName"
+                          required
+                          class="inputStyle"
+                        />
+                        <p class="errorInfo">
+                          The name must be at least 3 characters long
+                        </p>
+                        <p class="errorInfo">
+                          The name must not exceed 20 characters.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
+                    >
+                      <label for="inputEmail" class="primaryStyleText"
+                        >Email</label
+                      >
+                      <div class="flexStyleColumn fullSpaceInput">
+                        <input
+                          type="email"
+                          placeholder="email@example.com"
+                          id="inputEmail"
+                          required
+                          class="inputStyle inputEmailMargin"
+                        />
+                        <p class="errorInfo">
+                          Please enter a valid email address
+                        </p>
+                        <p class="errorInfo">
+                          Please enter a valid email address.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flexStyleColumn gapBetweenLabelAndInput">
+                    <label for="inputMessage" class="primaryStyleText"
+                      >Message</label
+                    >
+                    <div class="flexStyleColumn fullSpaceInput">
+                      <input
+                        type="text"
+                        placeholder="Hello, my name is..."
+                        id="inputMessage"
+                        required
+                        class="inputStyle"
+                      />
+                      <p class="errorInfo">The message cannot be empty</p>
+                      <p class="errorInfo">
+                        The message must not exceed 100 characters.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div
+            class="displayFlexJustifyCenter buttonSendMessageMargin paddingSectionContactButton"
+          >
+            <button>Send message</button>
+          </div>
+        </section>
+        <!-- SECTION MESSAGES -->
+        <!-- <section>
+        <div class="paddingSectionMessages flexStyleColumn gapBetweenMessages">
+          <div>
+            <p class="primaryStyleText">Name: Karol</p>
+            <p class="primaryStyleText">Email: karol@email.com</p>
+            <p class="primaryStyleText">
+              Message: Hello, I've reviewed your impressive portfolio and am
+              interested in disscussing a potential collaboration. Please call
+              me at 712-218-123 to talk further.
+            </p>
+          </div>
+          <div>
+            <p class="primaryStyleText">Name: Ernest</p>
+            <p class="primaryStyleText">Email: ernest@email.com</p>
+            <p class="primaryStyleText">
+              Message: Hello, Please call me at 351-152-555 to talk further.
+            </p>
+          </div>
+          <div>
+            <p class="primaryStyleText">Name: Jan</p>
+            <p class="primaryStyleText">Email: jan@email.com</p>
+            <p class="primaryStyleText">
+              Message: Welcome Jan. You created really nice project
+            </p>
+          </div>
+        </div>
+      </section> -->
+      </main>
+      <!-- FOOTER -->
+      <footer>
+        <div class="paddingFooter flexFooter">
+          <div class="hideFooterNavList">
+            <nav>
+              <ul class="flexStyleColumn footerMenu">
+                <li>HOME</li>
+                <li>PROJECTS</li>
+                <li>ABOUT</li>
+                <li>CONTACT</li>
+                <li>MESSAGES</li>
+              </ul>
+            </nav>
+          </div>
+          <div
+            class="flexStyleColumn justifyContentCenter alignItemsFlexStart footerInfo alignItemsFlexCenter"
+          >
+            <p>krzysztof_włodowski@wp.pl</p>
+            <p class="marginNumTel">+510 454 226</p>
+            <p>
+              <span class="mainLogoFooter">ITP</span
+              ><span class="restLogoFooter">ortfolio</span
+              ><span class="copyrightFooter"> © 2024</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+      <!-- MODAL -->
+      <div class="modalMainContainer hiddenElement">
+        <div class="dismensionModal positionRelative">
+          <form>
+            <div
+              class="flexStyleCenter directionFlexColumn alignItemsFlexStart"
+            >
+              <div>
+                <button class="closeLogoX">
+                  <img
+                    src="./images/iconX.svg"
+                    alt="icon close X"
+                    class="dimensionCloseLogoX"
+                  />
+                </button>
+              </div>
+              <div class="flexStyleColumn fullWidth">
+                <label
+                  for="inputProjectName"
+                  class="primaryStyleText marginLabelModalProject"
+                  >Project title</label
+                >
+                <div class="flexStyleColumn fullWidth">
+                  <input
+                    id="inputProjectName"
+                    class="inputStyle"
+                    type="text"
+                    placeholder="Project title"
+                    required
+                  />
+                  <p class="errorInfo">
+                    The title must be at least 3 characters long.
+                  </p>
+                  <p class="errorInfo">
+                    The title must not exceed 30 characters.
+                  </p>
+                </div>
+              </div>
+              <div class="flexStyleColumn fullWidth">
+                <label
+                  for="inputTechnology"
+                  class="primaryStyleText marginLabelModalTech"
+                  >Technologies</label
+                >
+                <div class="flexStyleColumn fullWidth">
+                  <input
+                    id="inputTechnology"
+                    class="inputStyle"
+                    type="text"
+                    placeholder="html,css,javascript"
+                    required
+                  />
+                  <p class="errorInfo">Please add some technologies.</p>
+                </div>
+              </div>
+              <div class="displayFlexJustifyCenter fullWidth">
+                <button
+                  class="flexStyleCenter gapInsideButton marginButtonModal"
+                >
+                  <img
+                    src="./images/Vector.svg"
+                    alt="icon plus sign"
+                    class="iconPlusButton"
+                  />
+                  Add project
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="pracaZaliczeniowa.js"></script>
+  </body>
+</html>

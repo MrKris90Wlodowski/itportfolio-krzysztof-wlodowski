@@ -1,0 +1,800 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'League Gothic';
+    src: url('./images/fontsStyle/LeagueGothic-1.601/static/WOFF2/LeagueGothic-Condensed.woff2') format('woff2'),
+         url('./images/fontsStyle/LeagueGothic-1.601/static/WOFF/LeagueGothic-Condensed.woff') format('woff'),
+         url('./images/fontsStyle/LeagueGothic-1.601/static/TTF/LeagueGothic-Condensed.ttf') format('truetype'),
+         url('./images/fontsStyle/LeagueGothic-1.601/static/OTF/LeagueGothic-Condensed.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+:root {
+    font-size: 16px;
+    --primaryBackgroundColor: #1F2042;
+    --secondaryBackgroundColor: #F9F9F9;
+    --primaryFontFamily: 'League Gothic', sans-serif;
+    --secondaryFontFamily: 'League Spartan', sans-serif;
+    --thirdlyFontFamily: 'Roboto', sans-serif;
+    --primaryTextColor: #FFFFFF;
+    --clickTextColor: #ADB6C4;
+    --secondaryTextColor: #1F2041;
+    --logoTextColor: #D4AF37;
+    --inputTextColor: #7E7E7E;
+    --headingsProjectColor: #F1EBE1;
+    --errorInputColor: #AF0808;
+}
+
+body {
+    background-color: var(--primaryBackgroundColor);
+    width: 100%;
+    min-width: 320px;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 100%;
+    color: var(--clickTextColor);
+    letter-spacing: 0%;
+}
+
+.goldenLogo {
+    color: var(--logoTextColor);
+}
+
+h2 {
+    font-family: var(--primaryFontFamily);
+    font-weight: 400;
+    font-size: 6rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: var(--primaryTextColor);
+}
+
+h3 {
+    font-family: var(--secondaryFontFamily);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #1F2041;
+}
+
+h4 {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--headingsProjectColor);
+    margin: 1.125rem 1.875rem 2.5rem;
+}
+
+h2 + p {
+    font-family: var(--secondaryFontFamily);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 100%;
+    letter-spacing: 36%;
+    text-align: center;
+    color: var(--primaryTextColor);   
+}
+
+ul li {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--primaryTextColor);
+    list-style: none;
+}
+
+button {
+    background-color: var(--clickTextColor);
+    width: 15rem;
+    height: 3.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.9375rem 3.0625rem;
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+    color: var(--secondaryTextColor);
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+p {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--secondaryTextColor);
+}
+
+.gapInsideButton {
+    gap: 1.5rem;
+}
+
+.iconPlusButton {
+    width: 1.03125rem;
+    height: 1.03125rem;
+}
+
+#mainContainer {
+    background-color: var(--secondaryBackgroundColor);
+}
+
+/* HEADER */
+
+.paddingHeader {
+    padding: 2.3125rem 7.5rem 0;
+}
+
+.heroTextContainer {
+    width: 100%;
+    max-width: 33.375rem;
+    height: 8.875rem;
+    /* height: auto; */
+    margin: 6.25rem 0;
+}
+
+.headerMenu {
+    gap: 1.875rem;
+}
+
+.buttonMenuMobile {
+        all: unset;
+        cursor: pointer;
+    }
+
+.menuMobile {
+    position: absolute;
+    z-index: 10;
+    top: 5rem;
+    width: 100%;
+    height: auto;
+    background-color: var(--primaryBackgroundColor);
+}
+    
+.paddingMenuMobile {
+    padding: 1.75rem 2.3125rem;
+}
+     
+.hrStyle {
+    border-top: var(--secondaryBackgroundColor) 0.0625rem solid;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+}
+
+.menuActiveElement {
+    display: none ;
+}
+
+.headerMenu li {
+    cursor: pointer;
+}
+
+/* SECTION HOME */
+
+.imageMaleContainer {
+    width: 100%;
+    max-width: 59.875rem;
+    height: 19.4375rem;
+    background-image: url(./images/maleHorizontalPic.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+}
+
+.paddingSectionHome {
+    padding: 5.25rem 8.6875rem;
+}
+
+.dimensionSkillLogo {
+    width: 100%;
+    max-width: 4rem;
+    height: 4rem;
+    height: auto;
+}
+
+.gapInsideLogoSkill {
+    gap: 0.625rem;
+}
+
+.yearsOfExperience {
+    color: var(--clickTextColor);
+}
+
+.gapBetweenCircles {
+    gap: 0.75rem;
+}
+
+.gapInsideLogoSkillContainer {
+    row-gap: 2rem;
+    /* column-gap: 4.725rem; */
+    column-gap: 4.725rem;
+}
+
+.paddingSectionHomeSkills {
+    padding: 5.25rem 15.0625rem;
+}
+
+.dismensionButtonArrow {
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 0.5rem;
+}
+
+.marginAndGapButton {
+    gap: 3.4375rem;
+    margin-top: 5.25rem;
+}
+
+.logoSkillContainer {
+    width: 100%;
+    max-width: 11.375rem;
+    height: 4.375rem;
+    /* height: auto; */
+}
+
+.mainContainerAboutMe {
+    width: 100%;
+    max-width: 59.875rem;
+    height: auto;
+}
+
+.dotExperienceDismension {
+    width: 100%;
+    max-width: 0.75rem;
+    height: 0.75rem;
+}
+
+.marginHeadingAboutMe {
+    margin: 4.0625rem 0 1.0625rem;
+}
+
+.marginHeadingMySkills {
+    margin: 2.5rem 0 1.875rem;
+}
+
+.marginProjectsCarousel {
+    margin-top: 5.25rem;
+}
+
+/* SECTION MY PROJECTS */
+
+.paddingSectionProjectMe {
+    padding: 5.25rem 8.6875rem;
+}
+
+.imageProjectContainer {
+    position: relative;
+    width: 100%;
+    max-width: 22.5rem;
+    height: 28.75rem;
+    background-image: url(./images/Rectangle\ 5\ \(3\).png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+
+    color: red;
+    font-size: 1.25rem;
+}
+
+.buttonAddProjectMargin {
+    margin-bottom: 5.25rem;
+}
+
+.gapInsideMyProject {
+    row-gap: 5.25rem;
+    column-gap: 2.5625rem;
+}
+
+.imageDeleteContainer {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-image: url(./images/Rectangle\ 11.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+}
+
+.technologyUse {
+    display: flex;
+    flex-direction: column;
+}
+
+.technologyUse li {
+    margin: 0 4.25rem 2.5rem 1.875rem;
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--primaryTextColor);
+    list-style-type: disc;
+    list-style-position: outside;
+}
+
+/* SECTION ABOUT ME */
+
+.paddinSectionAboutMe {
+    padding: 5.25rem 15.0625rem;
+}
+
+.iconArrowButton {
+    width: 1.875rem;
+    height: 1.5rem;
+}
+
+.buttonContactMeMargin {
+    margin-top: 5.25rem;
+}
+
+.marginBetweenHeadingAndParagraph {
+    margin-top: 1.0625rem;
+}
+
+.gapBetweenElements {
+    gap: 4.0625rem;
+}
+
+/* SECTION CONTACT */
+
+.displayFlexInputNameAndEmail {
+    display: flex;
+    gap: 6.875rem;
+}
+
+.paddingSectionContact {
+    padding: 4.0625rem 7.5rem;
+}
+
+.paddingSectionContactButton {
+    padding: 0rem 7.5rem 4.0625rem;
+}
+
+.inputStyle {
+    border: none;
+    border-bottom: 0.125rem solid var(--secondaryTextColor);
+    background-color: transparent;
+    outline: none;
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--inputTextColor);
+}
+
+.gapBetweenLabelAndInput {
+    gap: 1.6875rem;
+}
+
+.gapBetweenColumnInInput {
+    gap: 3.75rem;
+}
+
+.contactHeadingMargin {
+    margin-bottom: 4.0625rem;
+}
+
+.fullSpaceInput {
+    flex: 1;
+}
+
+.inputName, .inputEmail {
+    flex: 1;
+}
+
+/* SECTION CONTACT FORM MOBILE */
+
+.formMobileSectionSendMessage {
+    background-color: var(--secondaryBackgroundColor);
+}
+
+/* SECTION CONTACT BUTTON MOBILE */
+
+.buttonMobileSectionSendMessage {
+    background-color: var(--secondaryBackgroundColor);
+}
+
+/* SECTION MESSAGES */
+
+.paddingSectionMessages {
+    padding: 4.0625rem 7.5rem;
+}
+
+.primaryStyleText {
+    font-family: var(--secondaryFontFamily);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--secondaryTextColor);
+}
+
+.gapBetweenMessages {
+    gap: 4.0625rem;
+}
+
+.errorInfo {
+    font-size: 0.75rem;
+    margin-top: 0.3125rem;
+    color: var(--errorInputColor);
+}
+
+/* FOOTER */
+
+.flexFooter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paddingFooter {
+    padding: 3.75rem 7.5rem;
+}
+
+.footerMenu {
+    gap: 1.875rem;
+    margin-bottom: 6.875rem;
+}
+
+.footerInfo {
+    gap: 1.875rem;
+    margin-top: 11rem;
+}
+
+.footerInfo p {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--primaryTextColor);
+}
+
+.footerInfo span {
+    font-family: var(--thirdlyFontFamily);
+    font-weight: 700;
+    font-size: 1.6875rem;
+    line-height: 100%;
+    letter-spacing: 0%;   
+}
+
+.mainLogoFooter {
+    color: #D4AF37;
+}
+
+.restLogoFooter {
+    color: var(--clickTextColor);
+}
+
+.footerMenu li {
+    cursor: pointer;
+}
+
+/* MODAL */
+
+.modalMainContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(0.75rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+.dismensionModal {
+    width: 50rem;
+    /* height: 25.375rem; */
+    height: auto;
+    padding: 3.75rem 7.5rem;
+    background-color: var(--secondaryBackgroundColor);
+}
+
+.marginButtonModal {
+    margin-top: 4.4175rem;
+}
+
+.closeLogoX {
+    all: unset;
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
+}
+
+.dimensionCloseLogoX {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.positionRelative {
+    position: relative;
+}
+
+.marginLabelModalProject {
+    margin-bottom: 1.6875rem;
+}
+
+.marginLabelModalTech {
+    margin-bottom: 1.6875rem;
+    margin-top: 3.75rem;
+}
+
+.hiddenElement {
+    display: none;
+}
+
+/* FLEX CLASS */
+
+.flexStyleCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexStyleColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.displayFlexJustifyCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.flexWrapLogoSkill {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.directionFlexColumn {
+    flex-direction: column;
+}
+
+.flexWrap {
+    flex-wrap: wrap;
+}
+
+.justifyContentCenter {
+    justify-content: center;
+}
+
+.justifyContentSpaceBetween {
+    justify-content: space-between;
+}
+
+.justifyContentEnd {
+    justify-content: flex-end;
+}
+
+.alignItemsFlexCenter {
+    align-items: center;
+}
+
+.alignItemsFlexEnd {
+    align-items: flex-end;
+}
+
+.alignItemsFlexStart {
+    align-items: flex-start;
+}
+
+/* GRID CLASS */
+
+.displayGrid {
+    display: grid;
+}
+
+.gridColumnsProject {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media ( min-width: 1025px) {
+
+    /* SECTION HOME */
+
+    .buttonsMobile {
+        display: none;
+    }
+
+    .buttonMobileSectionSendMessage {
+        display: none;
+    }
+
+    .formMobileSectionSendMessage {
+        display: none;
+    }
+}
+
+@media ( max-width: 1024px) {
+
+    /* HEADER */
+
+    .paddingHeader {
+        padding: 0.625rem 1rem 7.125rem;
+    }
+
+    .heroTextContainer {
+        max-width: 18rem;
+        margin: 3.5625rem 0;
+    }
+
+    /* SECTION HOME */
+
+    .paddingSectionHome {
+       padding: 5.25rem 1rem; 
+    }
+
+    .buttonsDesktop {
+        display: none;
+    }
+
+    .gapInsideLogoSkillContainer {
+        row-gap: 2.25rem;
+    }
+
+    .marginHeadingMySkills {
+        margin: 2.5rem 0 2rem;
+    }
+
+    /* SECTION PROJECT ME */
+
+    .paddingSectionProjectMe {
+        padding: 5.25rem 0.625rem 2.5625rem;
+    }
+
+    .gridColumnsProject {
+        grid-template-columns: repeat(1, 1fr);
+        place-items: center;
+    }
+
+    /* SECTION ABOUT ME */
+
+    .paddinSectionAboutMe {
+        padding: 5.25rem 1rem;
+    }
+
+    .imageMaleContainer {
+        max-width: 18rem;
+        background-image: url(./images/malePortrairPic.png);
+    }
+
+    /* SECTION CONTACT */
+
+    .paddingSectionContact {
+        padding: 0rem 0.625rem 5.25rem;
+    }
+
+    .paddingSectionContactButton {
+        padding: 5.25rem 0.625rem;
+    }
+
+    .displayFlexInputNameAndEmail {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .gapBetweenColumnInInput {
+        gap: 2.5rem;
+    }
+
+    .contactHeadingMargin {
+        margin-bottom: 1.875rem;
+    }
+
+    .inputEmailMargin {
+        margin-top: 0.0625rem;
+    }
+
+    .hideSectionContact {
+        display: none;
+    }
+
+    /* SECTION MESSAGES */
+
+    .paddingSectionMessages {
+        padding: 5.25rem 0.625rem;
+    }
+
+    .gapBetweenMessages {
+        gap: 5.25rem;
+    }
+
+    /* MODAL */
+
+    .dismensionModal {
+        padding: 2.5rem 0.625rem;
+        width: 17.5rem;
+    }
+
+    .marginButtonModal {
+        margin-top: 2.5rem;
+    }
+
+    .marginLabelModalTech {
+        margin-top: 2.5rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .hideMenuMobile {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* HEADER */
+
+    .hideHeaderElement {
+        display: none;
+    }
+
+    /* FOOTER */
+
+    .hideFooterNavList {
+        display: none;
+    }
+
+    .paddingFooter {
+        padding: 3.75rem 2.5rem;
+    }
+    
+    .footerInfo {
+        gap: 0;
+        margin-top: 0;
+    }
+
+    .marginNumTel {
+        margin: 1.875rem 0 0.75rem;
+    }
+
+    .flexFooter {
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .flexWrapLogoSkill {
+        flex-direction: column;
+        align-items: center;
+    }
+}
