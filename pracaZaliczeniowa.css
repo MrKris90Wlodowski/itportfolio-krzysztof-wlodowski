@@ -180,12 +180,16 @@ p {
     width: calc(100% + 2rem);
 }
 
-.menuActiveElement {
+.activeElement {
     display: none ;
 }
 
 .headerMenu li {
     cursor: pointer;
+}
+
+.activeListElement {
+    color: var(--clickTextColor);
 }
 
 /* SECTION HOME */
