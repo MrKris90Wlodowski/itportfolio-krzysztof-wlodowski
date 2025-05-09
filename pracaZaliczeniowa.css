@@ -113,6 +113,7 @@ button {
     font-family: var(--thirdlyFontFamily);
     font-weight: 400;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 p {
@@ -364,6 +365,11 @@ p {
 
 .gapBetweenElements {
     gap: 4.0625rem;
+}
+
+.articleContainer {
+    width: 100%;
+    max-width: 59.875rem;
 }
 
 /* SECTION CONTACT */
