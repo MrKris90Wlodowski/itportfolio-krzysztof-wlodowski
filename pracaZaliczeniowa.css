@@ -389,7 +389,6 @@ p {
 
 .inputStyle {
     border: none;
-    border-bottom: 0.125rem solid var(--secondaryTextColor);
     background-color: transparent;
     outline: none;
     font-family: var(--thirdlyFontFamily);
@@ -397,7 +396,15 @@ p {
     font-size: 1rem;
     line-height: 100%;
     letter-spacing: 0%;
-    color: var(--inputTextColor);
+    color: var(--secondaryTextColor);
+}
+
+.validInputLine {
+    border-bottom: 0.125rem solid var(--secondaryTextColor);
+}
+
+.errorInputLine {
+    border-bottom: 0.125rem solid var(--errorInputColor);
 }
 
 .gapBetweenLabelAndInput {
@@ -544,6 +551,7 @@ p {
 .dimensionCloseLogoX {
     width: 1.5rem;
     height: 1.5rem;
+    cursor: pointer;
 }
 
 .fullWidth {
@@ -561,6 +569,11 @@ p {
 .marginLabelModalTech {
     margin-bottom: 1.6875rem;
     margin-top: 3.75rem;
+}
+
+.noScroll {
+    overflow: hidden;
+    height: 100vh;
 }
 
 .hiddenElement {

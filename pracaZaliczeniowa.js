@@ -60,4 +60,67 @@ sectionContact.forEach(secContact => secContact.classList.remove("hiddenElement"
 
 })
 
+// ADD PROJECT BUTTON AND MODALFORM
 
+const buttonAddProject = document.getElementById("buttonAddProject");
+const buttonAddProjectModal = document.getElementById("buttonAddProjectModal");
+
+const modalForm = document.getElementById("modalForm");
+const closeModal = document.getElementById("closeModal")
+const inputProjectName = document.getElementById("inputProjectName");
+const inputTechnology = document.getElementById("inputTechnology");
+const errorMinLetter = document.getElementById("errorMinLetter");
+const errorMaxLetter = document.getElementById("errorMaxLetter");
+const errorNoneTech = document.getElementById("errorNoneTech");
+
+buttonAddProject.addEventListener("click", () => {
+    modalForm.classList.remove("hiddenElement");
+    document.body.classList.add("noScroll");
+})
+
+function closeModalView () {
+    modalForm.classList.add("hiddenElement");
+    document.body.classList.remove("noScroll");
+}
+
+closeModal.addEventListener("click", closeModalView );
+
+function validateNameInput (inputText,errorMin,errorMax,min,max,dataValue) {
+    const inputValue = inputText.value.trim();
+    const inputTooShort = inputValue.length < min;
+    const inputTooLong = inputValue.length > max;
+
+    inputText.classList.toggle("validInputLine",!inputTooShort && !inputTooLong);
+    inputText.classList.toggle("errorInputLine",inputTooShort || inputTooLong);
+    errorMin.classList.toggle("hiddenElement",!inputTooShort);
+    errorMax.classList.toggle("hiddenElement",!inputTooLong);
+    inputText.dataset[dataValue]=!inputTooShort && !inputTooLong ? "valid" : "error";
+}
+
+function validateTechInput (inputText,errorMessage,dataValue) {
+    const valueInput = inputText.value.trim();
+    const isValidInput = valueInput.length > 0;
+
+    inputText.classList.toggle("validInputLine",isValidInput);
+    inputText.classList.toggle("errorInputLine",!isValidInput);
+    errorMessage.classList.toggle("hiddenElement",isValidInput);
+    inputText.dataset[dataValue]=isValidInput ? "valid" : "error";
+}
+
+inputProjectName.addEventListener("input", () => {validateNameInput(inputProjectName,errorMinLetter,errorMaxLetter,4,30,"inputProject")});
+inputTechnology.addEventListener("input", () => {validateTechInput(inputTechnology,errorNoneTech,"inputTech")});
+
+function addNewProject (inpuText1,dataValue1,inputText2,dataValue2) {
+    const isValidInput1 = inpuText1.dataset[dataValue1];
+    const isValidInput2 = inputText2.dataset[dataValue2];
+    return isValidInput1==="valid" && isValidInput2==="valid";
+}
+
+buttonAddProjectModal.addEventListener("click", () => {
+    const isValidateInput = addNewProject(inputProjectName,"inputProject",inputTechnology,"inputTech");
+    if (isValidateInput) {
+        closeModalView();
+    }
+});
+
+// FORM CONTACT ME

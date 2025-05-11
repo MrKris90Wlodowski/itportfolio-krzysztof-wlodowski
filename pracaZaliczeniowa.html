@@ -29,7 +29,7 @@
                       placeholder="Your name"
                       id="inputName"
                       required
-                      class="inputStyle"
+                      class="inputStyle validInputLine"
                     />
                     <p class="errorInfo">
                       The name must be at least 3 characters long
@@ -49,7 +49,7 @@
                       placeholder="email@example.com"
                       id="inputEmail"
                       required
-                      class="inputStyle inputEmailMargin"
+                      class="inputStyle validInputLine inputEmailMargin"
                     />
                     <p class="errorInfo">Please enter a valid email address</p>
                     <p class="errorInfo">Please enter a valid email address.</p>
@@ -66,7 +66,7 @@
                     placeholder="Hello, my name is..."
                     id="inputMessage"
                     required
-                    class="inputStyle"
+                    class="inputStyle validInputLine"
                   />
                   <p class="errorInfo">The message cannot be empty</p>
                   <p class="errorInfo">
@@ -544,7 +544,10 @@
           <div class="paddingSectionProjectMe">
             <div class="displayFlexJustifyCenter buttonAddProjectMargin">
               <div>
-                <button class="flexStyleCenter gapInsideButton">
+                <button
+                  id="buttonAddProject"
+                  class="flexStyleCenter gapInsideButton"
+                >
                   <img
                     src="./images/Vector.svg"
                     alt="icon plus sign"
@@ -664,7 +667,7 @@
                           placeholder="Your name"
                           id="inputName"
                           required
-                          class="inputStyle"
+                          class="inputStyle validInputLine"
                         />
                         <p class="errorInfo">
                           The name must be at least 3 characters long
@@ -686,7 +689,7 @@
                           placeholder="email@example.com"
                           id="inputEmail"
                           required
-                          class="inputStyle inputEmailMargin"
+                          class="inputStyle validInputLine inputEmailMargin"
                         />
                         <p class="errorInfo">
                           Please enter a valid email address
@@ -707,7 +710,7 @@
                         placeholder="Hello, my name is..."
                         id="inputMessage"
                         required
-                        class="inputStyle"
+                        class="inputStyle validInputLine"
                       />
                       <p class="errorInfo">The message cannot be empty</p>
                       <p class="errorInfo">
@@ -784,7 +787,7 @@
         </div>
       </footer>
       <!-- MODAL -->
-      <div class="modalMainContainer hiddenElement">
+      <div id="modalForm" class="modalMainContainer hiddenElement">
         <div class="dismensionModal positionRelative">
           <form>
             <div
@@ -793,6 +796,7 @@
               <div>
                 <button class="closeLogoX">
                   <img
+                    id="closeModal"
                     src="./images/iconX.svg"
                     alt="icon close X"
                     class="dimensionCloseLogoX"
@@ -808,15 +812,16 @@
                 <div class="flexStyleColumn fullWidth">
                   <input
                     id="inputProjectName"
-                    class="inputStyle"
+                    class="inputStyle validInputLine"
+                    data-input-project="error"
                     type="text"
                     placeholder="Project title"
                     required
                   />
-                  <p class="errorInfo">
+                  <p id="errorMinLetter" class="errorInfo hiddenElement">
                     The title must be at least 3 characters long.
                   </p>
-                  <p class="errorInfo">
+                  <p id="errorMaxLetter" class="errorInfo hiddenElement">
                     The title must not exceed 30 characters.
                   </p>
                 </div>
@@ -830,17 +835,22 @@
                 <div class="flexStyleColumn fullWidth">
                   <input
                     id="inputTechnology"
-                    class="inputStyle"
+                    class="inputStyle validInputLine"
+                    data-input-tech="error"
                     type="text"
                     placeholder="html,css,javascript"
                     required
                   />
-                  <p class="errorInfo">Please add some technologies.</p>
+                  <p id="errorNoneTech" class="errorInfo hiddenElement">
+                    Please add some technologies.
+                  </p>
                 </div>
               </div>
               <div class="displayFlexJustifyCenter fullWidth">
                 <button
+                  id="buttonAddProjectModal"
                   class="flexStyleCenter gapInsideButton marginButtonModal"
+                  type="button"
                 >
                   <img
                     src="./images/Vector.svg"
