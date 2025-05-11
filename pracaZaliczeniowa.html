@@ -22,19 +22,23 @@
                 <div
                   class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
                 >
-                  <label for="inputName" class="primaryStyleText">Name</label>
+                  <label for="inputNameMobile" class="primaryStyleText"
+                    >Name</label
+                  >
                   <div class="flexStyleColumn fullSpaceInput">
                     <input
                       type="text"
                       placeholder="Your name"
-                      id="inputName"
+                      data-input-name-mobile="error"
+                      data-input="contact"
+                      id="inputNameMobile"
                       required
                       class="inputStyle validInputLine"
                     />
-                    <p class="errorInfo">
+                    <p id="errorMinNameMobile" class="errorInfo hiddenElement">
                       The name must be at least 3 characters long
                     </p>
-                    <p class="errorInfo">
+                    <p id="errorMaxNameMobile" class="errorInfo hiddenElement">
                       The name must not exceed 20 characters.
                     </p>
                   </div>
@@ -42,34 +46,43 @@
                 <div
                   class="flexStyleColumn gapBetweenLabelAndInput fullSpaceInput"
                 >
-                  <label for="inputEmail" class="primaryStyleText">Email</label>
+                  <label for="inputEmailMobile" class="primaryStyleText"
+                    >Email</label
+                  >
                   <div class="flexStyleColumn fullSpaceInput">
                     <input
                       type="email"
                       placeholder="email@example.com"
-                      id="inputEmail"
+                      data-input-email-mobile="error"
+                      data-input="contact"
+                      id="inputEmailMobile"
                       required
                       class="inputStyle validInputLine inputEmailMargin"
                     />
-                    <p class="errorInfo">Please enter a valid email address</p>
-                    <p class="errorInfo">Please enter a valid email address.</p>
+                    <p id="errorEmailMobile" class="errorInfo hiddenElement">
+                      Please enter a valid email address
+                    </p>
                   </div>
                 </div>
               </div>
               <div class="flexStyleColumn gapBetweenLabelAndInput">
-                <label for="inputMessage" class="primaryStyleText"
+                <label for="inputMessageMobile" class="primaryStyleText"
                   >Message</label
                 >
                 <div class="flexStyleColumn fullSpaceInput">
                   <input
                     type="text"
                     placeholder="Hello, my name is..."
-                    id="inputMessage"
+                    data-input-message-mobile="error"
+                    data-input="contact"
+                    id="inputMessageMobile"
                     required
                     class="inputStyle validInputLine"
                   />
-                  <p class="errorInfo">The message cannot be empty</p>
-                  <p class="errorInfo">
+                  <p id="errorMinMessageMobile" class="errorInfo hiddenElement">
+                    The message cannot be empty
+                  </p>
+                  <p id="errorMaxMessageMobile" class="errorInfo hiddenElement">
                     The message must not exceed 100 characters.
                   </p>
                 </div>
@@ -170,7 +183,7 @@
         <div
           class="displayFlexJustifyCenter buttonSendMessageMargin paddingSectionContactButton buttonMobileSectionSendMessage"
         >
-          <button>Send message</button>
+          <button data-button="sendMessage">Send message</button>
         </div>
       </div>
       <main id="mainContainer">
@@ -665,14 +678,16 @@
                         <input
                           type="text"
                           placeholder="Your name"
+                          data-input-name="error"
+                          data-input="contact"
                           id="inputName"
                           required
                           class="inputStyle validInputLine"
                         />
-                        <p class="errorInfo">
+                        <p id="errorMinName" class="errorInfo hiddenElement">
                           The name must be at least 3 characters long
                         </p>
-                        <p class="errorInfo">
+                        <p id="errorMaxName" class="errorInfo hiddenElement">
                           The name must not exceed 20 characters.
                         </p>
                       </div>
@@ -687,15 +702,14 @@
                         <input
                           type="email"
                           placeholder="email@example.com"
+                          data-input-email="error"
+                          data-input="contact"
                           id="inputEmail"
                           required
                           class="inputStyle validInputLine inputEmailMargin"
                         />
-                        <p class="errorInfo">
+                        <p id="errorEmail" class="errorInfo hiddenElement">
                           Please enter a valid email address
-                        </p>
-                        <p class="errorInfo">
-                          Please enter a valid email address.
                         </p>
                       </div>
                     </div>
@@ -708,12 +722,16 @@
                       <input
                         type="text"
                         placeholder="Hello, my name is..."
+                        data-input-message="error"
+                        data-input="contact"
                         id="inputMessage"
                         required
                         class="inputStyle validInputLine"
                       />
-                      <p class="errorInfo">The message cannot be empty</p>
-                      <p class="errorInfo">
+                      <p id="errorMinMessage" class="errorInfo hiddenElement">
+                        The message cannot be empty
+                      </p>
+                      <p id="errorMaxMessage" class="errorInfo hiddenElement">
                         The message must not exceed 100 characters.
                       </p>
                     </div>
@@ -725,12 +743,13 @@
           <div
             class="displayFlexJustifyCenter buttonSendMessageMargin paddingSectionContactButton"
           >
-            <button>Send message</button>
+            <button data-button="sendMessage">Send message</button>
           </div>
         </section>
         <!-- SECTION MESSAGES -->
         <section data-section="messages" class="hiddenElement">
           <div
+            id="mainMessageContainer"
             class="paddingSectionMessages flexStyleColumn gapBetweenMessages"
           >
             <div>
@@ -814,14 +833,15 @@
                     id="inputProjectName"
                     class="inputStyle validInputLine"
                     data-input-project="error"
+                    data-input="modal"
                     type="text"
                     placeholder="Project title"
                     required
                   />
-                  <p id="errorMinLetter" class="errorInfo hiddenElement">
+                  <p id="errorMinProjectName" class="errorInfo hiddenElement">
                     The title must be at least 3 characters long.
                   </p>
-                  <p id="errorMaxLetter" class="errorInfo hiddenElement">
+                  <p id="errorMaxProjectName" class="errorInfo hiddenElement">
                     The title must not exceed 30 characters.
                   </p>
                 </div>
@@ -837,6 +857,7 @@
                     id="inputTechnology"
                     class="inputStyle validInputLine"
                     data-input-tech="error"
+                    data-input="modal"
                     type="text"
                     placeholder="html,css,javascript"
                     required
