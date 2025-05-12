@@ -344,6 +344,15 @@ p {
     list-style-position: outside;
 }
 
+#noProjectsMessage {
+    font-family: var(--secondaryFontFamily);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #1F2041;
+}
+
 /* SECTION ABOUT ME */
 
 .paddinSectionAboutMe {
@@ -425,6 +434,12 @@ p {
 
 .inputName, .inputEmail {
     flex: 1;
+}
+
+.absoluteContactError {
+    position: absolute;
+    left: 0rem;
+    top: 1.75rem;
 }
 
 /* SECTION CONTACT FORM MOBILE */
@@ -560,6 +575,12 @@ p {
 
 .positionRelative {
     position: relative;
+}
+
+.absoluteModalError {
+    position: absolute;
+    left: 0rem;
+    top: 1.74375rem;
 }
 
 .marginLabelModalProject {

@@ -124,15 +124,58 @@ function resetForm(inputText) {
     inputText.forEach(text => text.value="");
 }
 
+function addNewProject(project,technology) {
+
+    const projectValue = project.value.trim();
+    const technologyValue = technology.value.trim().split(",").map(tech => tech.trim()).filter(tech => tech !=="");
+
+    const newProject = document.createElement("div");
+    newProject.classList.add("imageProjectContainer");
+    const nameProject = document.createElement("h4");
+    nameProject.textContent=`${projectValue}`;
+    newProject.appendChild(nameProject)
+
+    const listTech = document.createElement("ul");
+    listTech.classList.add("technologyUse");
+    technologyValue.forEach(tech => {
+        const newTech = document.createElement("li");
+        newTech.textContent=`${tech}`;
+        listTech.appendChild(newTech);
+    })
+    newProject.appendChild(listTech);
+
+    const buttonDelete = document.createElement("button");
+    buttonDelete.classList.add("imageDeleteContainer");
+    newProject.appendChild(buttonDelete);
+
+    mainProjectConteiner.appendChild(newProject);
+}
+
+
 buttonAddProjectModal.addEventListener("click", () => {
     validateNameInput(inputProjectName, errorMinProjectName, errorMaxProjectName, 4, 30, "inputProject");
     validateTechInput(inputTechnology, errorNoneTech, "inputTech");
     const isValidateInput = checkValidFormModal(inputProjectName,"inputProject",inputTechnology,"inputTech");
     if (isValidateInput) {
+        addNewProject(inputProjectName,inputTechnology);
         resetForm(inputsModal);
-        // closeModalView();
+        closeModalView();
     }
 });
+
+// ICON TRASH BUTTON AND DELETE PROJECT
+
+const mainProjectConteiner = document.getElementById("mainProjectConteiner");
+const projectContainer = document.querySelectorAll(".imageProjectContainer");
+const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
+const noProjectMessage = document.getElementById("noProjectsMessageContainer");
+
+buttonDeleteProject.forEach(buttonDelete => buttonDelete.addEventListener("click", () => {
+    const singleProject = buttonDeleteProject.closest(".imageProjectContainer");
+    if (singleProject) {
+        singleProject.remove();
+    } 
+}))
 
 // FORM CONTACT ME
 
@@ -140,7 +183,7 @@ const inputNameMobile = document.getElementById("inputNameMobile");
 const errorMinNameMobile = document.getElementById("errorMinNameMobile");
 const errorMaxNameMobile = document.getElementById("errorMaxNameMobile");
 const inputEmailMobile = document.getElementById("inputEmailMobile");
-const errorEmailMobile = document.getElementById("errorEmailMobile");
+const errorEmailMobile = document.getElementById("errorEmailMobile"); 
 const inputMessageMobile = document.getElementById("inputMessageMobile");
 const errorMinMessageMobile = document.getElementById("errorMinMessageMobile");
 const errorMaxMessageMobile = document.getElementById("errorMaxMessageMobile");

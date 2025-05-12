@@ -25,7 +25,7 @@
                   <label for="inputNameMobile" class="primaryStyleText"
                     >Name</label
                   >
-                  <div class="flexStyleColumn fullSpaceInput">
+                  <div class="flexStyleColumn fullSpaceInput positionRelative">
                     <input
                       type="text"
                       placeholder="Your name"
@@ -35,10 +35,16 @@
                       required
                       class="inputStyle validInputLine"
                     />
-                    <p id="errorMinNameMobile" class="errorInfo hiddenElement">
+                    <p
+                      id="errorMinNameMobile"
+                      class="errorInfo hiddenElement absoluteContactError"
+                    >
                       The name must be at least 3 characters long
                     </p>
-                    <p id="errorMaxNameMobile" class="errorInfo hiddenElement">
+                    <p
+                      id="errorMaxNameMobile"
+                      class="errorInfo hiddenElement absoluteContactError"
+                    >
                       The name must not exceed 20 characters.
                     </p>
                   </div>
@@ -49,7 +55,7 @@
                   <label for="inputEmailMobile" class="primaryStyleText"
                     >Email</label
                   >
-                  <div class="flexStyleColumn fullSpaceInput">
+                  <div class="flexStyleColumn fullSpaceInput positionRelative">
                     <input
                       type="email"
                       placeholder="email@example.com"
@@ -59,7 +65,10 @@
                       required
                       class="inputStyle validInputLine inputEmailMargin"
                     />
-                    <p id="errorEmailMobile" class="errorInfo hiddenElement">
+                    <p
+                      id="errorEmailMobile"
+                      class="errorInfo hiddenElement absoluteContactError"
+                    >
                       Please enter a valid email address
                     </p>
                   </div>
@@ -69,7 +78,7 @@
                 <label for="inputMessageMobile" class="primaryStyleText"
                   >Message</label
                 >
-                <div class="flexStyleColumn fullSpaceInput">
+                <div class="flexStyleColumn fullSpaceInput positionRelative">
                   <input
                     type="text"
                     placeholder="Hello, my name is..."
@@ -79,10 +88,16 @@
                     required
                     class="inputStyle validInputLine"
                   />
-                  <p id="errorMinMessageMobile" class="errorInfo hiddenElement">
+                  <p
+                    id="errorMinMessageMobile"
+                    class="errorInfo hiddenElement absoluteContactError"
+                  >
                     The message cannot be empty
                   </p>
-                  <p id="errorMaxMessageMobile" class="errorInfo hiddenElement">
+                  <p
+                    id="errorMaxMessageMobile"
+                    class="errorInfo hiddenElement absoluteContactError"
+                  >
                     The message must not exceed 100 characters.
                   </p>
                 </div>
@@ -570,7 +585,15 @@
                 </button>
               </div>
             </div>
-            <div class="displayGrid gapInsideMyProject gridColumnsProject">
+            <div id="noProjectsMessageContainer" class="hiddenElement">
+              <p class="flexStyleCenter" id="noProjectsMessage">
+                There are no project to display
+              </p>
+            </div>
+            <div
+              id="mainProjectConteiner"
+              class="displayGrid gapInsideMyProject gridColumnsProject"
+            >
               <div class="imageProjectContainer">
                 <h4>Calculator</h4>
                 <ul class="technologyUse">
@@ -674,7 +697,9 @@
                       <label for="inputName" class="primaryStyleText"
                         >Name</label
                       >
-                      <div class="flexStyleColumn fullSpaceInput">
+                      <div
+                        class="flexStyleColumn fullSpaceInput positionRelative"
+                      >
                         <input
                           type="text"
                           placeholder="Your name"
@@ -684,10 +709,16 @@
                           required
                           class="inputStyle validInputLine"
                         />
-                        <p id="errorMinName" class="errorInfo hiddenElement">
+                        <p
+                          id="errorMinName"
+                          class="errorInfo hiddenElement absoluteContactError"
+                        >
                           The name must be at least 3 characters long
                         </p>
-                        <p id="errorMaxName" class="errorInfo hiddenElement">
+                        <p
+                          id="errorMaxName"
+                          class="errorInfo hiddenElement absoluteContactError"
+                        >
                           The name must not exceed 20 characters.
                         </p>
                       </div>
@@ -698,7 +729,9 @@
                       <label for="inputEmail" class="primaryStyleText"
                         >Email</label
                       >
-                      <div class="flexStyleColumn fullSpaceInput">
+                      <div
+                        class="flexStyleColumn fullSpaceInput positionRelative"
+                      >
                         <input
                           type="email"
                           placeholder="email@example.com"
@@ -708,7 +741,10 @@
                           required
                           class="inputStyle validInputLine inputEmailMargin"
                         />
-                        <p id="errorEmail" class="errorInfo hiddenElement">
+                        <p
+                          id="errorEmail"
+                          class="errorInfo hiddenElement absoluteContactError"
+                        >
                           Please enter a valid email address
                         </p>
                       </div>
@@ -718,7 +754,9 @@
                     <label for="inputMessage" class="primaryStyleText"
                       >Message</label
                     >
-                    <div class="flexStyleColumn fullSpaceInput">
+                    <div
+                      class="flexStyleColumn fullSpaceInput positionRelative"
+                    >
                       <input
                         type="text"
                         placeholder="Hello, my name is..."
@@ -728,10 +766,16 @@
                         required
                         class="inputStyle validInputLine"
                       />
-                      <p id="errorMinMessage" class="errorInfo hiddenElement">
+                      <p
+                        id="errorMinMessage"
+                        class="errorInfo hiddenElement absoluteContactError"
+                      >
                         The message cannot be empty
                       </p>
-                      <p id="errorMaxMessage" class="errorInfo hiddenElement">
+                      <p
+                        id="errorMaxMessage"
+                        class="errorInfo hiddenElement absoluteContactError"
+                      >
                         The message must not exceed 100 characters.
                       </p>
                     </div>
@@ -828,7 +872,7 @@
                   class="primaryStyleText marginLabelModalProject"
                   >Project title</label
                 >
-                <div class="flexStyleColumn fullWidth">
+                <div class="flexStyleColumn fullWidth positionRelative">
                   <input
                     id="inputProjectName"
                     class="inputStyle validInputLine"
@@ -838,10 +882,16 @@
                     placeholder="Project title"
                     required
                   />
-                  <p id="errorMinProjectName" class="errorInfo hiddenElement">
+                  <p
+                    id="errorMinProjectName"
+                    class="errorInfo hiddenElement absoluteModalError"
+                  >
                     The title must be at least 3 characters long.
                   </p>
-                  <p id="errorMaxProjectName" class="errorInfo hiddenElement">
+                  <p
+                    id="errorMaxProjectName"
+                    class="errorInfo hiddenElement absoluteModalError"
+                  >
                     The title must not exceed 30 characters.
                   </p>
                 </div>
@@ -852,7 +902,7 @@
                   class="primaryStyleText marginLabelModalTech"
                   >Technologies</label
                 >
-                <div class="flexStyleColumn fullWidth">
+                <div class="flexStyleColumn fullWidth positionRelative">
                   <input
                     id="inputTechnology"
                     class="inputStyle validInputLine"
@@ -862,7 +912,10 @@
                     placeholder="html,css,javascript"
                     required
                   />
-                  <p id="errorNoneTech" class="errorInfo hiddenElement">
+                  <p
+                    id="errorNoneTech"
+                    class="errorInfo hiddenElement absoluteModalError"
+                  >
                     Please add some technologies.
                   </p>
                 </div>
