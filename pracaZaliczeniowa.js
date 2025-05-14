@@ -147,6 +147,9 @@ function addNewProject(project,technology) {
     const buttonDelete = document.createElement("button");
     buttonDelete.classList.add("imageDeleteContainer");
     newProject.appendChild(buttonDelete);
+    buttonDelete.addEventListener("click", () => {
+        deleteProject(buttonDelete,"imageProjectContainer")
+    })
 
     mainProjectConteiner.appendChild(newProject);
 }
@@ -170,8 +173,16 @@ const projectContainer = document.querySelectorAll(".imageProjectContainer");
 const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
 const noProjectMessage = document.getElementById("noProjectsMessageContainer");
 
+function deleteProject (buttonDelete,classValue) {
+        const singleProject = buttonDelete.closest(`.${classValue}`);
+        if (singleProject) {
+        singleProject.remove();
+        }
+    }
+
+
 buttonDeleteProject.forEach(buttonDelete => buttonDelete.addEventListener("click", () => {
-    const singleProject = buttonDeleteProject.closest(".imageProjectContainer");
+    const singleProject = buttonDelete.closest(".imageProjectContainer");
     if (singleProject) {
         singleProject.remove();
     } 
@@ -296,5 +307,107 @@ buttonsSendMessage.forEach(buttonSend => buttonSend.addEventListener("click", ()
     addNewMessage ()
 }))
 
+// CREATE PROJECT CARDS FROM JAVASCRIPT DATA
+
+const cardsProjects = [
+    {project: "Calculator", technology:"HTML"},
+    {project: "Non-governmental organization", technology:"HTML,CSS"},
+    {project: "Calculator program", technology:"Java Script"},
+    {project: "Calculator", technology:"HTML"},
+    {project: "Non-governmental organization", technology:"HTML,CSS"}
+]
+
+cardsProjects.forEach(card => {
+    addNewProject({value: card.project},{value: card.technology})
+})
+
+// CREATE TECH SKILLS FROM JAVASCRIPT DATA
+
+const mainSkillContainer = document.getElementById("mainSkillContainer");
+
+function createCircleExpContainer (num) {
+
+    const circleContainer = document.createElement("div");
+    circleContainer.classList.add(
+        "displayFlex",
+        "gapBetweenCircles"
+    )
+    
+
+    if ( num > 5) num = 5;
+
+    for (let i = 0; i < num; i++) {
+        const circleFull = document.createElement("img");
+        circleFull.src="./images/CircleAndDisc/full circle.svg";
+        circleFull.classList.add("dotExperienceDismension");
+        circleContainer.appendChild(circleFull);
+    }
+
+    for (let i = 0; i < 5 - num; i++) {
+        const circleEmpty = document.createElement("img");
+        circleEmpty.src="./images/CircleAndDisc/empty circle.svg";
+        circleEmpty.classList.add("dotExperienceDismension");
+        circleContainer.appendChild(circleEmpty);
+    }
+
+    return circleContainer;
+}
 
 
+
+function createTechSkill (skill,num) {
+    const skillContainer = document.createElement("div");
+    skillContainer.classList.add(
+        "displayFlex",
+        "gapInsideLogoSkill",
+        "logoSkillContainer");
+
+    const skillImgContainer = document.createElement("div");
+    skillImgContainer.classList.add("dimensionSkillLogo");
+
+    const imageSkill = document.createElement("img");
+    imageSkill.src = `./images/MySkills/${skill}.svg`;
+    imageSkill.alt = `logo ${skill}`;
+    
+    skillImgContainer.appendChild(imageSkill);
+    skillContainer.appendChild(skillImgContainer); 
+    
+
+
+    const skillExperienceContainer = document.createElement("div");
+    skillExperienceContainer.classList.add(
+        "flexStyleColumn",
+        "justifyContentSpaceBetween");
+    
+    const nameSkill = document.createElement("p");
+    nameSkill.textContent=`${skill}`;
+    skillExperienceContainer.appendChild(nameSkill);
+
+    const circleExpContainer = document.createElement("div");
+   
+    skillContainer.appendChild(skillExperienceContainer);
+    circleExpContainer.appendChild(createCircleExpContainer(num));
+    skillExperienceContainer.appendChild(circleExpContainer);
+
+    const yearOfExperience = document.createElement("p");
+    yearOfExperience.classList.add("yearsOfExperience");
+    yearOfExperience.textContent = num === 1 ? `${num} year` : `${num} years`;
+    skillExperienceContainer.appendChild(yearOfExperience);
+
+    mainSkillContainer.appendChild(skillContainer);
+}
+
+const techSkill = [
+   {skill: "HTML",experience:1},
+   {skill: "CSS",experience:1},
+   {skill: "Java Script",experience:1},
+   {skill: "Git",experience:1},
+   {skill: "Figma",experience:1},
+   {skill: "Chrome",experience:2},
+   {skill: "VSCode",experience:2},
+   {skill: "GitHub",experience:1}
+]
+
+techSkill.forEach(tech => {
+    createTechSkill(tech.skill,tech.experience);
+})
