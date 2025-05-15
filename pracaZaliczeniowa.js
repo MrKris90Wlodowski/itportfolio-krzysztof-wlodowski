@@ -152,8 +152,34 @@ function addNewProject(project,technology) {
     })
 
     mainProjectConteiner.appendChild(newProject);
+    checkAmountProjectCard();
+
+    // const carouselTrackProject = newProject.cloneNode(true);
+    // carouselTrack.appendChild(carouselTrackProject);
 }
 
+function addNewProjectCarousel(project,technology) {
+
+    const projectCarouselValue = project.value.trim();
+    const technologyCarouselValue = technology.value.trim().split(",").map(tech => tech.trim()).filter(tech => tech !=="");
+
+    const newCarouselProject = document.createElement("div");
+    newCarouselProject.classList.add("imageProjectCarousel");
+    const nameCarouselProject = document.createElement("h4");
+    nameCarouselProject.textContent=`${projectCarouselValue}`;
+    newCarouselProject.appendChild(nameCarouselProject)
+
+    const listTech = document.createElement("ul");
+    listTech.classList.add("technologyUse");
+    technologyCarouselValue.forEach(tech => {
+        const newTech = document.createElement("li");
+        newTech.textContent=`${tech}`;
+        listTech.appendChild(newTech);
+    })
+    newCarouselProject.appendChild(listTech);
+
+    carouselTrack.appendChild(newCarouselProject);
+}
 
 buttonAddProjectModal.addEventListener("click", () => {
     validateNameInput(inputProjectName, errorMinProjectName, errorMaxProjectName, 4, 30, "inputProject");
@@ -168,6 +194,7 @@ buttonAddProjectModal.addEventListener("click", () => {
 
 // ICON TRASH BUTTON AND DELETE PROJECT
 
+const carouselTrack = document.getElementById("carouselTrack");
 const mainProjectConteiner = document.getElementById("mainProjectConteiner");
 const projectContainer = document.querySelectorAll(".imageProjectContainer");
 const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
@@ -178,6 +205,7 @@ function deleteProject (buttonDelete,classValue) {
         if (singleProject) {
         singleProject.remove();
         }
+        checkAmountProjectCard()
     }
 
 
@@ -318,7 +346,8 @@ const cardsProjects = [
 ]
 
 cardsProjects.forEach(card => {
-    addNewProject({value: card.project},{value: card.technology})
+    addNewProject({value: card.project},{value: card.technology}),
+    addNewProjectCarousel({value: card.project},{value: card.technology})
 })
 
 // CREATE TECH SKILLS FROM JAVASCRIPT DATA
@@ -411,3 +440,37 @@ const techSkill = [
 techSkill.forEach(tech => {
     createTechSkill(tech.skill,tech.experience);
 })
+
+// NAVIGATION BUTTON CAROUSEL
+
+const imageProjectCarouselList = document.querySelectorAll(".imageProjectCarousel");
+
+const iconLeftButton = document.getElementById("iconLeftButton");
+const iconRightButton = document.getElementById("iconRightButton");
+const iconDownButton = document.getElementById("iconDownButton");
+const iconUpButton = document.getElementById("iconUpButton");
+
+// CHECK AMOUNT OF PROJECT CARD
+
+function checkAmountProjectCard() {
+
+    const projectCard = document.querySelectorAll(".imageProjectContainer");
+    const noProjectsMessageContainer = document.getElementById("noProjectsMessageContainer");
+    const navButtonsDesktop = document.getElementById("navButtonsDesktop");
+    const navButtonsMobile = document.getElementById("navButtonsMobile");
+
+    if(projectCard.length > 3) {
+        navButtonsMobile.classList.remove("hiddenElement");
+        navButtonsDesktop.classList.remove("hiddenElement");
+    } else {
+        navButtonsMobile.classList.add("hiddenElement");
+        navButtonsDesktop.classList.add("hiddenElement");
+    }
+
+    if (projectCard.length === 0) {
+        noProjectsMessageContainer.classList.remove("hiddenElement");
+    } else {
+        noProjectsMessageContainer.classList.add("hiddenElement");
+    }
+
+}

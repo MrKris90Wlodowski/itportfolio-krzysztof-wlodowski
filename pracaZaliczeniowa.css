@@ -281,6 +281,26 @@ p {
     margin-top: 5.25rem;
 }
 
+#carouselContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+#carousel {
+    width: 100%;
+    max-width: 72.625rem; 
+    overflow: hidden;
+    margin: 0 auto; 
+  }
+
+#carouselTrack {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2.5625rem;
+    width: 100%;
+}
+
 /* SECTION MY PROJECTS */
 
 .paddingSectionProjectMe {
@@ -291,7 +311,7 @@ p {
     position: relative;
     width: 100%;
     max-width: 22.5rem;
-    height: 28.75rem;
+    min-height: 28.75rem;
     background-image: url(./images/Rectangle\ 5\ \(3\).png);
     background-size: cover;
     background-position: center;
@@ -302,6 +322,27 @@ p {
     color: red;
     font-size: 1.25rem;
 }
+
+.imageProjectCarousel {
+    position: relative;
+    flex: 0 0 calc((100% - 2 * 2.5625rem) / 3);        
+    max-width: calc((100% - 2 * 2.5625rem) / 3);
+    width: 100%;
+    min-height: 28.75rem;
+    background-image: url(./images/Rectangle\ 5\ \(3\).png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+
+    color: red;
+    font-size: 1.25rem;
+}
+
+/* max-width: 22.5rem; */
+/* flex-shrink: 0; */
+
 
 .buttonAddProjectMargin {
     margin-bottom: 5.25rem;
@@ -718,6 +759,30 @@ p {
         margin: 2.5rem 0 2rem;
     }
 
+    .imageProjectCarousel {  
+        max-width: 18.75rem;
+    }
+
+    .imageProjectContainer {
+        max-width: 18.75rem;
+    }
+
+    #carouselContainer {
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+    #carousel {
+        height: 100%;
+        max-height: 91.375rem;
+      }
+    
+    #carouselTrack {
+        flex-direction: column;
+        align-items: center;
+    }
+
     /* SECTION PROJECT ME */
 
     .paddingSectionProjectMe {
@@ -727,6 +792,10 @@ p {
     .gridColumnsProject {
         grid-template-columns: repeat(1, 1fr);
         place-items: center;
+    }
+   
+    .gapInsideMyProject {
+        row-gap: 2.5625rem; 
     }
 
     /* SECTION ABOUT ME */
