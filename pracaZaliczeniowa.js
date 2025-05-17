@@ -150,7 +150,7 @@ function resetForm(inputText) {
   inputText.forEach((text) => (text.value = ""));
 }
 
-function addNewProject(project, technology) {
+function addNewProject(project, technology, uniqeDataset) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
     .trim()
@@ -159,6 +159,7 @@ function addNewProject(project, technology) {
     .filter((tech) => tech !== "");
 
   const newProject = document.createElement("div");
+  newProject.dataset.uniqe=uniqeDataset;
   newProject.classList.add("imageProjectContainer");
   const nameProject = document.createElement("h4");
   nameProject.textContent = `${projectValue}`;
@@ -187,7 +188,7 @@ function addNewProject(project, technology) {
   // carouselTrack.appendChild(carouselTrackProject);
 }
 
-function addNewProjectCarousel(project, technology) {
+function addNewProjectCarousel(project, technology, uniqeDataset) {
   const projectCarouselValue = project.value.trim();
   const technologyCarouselValue = technology.value
     .trim()
@@ -196,6 +197,7 @@ function addNewProjectCarousel(project, technology) {
     .filter((tech) => tech !== "");
 
   const newCarouselProject = document.createElement("div");
+  newCarouselProject.dataset.uniqe=uniqeDataset;
   newCarouselProject.classList.add("imageProjectCarousel");
   const nameCarouselProject = document.createElement("h4");
   nameCarouselProject.textContent = `${projectCarouselValue}`;
@@ -211,6 +213,13 @@ function addNewProjectCarousel(project, technology) {
   newCarouselProject.appendChild(listTech);
 
   carouselTrack.appendChild(newCarouselProject);
+}
+
+function createProjectAndCarouselCard(project, technology) {
+    const uniqeDataset = crypto.randomUUID();
+
+    addNewProject(project, technology, uniqeDataset);
+    addNewProjectCarousel(project, technology, uniqeDataset);
 }
 
 buttonAddProjectModal.addEventListener("click", () => {
@@ -230,11 +239,36 @@ buttonAddProjectModal.addEventListener("click", () => {
     "inputTech"
   );
   if (isValidateInput) {
-    addNewProject(inputProjectName, inputTechnology);
+    createProjectAndCarouselCard(inputProjectName, inputTechnology);
     resetForm(inputsModal);
     closeModalView();
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ICON TRASH BUTTON AND DELETE PROJECT
 
@@ -246,17 +280,23 @@ const noProjectMessage = document.getElementById("noProjectsMessageContainer");
 
 function deleteProject(buttonDelete, classValue) {
   const singleProject = buttonDelete.closest(`.${classValue}`);
+  const uniqeDataset = singleProject.dataset.uniqe;
+  const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
   if (singleProject) {
-    singleProject.remove();
+    // singleProject.remove();
+    allUniqeCard.forEach(card => card.remove())
   }
   checkAmountProjectCard();
-}
+}     
 
 buttonDeleteProject.forEach((buttonDelete) =>
   buttonDelete.addEventListener("click", () => {
     const singleProject = buttonDelete.closest(".imageProjectContainer");
+    const uniqeDataset = singleProject.dataset.uniqe;
+    const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
     if (singleProject) {
-      singleProject.remove();
+    //   singleProject.remove();
+      allUniqeCard.forEach(card => card.remove())
     }
   })
 );
@@ -455,8 +495,9 @@ const cardsProjects = [
 ];
 
 cardsProjects.forEach((card) => {
-  addNewProject({ value: card.project }, { value: card.technology }),
-    addNewProjectCarousel({ value: card.project }, { value: card.technology });
+    createProjectAndCarouselCard({ value: card.project}, { value: card.project})
+//   addNewProject({ value: card.project }, { value: card.technology }),
+//     addNewProjectCarousel({ value: card.project }, { value: card.technology });
 });
 
 // CREATE TECH SKILLS FROM JAVASCRIPT DATA
@@ -543,17 +584,6 @@ techSkill.forEach((tech) => {
   createTechSkill(tech.skill, tech.experience);
 });
 
-// NAVIGATION BUTTON CAROUSEL
-
-const imageProjectCarouselList = document.querySelectorAll(
-  ".imageProjectCarousel"
-);
-
-const iconLeftButton = document.getElementById("iconLeftButton");
-const iconRightButton = document.getElementById("iconRightButton");
-const iconDownButton = document.getElementById("iconDownButton");
-const iconUpButton = document.getElementById("iconUpButton");
-
 // CHECK AMOUNT OF PROJECT CARD
 
 function checkAmountProjectCard() {
@@ -578,3 +608,117 @@ function checkAmountProjectCard() {
     noProjectsMessageContainer.classList.add("hiddenElement");
   }
 }
+
+
+
+
+// NAVIGATION BUTTON CAROUSEL
+
+const imageProjectCarouselList = document.querySelectorAll(
+    ".imageProjectCarousel"
+  );
+  
+const iconLeftButton = document.getElementById("iconLeftButton");
+const iconRightButton = document.getElementById("iconRightButton");
+const iconDownButton = document.getElementById("iconDownButton");
+const iconUpButton = document.getElementById("iconUpButton");
+
+
+
+let carouselIndexVertical = 0;
+let carouselIndexHorizontal = 0;
+const heightOneCard = 460; // w px
+const gapBetweenCards = 41; // w px
+const totalCardHeight = heightOneCard + gapBetweenCards;
+function getCardTotalWidthtWithGap() {
+    const card = document.querySelector('.imageProjectCarousel');
+    if (card) {
+      const cardWidth = card.offsetWidth;
+      return cardWidth + 41;
+    }
+    return 0;
+  };
+const totalCardWidth = getCardTotalWidthtWithGap();
+
+// function updateCarouselPositionVertical() {
+//     const offset = carouselIndexVertical * totalCardHeight;
+//     carouselTrack.style.transform = `translateY(-${offset}px)`;
+//   }
+
+// function updateCarouselPositionHorizontal() {
+//     const offset = carouselIndexHorizontal * totalCardWidth;
+//     carouselTrack.style.transform = `translateX(-${offset}px)`;
+//   }  
+
+function updateCarouselPosition() {
+    const isMobile = window.innerWidth <= 1024;
+    
+    const offsetY = carouselIndexVertical * totalCardHeight;
+    const offsetX = carouselIndexHorizontal * totalCardWidth;
+  
+    carouselTrack.style.transform = isMobile
+      ? `translateY(-${offsetY}px)`
+      : `translateX(-${offsetX}px)`;
+};
+
+function clickDown() {
+    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+
+    if (carouselIndexVertical < totalCards - 3) {
+        carouselIndexVertical++;
+        carouselIndexHorizontal++;
+        updateCarouselPosition();
+    }
+};
+
+function clickUp() {
+
+    if (carouselIndexVertical > 0) {
+        carouselIndexVertical--;
+        carouselIndexHorizontal--;
+        updateCarouselPosition();
+    }
+};
+
+function clickRight() {
+    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+
+    if (carouselIndexHorizontal < totalCards - 3) {
+        carouselIndexVertical++;
+        carouselIndexHorizontal++;
+        updateCarouselPosition();
+    }
+};
+
+function clickLeft() {
+    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+
+    if (carouselIndexHorizontal > 0) {
+        carouselIndexVertical--;
+        carouselIndexHorizontal--;
+        updateCarouselPosition();
+    }
+};
+
+iconDownButton.addEventListener("click", () => {
+    clickDown();
+});
+
+iconUpButton.addEventListener("click", () => {
+    clickUp();
+});
+
+iconRightButton.addEventListener("click", () => {
+    clickRight();
+});
+
+iconLeftButton.addEventListener("click", () => {
+    clickLeft();
+});
+
+
+
+
+window.addEventListener("resize", () => {
+    updateCarouselPosition();
+  });
