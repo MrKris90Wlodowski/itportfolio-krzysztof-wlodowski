@@ -301,6 +301,10 @@ p {
     width: 100%;
 }
 
+.clone {
+    pointer-events: none;
+  }
+
 /* SECTION MY PROJECTS */
 
 .paddingSectionProjectMe {

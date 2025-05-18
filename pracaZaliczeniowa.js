@@ -213,6 +213,8 @@ function addNewProjectCarousel(project, technology, uniqeDataset) {
   newCarouselProject.appendChild(listTech);
 
   carouselTrack.appendChild(newCarouselProject);
+  refreshCarouselClones();
+  resetCarouselPosition();
 }
 
 function createProjectAndCarouselCard(project, technology) {
@@ -284,7 +286,9 @@ function deleteProject(buttonDelete, classValue) {
   const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
   if (singleProject) {
     // singleProject.remove();
-    allUniqeCard.forEach(card => card.remove())
+    allUniqeCard.forEach(card => card.remove());
+    refreshCarouselClones();
+    resetCarouselPosition();
   }
   checkAmountProjectCard();
 }     
@@ -296,7 +300,10 @@ buttonDeleteProject.forEach((buttonDelete) =>
     const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
     if (singleProject) {
     //   singleProject.remove();
-      allUniqeCard.forEach(card => card.remove())
+      allUniqeCard.forEach(card => card.remove());
+      refreshCarouselClones();
+      resetCarouselPosition();
+
     }
   })
 );
@@ -495,7 +502,7 @@ const cardsProjects = [
 ];
 
 cardsProjects.forEach((card) => {
-    createProjectAndCarouselCard({ value: card.project}, { value: card.project})
+    createProjectAndCarouselCard({ value: card.project}, { value: card.technology})
 //   addNewProject({ value: card.project }, { value: card.technology }),
 //     addNewProjectCarousel({ value: card.project }, { value: card.technology });
 });
@@ -625,8 +632,8 @@ const iconUpButton = document.getElementById("iconUpButton");
 
 
 
-let carouselIndexVertical = 0;
-let carouselIndexHorizontal = 0;
+let carouselIndexVertical = 3;
+let carouselIndexHorizontal = 3;
 const heightOneCard = 460; // w px
 const gapBetweenCards = 41; // w px
 const totalCardHeight = heightOneCard + gapBetweenCards;
@@ -661,6 +668,80 @@ function updateCarouselPosition() {
       : `translateX(-${offsetX}px)`;
 };
 
+function cloneStartEndCard() {
+    const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
+    const cardsTrack = document.getElementById("carouselTrack");
+
+    if (allCards.length === 0) return;
+
+    const cloneCards = Math.min(3, allCards.length);
+
+    for ( let i = 0; i < cloneCards; i++) {
+        const clone = allCards[i].cloneNode(true);
+        clone.classList.add("clone");
+        cardsTrack.appendChild(clone);
+    }
+
+    for (let i = 1; i <= cloneCards; i++) {
+        const clone = allCards[allCards.length - i].cloneNode(true);
+        clone.classList.add("clone");
+        cardsTrack.insertBefore(clone,cardsTrack.firstChild);
+        // cardsTrack.insertBefore(clone,cardsTrack);
+    }
+}
+
+function deleteAllclone() {
+  const cloneElements = document.querySelectorAll(".clone");
+  cloneElements.forEach(clone => clone.remove())
+}
+
+function refreshCarouselClones() {
+  deleteAllclone();
+  cloneStartEndCard();
+}
+
+function resetCarouselPosition() {
+  setTimeout(() => {
+    carouselIndexHorizontal = 3;
+    carouselIndexVertical = 3;
+    updateCarouselPosition();
+  }, 0);
+}
+
+function disableTransition() {
+  carouselTrack.style.transition = "none";
+}
+
+function enableTransition() {
+  carouselTrack.style.transition = "";
+}
+
+function checkAndResetInfiniteScroll() {
+  const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
+  const totalOriginalCards = allCards.length;
+
+  if (carouselIndexHorizontal >= totalOriginalCards + 3) {
+    disableTransition();
+    carouselIndexHorizontal = 3;
+    carouselIndexVertical = 3;
+    updateCarouselPosition();
+    requestAnimationFrame(() => enableTransition());
+  }
+
+  if (carouselIndexHorizontal < 0) {
+    disableTransition();
+    carouselIndexHorizontal = totalOriginalCards;
+    carouselIndexVertical = totalOriginalCards;
+    updateCarouselPosition();
+    requestAnimationFrame(() => enableTransition());
+  }
+};
+
+// function fullRefreshCarouselView() {
+//   refreshCarouselClones();
+//   resetCarouselPosition();
+// }
+
 function clickDown() {
     const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
@@ -669,6 +750,7 @@ function clickDown() {
         carouselIndexHorizontal++;
         updateCarouselPosition();
     }
+    checkAndResetInfiniteScroll();
 };
 
 function clickUp() {
@@ -678,6 +760,7 @@ function clickUp() {
         carouselIndexHorizontal--;
         updateCarouselPosition();
     }
+    checkAndResetInfiniteScroll();
 };
 
 function clickRight() {
@@ -688,6 +771,7 @@ function clickRight() {
         carouselIndexHorizontal++;
         updateCarouselPosition();
     }
+    checkAndResetInfiniteScroll();
 };
 
 function clickLeft() {
@@ -698,6 +782,7 @@ function clickLeft() {
         carouselIndexHorizontal--;
         updateCarouselPosition();
     }
+    checkAndResetInfiniteScroll();
 };
 
 iconDownButton.addEventListener("click", () => {
