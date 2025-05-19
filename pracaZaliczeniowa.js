@@ -1,25 +1,131 @@
-// SHOW AND HIDE MOBILE MENU
-
+// ELEMENTS: mobile menu
 const normalMenuMobile = document.getElementById("normalMenuMobile");
 const goldMenuMobile = document.getElementById("goldMenuMobile");
 const menuListMobile = document.getElementById("menuListMobile");
 
+// ELEMENTS: show section
+const activeNavListElement = document.querySelectorAll("nav li");
+const logoHeader = document.querySelectorAll("[data-section-header]");
+const mainSections = document.querySelectorAll("[data-section]");
+
+// ELEMENTS: contact button
+const contactButton = document.getElementById("contactButton");
+
+// ELEMENTS: add project button and modalform
+const buttonAddProject = document.getElementById("buttonAddProject");
+const buttonAddProjectModal = document.getElementById("buttonAddProjectModal");
+
+const modalForm = document.getElementById("modalForm");
+const closeModal = document.getElementById("closeModal");
+const inputProjectName = document.getElementById("inputProjectName");
+const inputTechnology = document.getElementById("inputTechnology");
+const errorMinProjectName = document.getElementById("errorMinProjectName");
+const errorMaxProjectName = document.getElementById("errorMaxProjectName");
+const errorNoneTech = document.getElementById("errorNoneTech");
+
+const inputsModal = document.querySelectorAll('[data-input="modal"]');
+const inputsContact = document.querySelectorAll('[data-input="contact"]');
+
+// ELEMENTS: icon trash button and delete project
+const mainProjectConteiner = document.getElementById("mainProjectConteiner");
+const projectContainer = document.querySelectorAll(".imageProjectContainer");
+const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
+const noProjectMessage = document.getElementById("noProjectsMessageContainer");
+
+// ELEMENTS: form contact me
+const inputNameMobile = document.getElementById("inputNameMobile");
+const errorMinNameMobile = document.getElementById("errorMinNameMobile");
+const errorMaxNameMobile = document.getElementById("errorMaxNameMobile");
+const inputEmailMobile = document.getElementById("inputEmailMobile");
+const errorEmailMobile = document.getElementById("errorEmailMobile");
+const inputMessageMobile = document.getElementById("inputMessageMobile");
+const errorMinMessageMobile = document.getElementById("errorMinMessageMobile");
+const errorMaxMessageMobile = document.getElementById("errorMaxMessageMobile");
+
+const inputName = document.getElementById("inputName");
+const errorMinName = document.getElementById("errorMinName");
+const errorMaxName = document.getElementById("errorMaxName");
+const inputEmail = document.getElementById("inputEmail");
+const errorEmail = document.getElementById("errorEmail");
+const inputMessage = document.getElementById("inputMessage");
+const errorMinMessage = document.getElementById("errorMinMessage");
+const errorMaxMessage = document.getElementById("errorMaxMessage");
+
+const buttonsSendMessage = document.querySelectorAll(
+  '[data-button="sendMessage"]'
+);
+const mainMessageContainer = document.getElementById("mainMessageContainer");
+
+// ELEMENTS: create project cards from javascript data
+const cardsProjects = [
+  { project: "Calculator", technology: "HTML" },
+  { project: "Non-governmental organization", technology: "HTML,CSS" },
+  { project: "Calculator program", technology: "Java Script" },
+  { project: "Calculator", technology: "HTML" },
+  { project: "Non-governmental organization", technology: "HTML,CSS" },
+];
+
+// ELEMENTS: create tech skills from javascript data
+const mainSkillContainer = document.getElementById("mainSkillContainer");
+const techSkill = [
+  { skill: "HTML", experience: 1 },
+  { skill: "CSS", experience: 1 },
+  { skill: "Java Script", experience: 1 },
+  { skill: "Git", experience: 1 },
+  { skill: "Figma", experience: 1 },
+  { skill: "Chrome", experience: 2 },
+  { skill: "VSCode", experience: 2 },
+  { skill: "GitHub", experience: 1 },
+];
+
+// ELEMENTS: navigation button carausel
+const carouselTrack = document.getElementById("carouselTrack");
+const imageProjectCarouselList = document.querySelectorAll(".imageProjectCarousel");
+const iconLeftButton = document.getElementById("iconLeftButton");
+const iconRightButton = document.getElementById("iconRightButton");
+const iconDownButton = document.getElementById("iconDownButton");
+const iconUpButton = document.getElementById("iconUpButton");
+
+let carouselIndexVertical = 3;
+let carouselIndexHorizontal = 3;
+const heightOneCard = 460; 
+const gapBetweenCards = 41; 
+const totalCardHeight = heightOneCard + gapBetweenCards;
+function getCardTotalWidthtWithGap() {
+    const card = document.querySelector('.imageProjectCarousel');
+    if (card) {
+      const cardWidth = card.offsetWidth;
+      return cardWidth + gapBetweenCards;
+    }
+    return 0;
+  };
+// const totalCardWidth = getCardTotalWidthtWithGap();
+
+
+
+
+
+
+
+
+
+
+// LOGIC: mobile menu
+
+// FUNCTION: show and hide hamburger menu
 function showHideMobileMenu() {
   menuListMobile.classList.toggle("activeElement");
   normalMenuMobile.classList.toggle("activeElement");
   goldMenuMobile.classList.toggle("activeElement");
 }
 
+// EVENT LISTENERS: controller steer gold and normal hamburger menu
 normalMenuMobile.addEventListener("click", showHideMobileMenu);
-
 goldMenuMobile.addEventListener("click", showHideMobileMenu);
 
-// SHOW SECTION
+// LOGIC: show section
 
-const activeNavListElement = document.querySelectorAll("nav li");
-const logoHeader = document.querySelectorAll("[data-section-header]");
-const mainSections = document.querySelectorAll("[data-section]");
-
+// EVENT LISTENERS: move between section and sync  nav, headers, and content
 activeNavListElement.forEach((element) => {
   element.addEventListener("click", () => {
     activeNavListElement.forEach((navList) =>
@@ -49,10 +155,9 @@ activeNavListElement.forEach((element) => {
   });
 });
 
-// CONTACT BUTTON
+// LOGIC: contact button
 
-const contactButton = document.getElementById("contactButton");
-
+// EVENT LISTENERS:  move to Contact section
 contactButton.addEventListener("click", () => {
   activeNavListElement.forEach((navList) =>
     navList.classList.remove("activeListElement")
@@ -75,34 +180,24 @@ contactButton.addEventListener("click", () => {
   );
 });
 
-// ADD PROJECT BUTTON AND MODALFORM
+// LOGIC: add project button and modalform
 
-const buttonAddProject = document.getElementById("buttonAddProject");
-const buttonAddProjectModal = document.getElementById("buttonAddProjectModal");
-
-const modalForm = document.getElementById("modalForm");
-const closeModal = document.getElementById("closeModal");
-const inputProjectName = document.getElementById("inputProjectName");
-const inputTechnology = document.getElementById("inputTechnology");
-const errorMinProjectName = document.getElementById("errorMinProjectName");
-const errorMaxProjectName = document.getElementById("errorMaxProjectName");
-const errorNoneTech = document.getElementById("errorNoneTech");
-
-const inputsModal = document.querySelectorAll('[data-input="modal"]');
-const inputsContact = document.querySelectorAll('[data-input="contact"]');
-
+// EVENT LISTENERS: open modal form
 buttonAddProject.addEventListener("click", () => {
   modalForm.classList.remove("hiddenElement");
   document.body.classList.add("noScroll");
 });
 
+// FUNCTION: allow close modal form and unlock scroll
 function closeModalView() {
   modalForm.classList.add("hiddenElement");
   document.body.classList.remove("noScroll");
 }
 
+// EVENT LISTENERS: allow close modal form only with icon X
 closeModal.addEventListener("click", closeModalView);
 
+// FUNCTION: check value input length
 function validateNameInput(inputText, errorMin, errorMax, min, max, dataValue) {
   const inputValue = inputText.value.trim();
   const inputTooShort = inputValue.length < min;
@@ -116,6 +211,7 @@ function validateNameInput(inputText, errorMin, errorMax, min, max, dataValue) {
     !inputTooShort && !inputTooLong ? "valid" : "error";
 }
 
+// FUNCTION: check value must not be empty
 function validateTechInput(inputText, errorMessage, dataValue) {
   const valueInput = inputText.value.trim();
   const isValidInput = valueInput.length > 0;
@@ -126,6 +222,7 @@ function validateTechInput(inputText, errorMessage, dataValue) {
   inputText.dataset[dataValue] = isValidInput ? "valid" : "error";
 }
 
+// EVENT LISTENERS: check value in project title input length min/max
 inputProjectName.addEventListener("input", () => {
   validateNameInput(
     inputProjectName,
@@ -136,20 +233,25 @@ inputProjectName.addEventListener("input", () => {
     "inputProject"
   );
 });
+
+// EVENT LISTENERS: check value in Technologies input must not be empty
 inputTechnology.addEventListener("input", () => {
   validateTechInput(inputTechnology, errorNoneTech, "inputTech");
 });
 
+// FUNCTION: check all modal form inputs
 function checkValidFormModal(inpuText1, dataValue1, inputText2, dataValue2) {
   const isValidInput1 = inpuText1.dataset[dataValue1];
   const isValidInput2 = inputText2.dataset[dataValue2];
   return isValidInput1 === "valid" && isValidInput2 === "valid";
 }
 
+// FUNCTION: reset all inputs
 function resetForm(inputText) {
   inputText.forEach((text) => (text.value = ""));
 }
 
+// FUNCTION: add new project card in projects section
 function addNewProject(project, technology, uniqeDataset) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
@@ -159,7 +261,7 @@ function addNewProject(project, technology, uniqeDataset) {
     .filter((tech) => tech !== "");
 
   const newProject = document.createElement("div");
-  newProject.dataset.uniqe=uniqeDataset;
+  newProject.dataset.uniqe = uniqeDataset;
   newProject.classList.add("imageProjectContainer");
   const nameProject = document.createElement("h4");
   nameProject.textContent = `${projectValue}`;
@@ -183,11 +285,9 @@ function addNewProject(project, technology, uniqeDataset) {
 
   mainProjectConteiner.appendChild(newProject);
   checkAmountProjectCard();
-
-  // const carouselTrackProject = newProject.cloneNode(true);
-  // carouselTrack.appendChild(carouselTrackProject);
 }
 
+// FUNCTION: add new project card in carousel
 function addNewProjectCarousel(project, technology, uniqeDataset) {
   const projectCarouselValue = project.value.trim();
   const technologyCarouselValue = technology.value
@@ -197,7 +297,7 @@ function addNewProjectCarousel(project, technology, uniqeDataset) {
     .filter((tech) => tech !== "");
 
   const newCarouselProject = document.createElement("div");
-  newCarouselProject.dataset.uniqe=uniqeDataset;
+  newCarouselProject.dataset.uniqe = uniqeDataset;
   newCarouselProject.classList.add("imageProjectCarousel");
   const nameCarouselProject = document.createElement("h4");
   nameCarouselProject.textContent = `${projectCarouselValue}`;
@@ -217,13 +317,15 @@ function addNewProjectCarousel(project, technology, uniqeDataset) {
   resetCarouselPosition();
 }
 
+// FUNCTION: create project card and carousel card with same data
 function createProjectAndCarouselCard(project, technology) {
-    const uniqeDataset = crypto.randomUUID();
+  const uniqeDataset = crypto.randomUUID();
 
-    addNewProject(project, technology, uniqeDataset);
-    addNewProjectCarousel(project, technology, uniqeDataset);
+  addNewProject(project, technology, uniqeDataset);
+  addNewProjectCarousel(project, technology, uniqeDataset);
 }
 
+// EVENT LISTENERS: allow to create new project card and carousel card
 buttonAddProjectModal.addEventListener("click", () => {
   validateNameInput(
     inputProjectName,
@@ -247,92 +349,42 @@ buttonAddProjectModal.addEventListener("click", () => {
   }
 });
 
+// LOGIC: icon trash button and delete project
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ICON TRASH BUTTON AND DELETE PROJECT
-
-const carouselTrack = document.getElementById("carouselTrack");
-const mainProjectConteiner = document.getElementById("mainProjectConteiner");
-const projectContainer = document.querySelectorAll(".imageProjectContainer");
-const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
-const noProjectMessage = document.getElementById("noProjectsMessageContainer");
-
+// FUNCTION: delete project cards from both the project section and the carousel
 function deleteProject(buttonDelete, classValue) {
   const singleProject = buttonDelete.closest(`.${classValue}`);
   const uniqeDataset = singleProject.dataset.uniqe;
-  const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
+  const allUniqeCard = document.querySelectorAll(
+    `[data-uniqe="${uniqeDataset}"]`
+  );
   if (singleProject) {
-    // singleProject.remove();
-    allUniqeCard.forEach(card => card.remove());
+    allUniqeCard.forEach((card) => card.remove());
     refreshCarouselClones();
     resetCarouselPosition();
   }
   checkAmountProjectCard();
-}     
+}
 
+// EVENT LISTENERS: manual delete both project card and carusel card
 buttonDeleteProject.forEach((buttonDelete) =>
   buttonDelete.addEventListener("click", () => {
     const singleProject = buttonDelete.closest(".imageProjectContainer");
     const uniqeDataset = singleProject.dataset.uniqe;
-    const allUniqeCard = document.querySelectorAll(`[data-uniqe="${uniqeDataset}"]`);
+    const allUniqeCard = document.querySelectorAll(
+      `[data-uniqe="${uniqeDataset}"]`
+    );
     if (singleProject) {
-    //   singleProject.remove();
-      allUniqeCard.forEach(card => card.remove());
+      allUniqeCard.forEach((card) => card.remove());
       refreshCarouselClones();
       resetCarouselPosition();
-
     }
   })
 );
 
-// FORM CONTACT ME
+// LOGIC: form contact me
 
-const inputNameMobile = document.getElementById("inputNameMobile");
-const errorMinNameMobile = document.getElementById("errorMinNameMobile");
-const errorMaxNameMobile = document.getElementById("errorMaxNameMobile");
-const inputEmailMobile = document.getElementById("inputEmailMobile");
-const errorEmailMobile = document.getElementById("errorEmailMobile");
-const inputMessageMobile = document.getElementById("inputMessageMobile");
-const errorMinMessageMobile = document.getElementById("errorMinMessageMobile");
-const errorMaxMessageMobile = document.getElementById("errorMaxMessageMobile");
-
-const inputName = document.getElementById("inputName");
-const errorMinName = document.getElementById("errorMinName");
-const errorMaxName = document.getElementById("errorMaxName");
-const inputEmail = document.getElementById("inputEmail");
-const errorEmail = document.getElementById("errorEmail");
-const inputMessage = document.getElementById("inputMessage");
-const errorMinMessage = document.getElementById("errorMinMessage");
-const errorMaxMessage = document.getElementById("errorMaxMessage");
-
-const buttonsSendMessage = document.querySelectorAll(
-  '[data-button="sendMessage"]'
-);
-const mainMessageContainer = document.getElementById("mainMessageContainer");
-
+// FUNCTION: check email input value use regex
 function validateInputEmail(email, errorMessage, dataValue) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValidInput = emailRegex.test(email.value.trim());
@@ -343,12 +395,14 @@ function validateInputEmail(email, errorMessage, dataValue) {
   email.dataset[dataValue] = isValidInput ? "valid" : "error";
 }
 
+// FUNCTION:  synchronize the value between two input fields
 function sameValueInput(inpuText1, inpuText2) {
   inpuText1.value = inpuText2.value;
 }
 
-// SYNC AND VALID CONTACT FORM NAME, EMAIL AND MESSAGE
+// LOGIC: synchronize and check contact form name, email, and message
 
+// EVENT LISTENERS: check name value in input mobile
 inputNameMobile.addEventListener("input", () => {
   sameValueInput(inputName, inputNameMobile);
   validateNameInput(
@@ -360,20 +414,26 @@ inputNameMobile.addEventListener("input", () => {
     "inputNameMobile"
   );
 });
+
+// EVENT LISTENERS: check name value in input desktop
 inputName.addEventListener("input", () => {
   sameValueInput(inputNameMobile, inputName);
   validateNameInput(inputName, errorMinName, errorMaxName, 4, 20, "inputName");
 });
 
+// EVENT LISTENERS: check email value in input mobile
 inputEmailMobile.addEventListener("input", () => {
   sameValueInput(inputEmail, inputEmailMobile);
   validateInputEmail(inputEmailMobile, errorEmailMobile, "inputEmailMobile");
 });
+
+// EVENT LISTENERS: check email value in input desktop
 inputEmail.addEventListener("input", () => {
   sameValueInput(inputEmailMobile, inputEmail);
   validateInputEmail(inputEmail, errorEmail, "inputEmail");
 });
 
+// EVENT LISTENERS: check message value in input mobile
 inputMessageMobile.addEventListener("input", () => {
   sameValueInput(inputMessage, inputMessageMobile);
   validateNameInput(
@@ -385,6 +445,8 @@ inputMessageMobile.addEventListener("input", () => {
     "inputMessageMobile"
   );
 });
+
+// EVENT LISTENERS: check message value in input desktop
 inputMessage.addEventListener("input", () => {
   sameValueInput(inputMessageMobile, inputMessage);
   validateNameInput(
@@ -397,6 +459,7 @@ inputMessage.addEventListener("input", () => {
   );
 });
 
+// FUNCTION: allow to check all inputs fields name, email and message
 function checkValidFormContact(
   inpuText1,
   dataValue1,
@@ -415,6 +478,7 @@ function checkValidFormContact(
   );
 }
 
+// FUNCTION: allow to check all inputs fields name, email and message in mobile and desktop
 function validateMobilieDesktopForm() {
   validateNameInput(inputName, errorMinName, errorMaxName, 4, 20, "inputName");
   validateInputEmail(inputEmail, errorEmail, "inputEmail");
@@ -445,6 +509,7 @@ function validateMobilieDesktopForm() {
   );
 }
 
+// FUNCTION: allow to create new message in section message
 function createMessage(name, email, message) {
   const nameValue = name.value.trim();
   const emailValue = email.value.trim();
@@ -469,6 +534,7 @@ function createMessage(name, email, message) {
   mainMessageContainer.appendChild(messageContainer);
 }
 
+// FUNCTION: allow and check to create new message in section message
 function addNewMessage() {
   validateMobilieDesktopForm();
   const isValidateInput = checkValidFormContact(
@@ -485,32 +551,26 @@ function addNewMessage() {
   }
 }
 
+// EVENT LISTENERS: start create and check new message
 buttonsSendMessage.forEach((buttonSend) =>
   buttonSend.addEventListener("click", () => {
     addNewMessage();
   })
 );
 
-// CREATE PROJECT CARDS FROM JAVASCRIPT DATA
+// LOGIC: create project cards from javascript data
 
-const cardsProjects = [
-  { project: "Calculator", technology: "HTML" },
-  { project: "Non-governmental organization", technology: "HTML,CSS" },
-  { project: "Calculator program", technology: "Java Script" },
-  { project: "Calculator", technology: "HTML" },
-  { project: "Non-governmental organization", technology: "HTML,CSS" },
-];
-
+// EVENT LISTENERS: automatically create project and carousel cards from array
 cardsProjects.forEach((card) => {
-    createProjectAndCarouselCard({ value: card.project}, { value: card.technology})
-//   addNewProject({ value: card.project }, { value: card.technology }),
-//     addNewProjectCarousel({ value: card.project }, { value: card.technology });
+  createProjectAndCarouselCard(
+    { value: card.project },
+    { value: card.technology }
+  );
 });
 
-// CREATE TECH SKILLS FROM JAVASCRIPT DATA
+// LOGIC: create tech skills from javascript data
 
-const mainSkillContainer = document.getElementById("mainSkillContainer");
-
+// FUNCTION: create container with full and empty experience circles
 function createCircleExpContainer(num) {
   const circleContainer = document.createElement("div");
   circleContainer.classList.add("displayFlex", "gapBetweenCircles");
@@ -534,6 +594,7 @@ function createCircleExpContainer(num) {
   return circleContainer;
 }
 
+// FUNCTION: create full skill container
 function createTechSkill(skill, num) {
   const skillContainer = document.createElement("div");
   skillContainer.classList.add(
@@ -576,98 +637,52 @@ function createTechSkill(skill, num) {
   mainSkillContainer.appendChild(skillContainer);
 }
 
-const techSkill = [
-  { skill: "HTML", experience: 1 },
-  { skill: "CSS", experience: 1 },
-  { skill: "Java Script", experience: 1 },
-  { skill: "Git", experience: 1 },
-  { skill: "Figma", experience: 1 },
-  { skill: "Chrome", experience: 2 },
-  { skill: "VSCode", experience: 2 },
-  { skill: "GitHub", experience: 1 },
-];
-
+// EVENT LISTENERS: create skill container from array
 techSkill.forEach((tech) => {
   createTechSkill(tech.skill, tech.experience);
 });
 
-// CHECK AMOUNT OF PROJECT CARD
+// LOGIC: check amount of project card
 
+// FUNCTION: control visibility of message and carousel navigation based on number of project cards
 function checkAmountProjectCard() {
-  const projectCard = document.querySelectorAll(".imageProjectContainer");
-  const noProjectsMessageContainer = document.getElementById(
-    "noProjectsMessageContainer"
-  );
-  const navButtonsDesktop = document.getElementById("navButtonsDesktop");
-  const navButtonsMobile = document.getElementById("navButtonsMobile");
-
-  if (projectCard.length > 3) {
-    navButtonsMobile.classList.remove("hiddenElement");
-    navButtonsDesktop.classList.remove("hiddenElement");
-  } else {
-    navButtonsMobile.classList.add("hiddenElement");
-    navButtonsDesktop.classList.add("hiddenElement");
-  }
-
-  if (projectCard.length === 0) {
-    noProjectsMessageContainer.classList.remove("hiddenElement");
-  } else {
-    noProjectsMessageContainer.classList.add("hiddenElement");
-  }
-}
-
-
-
-
-// NAVIGATION BUTTON CAROUSEL
-
-const imageProjectCarouselList = document.querySelectorAll(
-    ".imageProjectCarousel"
-  );
+    const projectCard = document.querySelectorAll(".imageProjectContainer");
+    const noProjectsMessageContainer = document.getElementById(
+      "noProjectsMessageContainer"
+    );
+    const navButtonsDesktop = document.getElementById("navButtonsDesktop");
+    const navButtonsMobile = document.getElementById("navButtonsMobile");
   
-const iconLeftButton = document.getElementById("iconLeftButton");
-const iconRightButton = document.getElementById("iconRightButton");
-const iconDownButton = document.getElementById("iconDownButton");
-const iconUpButton = document.getElementById("iconUpButton");
-
-
-
-let carouselIndexVertical = 3;
-let carouselIndexHorizontal = 3;
-const heightOneCard = 460; // w px
-const gapBetweenCards = 41; // w px
-const totalCardHeight = heightOneCard + gapBetweenCards;
-function getCardTotalWidthtWithGap() {
-    const card = document.querySelector('.imageProjectCarousel');
-    if (card) {
-      const cardWidth = card.offsetWidth;
-      return cardWidth + 41;
+    if (projectCard.length > 3) {
+      navButtonsMobile.classList.remove("hiddenElement");
+      navButtonsDesktop.classList.remove("hiddenElement");
+    } else {
+      navButtonsMobile.classList.add("hiddenElement");
+      navButtonsDesktop.classList.add("hiddenElement");
     }
-    return 0;
-  };
-const totalCardWidth = getCardTotalWidthtWithGap();
+  
+    if (projectCard.length === 0) {
+      noProjectsMessageContainer.classList.remove("hiddenElement");
+    } else {
+      noProjectsMessageContainer.classList.add("hiddenElement");
+    }
+  }
 
-// function updateCarouselPositionVertical() {
-//     const offset = carouselIndexVertical * totalCardHeight;
-//     carouselTrack.style.transform = `translateY(-${offset}px)`;
-//   }
+//   LOGIC: navigation button carausel
 
-// function updateCarouselPositionHorizontal() {
-//     const offset = carouselIndexHorizontal * totalCardWidth;
-//     carouselTrack.style.transform = `translateX(-${offset}px)`;
-//   }  
-
+// FUNCTION: update carousel position based on screen width (horizontal for desktop, vertical for mobile)
 function updateCarouselPosition() {
     const isMobile = window.innerWidth <= 1024;
     
     const offsetY = carouselIndexVertical * totalCardHeight;
-    const offsetX = carouselIndexHorizontal * totalCardWidth;
+    const offsetX = carouselIndexHorizontal * getCardTotalWidthtWithGap();
   
     carouselTrack.style.transform = isMobile
       ? `translateY(-${offsetY}px)`
       : `translateX(-${offsetX}px)`;
 };
 
+// FUNCTION:
 function cloneStartEndCard() {
     const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
     const cardsTrack = document.getElementById("carouselTrack");
@@ -690,16 +705,19 @@ function cloneStartEndCard() {
     }
 }
 
+// FUNCTION: allow delete all carousel cards with the "clone" class
 function deleteAllclone() {
   const cloneElements = document.querySelectorAll(".clone");
   cloneElements.forEach(clone => clone.remove())
 }
 
+// FUNCTION: for everyone create and delete project card refresh clone status
 function refreshCarouselClones() {
   deleteAllclone();
   cloneStartEndCard();
 }
 
+// FUNCTION: reset carousel position to initial state after updates
 function resetCarouselPosition() {
   setTimeout(() => {
     carouselIndexHorizontal = 3;
@@ -708,14 +726,17 @@ function resetCarouselPosition() {
   }, 0);
 }
 
+// FUNCTION: temporarily disable carousel transition animation
 function disableTransition() {
   carouselTrack.style.transition = "none";
 }
 
+// FUNCTION:  re-enable carousel transition animation
 function enableTransition() {
   carouselTrack.style.transition = "";
 }
 
+// FUNCTION: allow scroll carasuel with infiniteloop style mode 
 function checkAndResetInfiniteScroll() {
   const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
   const totalOriginalCards = allCards.length;
@@ -737,11 +758,7 @@ function checkAndResetInfiniteScroll() {
   }
 };
 
-// function fullRefreshCarouselView() {
-//   refreshCarouselClones();
-//   resetCarouselPosition();
-// }
-
+// FUNCTION: allow to move down carausel project card
 function clickDown() {
     const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
@@ -753,9 +770,10 @@ function clickDown() {
     checkAndResetInfiniteScroll();
 };
 
+// FUNCTION: allow to move up carausel project card
 function clickUp() {
 
-    if (carouselIndexVertical > 0) {
+    if (carouselIndexVertical >= 0) {
         carouselIndexVertical--;
         carouselIndexHorizontal--;
         updateCarouselPosition();
@@ -763,6 +781,7 @@ function clickUp() {
     checkAndResetInfiniteScroll();
 };
 
+// FUNCTION: allow to move right carausel project card
 function clickRight() {
     const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
@@ -774,10 +793,11 @@ function clickRight() {
     checkAndResetInfiniteScroll();
 };
 
+// FUNCTION: allow to move left carausel project card
 function clickLeft() {
     const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
-    if (carouselIndexHorizontal > 0) {
+    if (carouselIndexHorizontal >= 0) {
         carouselIndexVertical--;
         carouselIndexHorizontal--;
         updateCarouselPosition();
@@ -785,25 +805,27 @@ function clickLeft() {
     checkAndResetInfiniteScroll();
 };
 
+// EVENT LISTENERS: move down carausel
 iconDownButton.addEventListener("click", () => {
     clickDown();
 });
 
+// EVENT LISTENERS: move up carausel
 iconUpButton.addEventListener("click", () => {
     clickUp();
 });
 
+// EVENT LISTENERS: move right carausel
 iconRightButton.addEventListener("click", () => {
     clickRight();
 });
 
+// EVENT LISTENERS: move left carausel
 iconLeftButton.addEventListener("click", () => {
     clickLeft();
 });
 
-
-
-
+// EVENT LISTENERS: update carousel position on window resize
 window.addEventListener("resize", () => {
     updateCarouselPosition();
   });
