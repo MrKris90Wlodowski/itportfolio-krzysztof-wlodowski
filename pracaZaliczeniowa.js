@@ -80,7 +80,9 @@ const techSkill = [
 
 // ELEMENTS: navigation button carausel
 const carouselTrack = document.getElementById("carouselTrack");
-const imageProjectCarouselList = document.querySelectorAll(".imageProjectCarousel");
+const imageProjectCarouselList = document.querySelectorAll(
+  ".imageProjectCarousel"
+);
 const iconLeftButton = document.getElementById("iconLeftButton");
 const iconRightButton = document.getElementById("iconRightButton");
 const iconDownButton = document.getElementById("iconDownButton");
@@ -88,27 +90,18 @@ const iconUpButton = document.getElementById("iconUpButton");
 
 let carouselIndexVertical = 3;
 let carouselIndexHorizontal = 3;
-const heightOneCard = 460; 
-const gapBetweenCards = 41; 
+const heightOneCard = 460;
+const gapBetweenCards = 41;
 const totalCardHeight = heightOneCard + gapBetweenCards;
 function getCardTotalWidthtWithGap() {
-    const card = document.querySelector('.imageProjectCarousel');
-    if (card) {
-      const cardWidth = card.offsetWidth;
-      return cardWidth + gapBetweenCards;
-    }
-    return 0;
-  };
+  const card = document.querySelector(".imageProjectCarousel");
+  if (card) {
+    const cardWidth = card.offsetWidth;
+    return cardWidth + gapBetweenCards;
+  }
+  return 0;
+}
 // const totalCardWidth = getCardTotalWidthtWithGap();
-
-
-
-
-
-
-
-
-
 
 // LOGIC: mobile menu
 
@@ -646,69 +639,71 @@ techSkill.forEach((tech) => {
 
 // FUNCTION: control visibility of message and carousel navigation based on number of project cards
 function checkAmountProjectCard() {
-    const projectCard = document.querySelectorAll(".imageProjectContainer");
-    const noProjectsMessageContainer = document.getElementById(
-      "noProjectsMessageContainer"
-    );
-    const navButtonsDesktop = document.getElementById("navButtonsDesktop");
-    const navButtonsMobile = document.getElementById("navButtonsMobile");
-  
-    if (projectCard.length > 3) {
-      navButtonsMobile.classList.remove("hiddenElement");
-      navButtonsDesktop.classList.remove("hiddenElement");
-    } else {
-      navButtonsMobile.classList.add("hiddenElement");
-      navButtonsDesktop.classList.add("hiddenElement");
-    }
-  
-    if (projectCard.length === 0) {
-      noProjectsMessageContainer.classList.remove("hiddenElement");
-    } else {
-      noProjectsMessageContainer.classList.add("hiddenElement");
-    }
+  const projectCard = document.querySelectorAll(".imageProjectContainer");
+  const noProjectsMessageContainer = document.getElementById(
+    "noProjectsMessageContainer"
+  );
+  const navButtonsDesktop = document.getElementById("navButtonsDesktop");
+  const navButtonsMobile = document.getElementById("navButtonsMobile");
+
+  if (projectCard.length > 3) {
+    navButtonsMobile.classList.remove("hiddenElement");
+    navButtonsDesktop.classList.remove("hiddenElement");
+  } else {
+    navButtonsMobile.classList.add("hiddenElement");
+    navButtonsDesktop.classList.add("hiddenElement");
   }
+
+  if (projectCard.length === 0) {
+    noProjectsMessageContainer.classList.remove("hiddenElement");
+  } else {
+    noProjectsMessageContainer.classList.add("hiddenElement");
+  }
+}
 
 //   LOGIC: navigation button carausel
 
 // FUNCTION: update carousel position based on screen width (horizontal for desktop, vertical for mobile)
 function updateCarouselPosition() {
-    const isMobile = window.innerWidth <= 1024;
-    
-    const offsetY = carouselIndexVertical * totalCardHeight;
-    const offsetX = carouselIndexHorizontal * getCardTotalWidthtWithGap();
-  
-    carouselTrack.style.transform = isMobile
-      ? `translateY(-${offsetY}px)`
-      : `translateX(-${offsetX}px)`;
-};
+  const isMobile = window.innerWidth <= 1024;
+
+  const offsetY = carouselIndexVertical * totalCardHeight;
+  const offsetX = carouselIndexHorizontal * getCardTotalWidthtWithGap();
+
+  carouselTrack.style.transform = isMobile
+    ? `translateY(-${offsetY}px)`
+    : `translateX(-${offsetX}px)`;
+}
 
 // FUNCTION:
 function cloneStartEndCard() {
-    const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
-    const cardsTrack = document.getElementById("carouselTrack");
+  const allCards = document.querySelectorAll(
+    ".imageProjectCarousel:not(.clone)"
+  );
+  const cardsTrack = document.getElementById("carouselTrack");
 
-    if (allCards.length === 0) return;
+  if (allCards.length === 0) return;
 
-    const cloneCards = Math.min(3, allCards.length);
+  const cloneCards = Math.min(3, allCards.length);
 
-    for ( let i = 0; i < cloneCards; i++) {
-        const clone = allCards[i].cloneNode(true);
-        clone.classList.add("clone");
-        cardsTrack.appendChild(clone);
-    }
+  for (let i = 0; i < cloneCards; i++) {
+    const clone = allCards[i].cloneNode(true);
+    clone.classList.add("clone");
+    cardsTrack.appendChild(clone);
+  }
 
-    for (let i = 1; i <= cloneCards; i++) {
-        const clone = allCards[allCards.length - i].cloneNode(true);
-        clone.classList.add("clone");
-        cardsTrack.insertBefore(clone,cardsTrack.firstChild);
-        // cardsTrack.insertBefore(clone,cardsTrack);
-    }
+  for (let i = 1; i <= cloneCards; i++) {
+    const clone = allCards[allCards.length - i].cloneNode(true);
+    clone.classList.add("clone");
+    cardsTrack.insertBefore(clone, cardsTrack.firstChild);
+    // cardsTrack.insertBefore(clone,cardsTrack);
+  }
 }
 
 // FUNCTION: allow delete all carousel cards with the "clone" class
 function deleteAllclone() {
   const cloneElements = document.querySelectorAll(".clone");
-  cloneElements.forEach(clone => clone.remove())
+  cloneElements.forEach((clone) => clone.remove());
 }
 
 // FUNCTION: for everyone create and delete project card refresh clone status
@@ -736,9 +731,11 @@ function enableTransition() {
   carouselTrack.style.transition = "";
 }
 
-// FUNCTION: allow scroll carasuel with infiniteloop style mode 
+// FUNCTION: allow scroll carasuel with infiniteloop style mode
 function checkAndResetInfiniteScroll() {
-  const allCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)");
+  const allCards = document.querySelectorAll(
+    ".imageProjectCarousel:not(.clone)"
+  );
   const totalOriginalCards = allCards.length;
 
   if (carouselIndexHorizontal >= totalOriginalCards + 3) {
@@ -756,76 +753,75 @@ function checkAndResetInfiniteScroll() {
     updateCarouselPosition();
     requestAnimationFrame(() => enableTransition());
   }
-};
+}
 
 // FUNCTION: allow to move down carausel project card
 function clickDown() {
-    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+  const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
-    if (carouselIndexVertical < totalCards - 3) {
-        carouselIndexVertical++;
-        carouselIndexHorizontal++;
-        updateCarouselPosition();
-    }
-    checkAndResetInfiniteScroll();
-};
+  if (carouselIndexVertical < totalCards - 3) {
+    carouselIndexVertical++;
+    carouselIndexHorizontal++;
+    updateCarouselPosition();
+  }
+  checkAndResetInfiniteScroll();
+}
 
 // FUNCTION: allow to move up carausel project card
 function clickUp() {
-
-    if (carouselIndexVertical >= 0) {
-        carouselIndexVertical--;
-        carouselIndexHorizontal--;
-        updateCarouselPosition();
-    }
-    checkAndResetInfiniteScroll();
-};
+  if (carouselIndexVertical >= 0) {
+    carouselIndexVertical--;
+    carouselIndexHorizontal--;
+    updateCarouselPosition();
+  }
+  checkAndResetInfiniteScroll();
+}
 
 // FUNCTION: allow to move right carausel project card
 function clickRight() {
-    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+  const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
-    if (carouselIndexHorizontal < totalCards - 3) {
-        carouselIndexVertical++;
-        carouselIndexHorizontal++;
-        updateCarouselPosition();
-    }
-    checkAndResetInfiniteScroll();
-};
+  if (carouselIndexHorizontal < totalCards - 3) {
+    carouselIndexVertical++;
+    carouselIndexHorizontal++;
+    updateCarouselPosition();
+  }
+  checkAndResetInfiniteScroll();
+}
 
 // FUNCTION: allow to move left carausel project card
 function clickLeft() {
-    const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
+  const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
 
-    if (carouselIndexHorizontal >= 0) {
-        carouselIndexVertical--;
-        carouselIndexHorizontal--;
-        updateCarouselPosition();
-    }
-    checkAndResetInfiniteScroll();
-};
+  if (carouselIndexHorizontal >= 0) {
+    carouselIndexVertical--;
+    carouselIndexHorizontal--;
+    updateCarouselPosition();
+  }
+  checkAndResetInfiniteScroll();
+}
 
 // EVENT LISTENERS: move down carausel
 iconDownButton.addEventListener("click", () => {
-    clickDown();
+  clickDown();
 });
 
 // EVENT LISTENERS: move up carausel
 iconUpButton.addEventListener("click", () => {
-    clickUp();
+  clickUp();
 });
 
 // EVENT LISTENERS: move right carausel
 iconRightButton.addEventListener("click", () => {
-    clickRight();
+  clickRight();
 });
 
 // EVENT LISTENERS: move left carausel
 iconLeftButton.addEventListener("click", () => {
-    clickLeft();
+  clickLeft();
 });
 
 // EVENT LISTENERS: update carousel position on window resize
 window.addEventListener("resize", () => {
-    updateCarouselPosition();
-  });
+  updateCarouselPosition();
+});
