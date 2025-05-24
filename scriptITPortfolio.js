@@ -666,9 +666,10 @@ function checkAmountProjectCard() {
 // FUNCTION: update carousel position based on screen width (horizontal for desktop, vertical for mobile)
 function updateCarouselPosition() {
   const isMobile = window.innerWidth <= 1024;
+  const totalCardWidth = getCardTotalWidthtWithGap()
 
   const offsetY = carouselIndexVertical * totalCardHeight;
-  const offsetX = carouselIndexHorizontal * getCardTotalWidthtWithGap();
+  const offsetX = carouselIndexHorizontal * totalCardWidth;
 
   carouselTrack.style.transform = isMobile
     ? `translateY(-${offsetY}px)`
