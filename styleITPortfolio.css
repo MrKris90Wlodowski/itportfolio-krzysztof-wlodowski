@@ -144,12 +144,18 @@ p {
     padding: 2.3125rem 7.5rem 0;
 }
 
+.headerNavMenu {
+    height: 2rem;
+}
+
 .heroTextContainer {
     width: 100%;
     max-width: 33.375rem;
     height: 8.875rem;
+    /* padding: 6.875rem 0 11.1875rem; */
+    margin: 6.875rem 0 11.1875rem;
     /* height: auto; */
-    margin: 6.25rem 0;
+    /* margin: 6.25rem 0; */
 }
 
 .headerMenu {

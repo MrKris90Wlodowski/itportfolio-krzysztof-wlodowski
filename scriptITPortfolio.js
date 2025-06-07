@@ -109,10 +109,10 @@ const userData = {
   info: {
     introduce:
       "Hello! I'm Krzysztof Włodowski, a person passionate about continuous growth and exploring new paths. My background is diverse,\n my approach to life is rooted in acquiring knowledge and achieving goals with full dedication.\n Feel free to discover more about my professional journey and interests!",
-    myBackground: 
+    myBackground:
       "I have a diverse background that enriches both my professional career and personal growth.\n I am constantly striving to develop myself and make progressin every area of life I am involved in.\n My professional experience has taught me to be diligent incarrying out my responsibilities, take ownership of assignedtasks, and aim for the best possible final result.",
     hobbies:
-      "In my free time, I enjoy developing my passions, especially physical activity and DIY projects.\n Both of these hobbies allow me to spend my time creatively and productively, while constantly growing and becoming better at what I do."
+      "In my free time, I enjoy developing my passions, especially physical activity and DIY projects.\n Both of these hobbies allow me to spend my time creatively and productively, while constantly growing and becoming better at what I do.",
   },
   techSkill: [
     { skill: "HTML", experience: 1 },
@@ -130,8 +130,8 @@ const userData = {
     { project: "Calculator program", technology: "Java Script" },
     { project: "Calculator", technology: "HTML" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
-  ]
-}
+  ],
+};
 
 // LOGIC: mobile menu
 
@@ -215,6 +215,15 @@ buttonAddProject.addEventListener("click", () => {
 function closeModalView() {
   modalForm.classList.add("hiddenElement");
   document.body.classList.remove("noScroll");
+  inputProjectName.value = "";
+  inputTechnology.value = "";
+  inputProjectName.classList.remove("errorInputLine");
+  inputProjectName.classList.add("validInputLine");
+  inputTechnology.classList.remove("errorInputLine");
+  inputTechnology.classList.add("validInputLine");
+  errorMinProjectName.classList.add("hiddenElement");
+  errorMaxProjectName.classList.add("hiddenElement");
+  errorNoneTech.classList.add("hiddenElement");
 }
 
 // EVENT LISTENERS: allow close modal form only with icon X
@@ -251,7 +260,7 @@ inputProjectName.addEventListener("input", () => {
     inputProjectName,
     errorMinProjectName,
     errorMaxProjectName,
-    4,
+    3,
     30,
     "inputProject"
   );
@@ -354,7 +363,7 @@ buttonAddProjectModal.addEventListener("click", () => {
     inputProjectName,
     errorMinProjectName,
     errorMaxProjectName,
-    4,
+    3,
     30,
     "inputProject"
   );
@@ -432,7 +441,7 @@ inputNameMobile.addEventListener("input", () => {
     inputNameMobile,
     errorMinNameMobile,
     errorMaxNameMobile,
-    4,
+    3,
     20,
     "inputNameMobile"
   );
@@ -441,7 +450,7 @@ inputNameMobile.addEventListener("input", () => {
 // EVENT LISTENERS: check name value in input desktop
 inputName.addEventListener("input", () => {
   sameValueInput(inputNameMobile, inputName);
-  validateNameInput(inputName, errorMinName, errorMaxName, 4, 20, "inputName");
+  validateNameInput(inputName, errorMinName, errorMaxName, 3, 20, "inputName");
 });
 
 // EVENT LISTENERS: check email value in input mobile
@@ -503,7 +512,7 @@ function checkValidFormContact(
 
 // FUNCTION: allow to check all inputs fields name, email and message in mobile and desktop
 function validateMobilieDesktopForm() {
-  validateNameInput(inputName, errorMinName, errorMaxName, 4, 20, "inputName");
+  validateNameInput(inputName, errorMinName, errorMaxName, 3, 20, "inputName");
   validateInputEmail(inputEmail, errorEmail, "inputEmail");
   validateNameInput(
     inputMessage,
@@ -517,7 +526,7 @@ function validateMobilieDesktopForm() {
     inputNameMobile,
     errorMinNameMobile,
     errorMaxNameMobile,
-    4,
+    3,
     20,
     "inputNameMobile"
   );
@@ -696,7 +705,7 @@ function checkAmountProjectCard() {
 // FUNCTION: update carousel position based on screen width (horizontal for desktop, vertical for mobile)
 function updateCarouselPosition() {
   const isMobile = window.innerWidth <= 1024;
-  const totalCardWidth = getCardTotalWidthtWithGap()
+  const totalCardWidth = getCardTotalWidthtWithGap();
 
   const offsetY = carouselIndexVertical * totalCardHeight;
   const offsetX = carouselIndexHorizontal * totalCardWidth;
