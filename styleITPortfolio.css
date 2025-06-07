@@ -13,26 +13,45 @@
     font-weight: 400;
     font-style: normal;
   }
-  
+
+@font-face {
+    font-family: 'League Spartan';
+    src: url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Bold.woff2') format('woff2'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Bold.woff') format('woff'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Bold.ttf') format('truetype'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Regular.woff2') format('woff2'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Regular.woff') format('woff'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Regular.ttf') format('truetype'),
+         url('./images/fontsStyle/LeagueSpartan-2.220/static/WOFF2/LeagueSpartan-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
 
 :root {
     font-size: 16px;
-    --primaryBackgroundColor: #1F2042;
-    --secondaryBackgroundColor: #F9F9F9;
     --primaryFontFamily: 'League Gothic', sans-serif;
     --secondaryFontFamily: 'League Spartan', sans-serif;
     --thirdlyFontFamily: 'Roboto', sans-serif;
-    --primaryTextColor: #FFFFFF;
-    --clickTextColor: #ADB6C4;
-    --secondaryTextColor: #1F2041;
-    --logoTextColor: #D4AF37;
-    --inputTextColor: #7E7E7E;
-    --headingsProjectColor: #F1EBE1;
-    --errorInputColor: #AF0808;
+    --midnightBlue: #1F2042;
+    --snowWhite: #F9F9F9;
+    --white: #FFFFFF;
+    --coolGray: #ADB6C4;
+    --darkIndigo: #1F2041;
+    --metallicGold: #D4AF37;
+    --gray: #7E7E7E;
+    --creamyWhite: #F1EBE1;
+    --darkRed: #AF0808;
 }
 
 body {
-    background-color: var(--primaryBackgroundColor);
+    background-color: var(--midnightBlue);
     width: 100%;
     min-width: 320px;
     max-width: 1920px;
@@ -43,31 +62,31 @@ h1 {
     font-family: var(--thirdlyFontFamily);
     font-weight: 700;
     font-size: 2.25rem;
-    line-height: 100%;
-    color: var(--clickTextColor);
-    letter-spacing: 0%;
+    line-height: 1;
+    color: var(--coolGray);
+    letter-spacing: 0rem;
 }
 
 .goldenLogo {
-    color: var(--logoTextColor);
+    color: var(--metallicGold);
 }
 
 h2 {
     font-family: var(--primaryFontFamily);
     font-weight: 400;
     font-size: 6rem;
-    line-height: 100%;
-    letter-spacing: 0%;
+    line-height: 1;
+    letter-spacing: 0rem;
     text-align: center;
-    color: var(--primaryTextColor);
+    color: var(--white);
 }
 
 h3 {
     font-family: var(--secondaryFontFamily);
     font-weight: 700;
     font-size: 2rem;
-    line-height: 100%;
-    letter-spacing: 0%;
+    line-height: 1;
+    letter-spacing: 0rem;
     color: #1F2041;
 }
 
@@ -75,9 +94,9 @@ h4 {
     font-family: var(--thirdlyFontFamily);
     font-weight: 700;
     font-size: 1.25rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--headingsProjectColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--creamyWhite);
     margin: 1.125rem 1.875rem 2.5rem;
 }
 
@@ -85,31 +104,31 @@ h2 + p {
     font-family: var(--secondaryFontFamily);
     font-weight: 400;
     font-size: 2rem;
-    line-height: 100%;
-    letter-spacing: 36%;
+    line-height: 1;
+    letter-spacing: 0.36rem;
     text-align: center;
-    color: var(--primaryTextColor);   
+    color: var(--white);   
 }
 
 ul li {
     font-family: var(--thirdlyFontFamily);
     font-weight: 700;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--primaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--white);
     list-style: none;
 }
 
 button {
-    background-color: var(--clickTextColor);
+    background-color: var(--coolGray);
     width: 15rem;
     height: 3.75rem;
     border: none;
     border-radius: 0.5rem;
     padding: 0.9375rem 3.0625rem;
     box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-    color: var(--secondaryTextColor);
+    color: var(--darkIndigo);
     font-family: var(--thirdlyFontFamily);
     font-weight: 400;
     font-size: 1rem;
@@ -120,9 +139,9 @@ p {
     font-family: var(--thirdlyFontFamily);
     font-weight: 400;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--secondaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--darkIndigo);
 }
 
 .gapInsideButton {
@@ -135,7 +154,7 @@ p {
 }
 
 #mainContainer {
-    background-color: var(--secondaryBackgroundColor);
+    background-color: var(--snowWhite);
 }
 
 /* HEADER */
@@ -173,7 +192,7 @@ p {
     top: 5rem;
     width: 100%;
     height: auto;
-    background-color: var(--primaryBackgroundColor);
+    background-color: var(--midnightBlue);
 }
     
 .paddingMenuMobile {
@@ -181,7 +200,7 @@ p {
 }
      
 .hrStyle {
-    border-top: var(--secondaryBackgroundColor) 0.0625rem solid;
+    border-top: var(--snowWhite) 0.0625rem solid;
     margin-left: -1rem;
     margin-right: -1rem;
     width: calc(100% + 2rem);
@@ -196,7 +215,7 @@ p {
 }
 
 .activeListElement {
-    color: var(--clickTextColor);
+    color: var(--coolGray);
 }
 
 /* SECTION HOME */
@@ -228,7 +247,7 @@ p {
 }
 
 .yearsOfExperience {
-    color: var(--clickTextColor);
+    color: var(--coolGray);
 }
 
 .gapBetweenCircles {
@@ -389,9 +408,9 @@ p {
     font-family: var(--thirdlyFontFamily);
     font-weight: 400;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--primaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--white);
     list-style-type: disc;
     list-style-position: outside;
 }
@@ -400,8 +419,8 @@ p {
     font-family: var(--secondaryFontFamily);
     font-weight: 700;
     font-size: 2rem;
-    line-height: 100%;
-    letter-spacing: 0%;
+    line-height: 1;
+    letter-spacing: 0rem;
     color: #1F2041;
 }
 
@@ -417,7 +436,8 @@ p {
 }
 
 .buttonContactMeMargin {
-    margin-top: 5.25rem;
+    /* margin-top: 5.25rem; */
+    margin-top: 1.1875rem;
 }
 
 .marginBetweenHeadingAndParagraph {
@@ -455,17 +475,17 @@ p {
     font-family: var(--thirdlyFontFamily);
     font-weight: 400;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--secondaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--darkIndigo);
 }
 
 .validInputLine {
-    border-bottom: 0.125rem solid var(--secondaryTextColor);
+    border-bottom: 0.125rem solid var(--darkIndigo);
 }
 
 .errorInputLine {
-    border-bottom: 0.125rem solid var(--errorInputColor);
+    border-bottom: 0.125rem solid var(--darkRed);
 }
 
 .gapBetweenLabelAndInput {
@@ -497,13 +517,13 @@ p {
 /* SECTION CONTACT FORM MOBILE */
 
 .formMobileSectionSendMessage {
-    background-color: var(--secondaryBackgroundColor);
+    background-color: var(--snowWhite);
 }
 
 /* SECTION CONTACT BUTTON MOBILE */
 
 .buttonMobileSectionSendMessage {
-    background-color: var(--secondaryBackgroundColor);
+    background-color: var(--snowWhite);
 }
 
 /* SECTION MESSAGES */
@@ -516,9 +536,9 @@ p {
     font-family: var(--secondaryFontFamily);
     font-weight: 700;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--secondaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--darkIndigo);
 }
 
 .gapBetweenMessages {
@@ -528,7 +548,7 @@ p {
 .errorInfo {
     font-size: 0.75rem;
     margin-top: 0.3125rem;
-    color: var(--errorInputColor);
+    color: var(--darkRed);
 }
 
 /* FOOTER */
@@ -556,17 +576,17 @@ p {
     font-family: var(--thirdlyFontFamily);
     font-weight: 700;
     font-size: 1rem;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: var(--primaryTextColor);
+    line-height: 1;
+    letter-spacing: 0rem;
+    color: var(--white);
 }
 
 .footerInfo span {
     font-family: var(--thirdlyFontFamily);
     font-weight: 700;
     font-size: 1.6875rem;
-    line-height: 100%;
-    letter-spacing: 0%;   
+    line-height: 1;
+    letter-spacing: 0rem;   
 }
 
 .mainLogoFooter {
@@ -574,7 +594,7 @@ p {
 }
 
 .restLogoFooter {
-    color: var(--clickTextColor);
+    color: var(--coolGray);
 }
 
 .footerMenu li {
@@ -597,11 +617,12 @@ p {
   }
 
 .dismensionModal {
-    width: 50rem;
+    /* width: 50rem; */
+    width: 55.55%;
     /* height: 25.375rem; */
     height: auto;
     padding: 3.75rem 7.5rem;
-    background-color: var(--secondaryBackgroundColor);
+    background-color: var(--snowWhite);
 }
 
 .marginButtonModal {
@@ -815,11 +836,6 @@ p {
         padding: 5.25rem 1rem;
     }
 
-    .imageMaleContainer {
-        max-width: 18rem;
-        background-image: url(./images/malePortrairPic.png);
-    }
-
     /* SECTION CONTACT */
 
     .paddingSectionContact {
@@ -865,7 +881,8 @@ p {
 
     .dismensionModal {
         padding: 2.5rem 0.625rem;
-        width: 17.5rem;
+        /* width: 17.5rem; */
+        width: 87.5%;
     }
 
     .marginButtonModal {
@@ -917,8 +934,15 @@ p {
 
 
 @media (max-width: 480px) {
+    
     .flexWrapLogoSkill {
         flex-direction: column;
         align-items: center;
+    }
+
+    /* SECTION HOME AND ABOUT ME */
+
+    .imageMaleContainer {
+        background-image: url(./images/malePortrairPic.png);
     }
 }
