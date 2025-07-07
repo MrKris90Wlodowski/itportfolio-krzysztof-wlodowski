@@ -331,6 +331,11 @@ p {
     pointer-events: none;
   }
 
+#carouselTrack.cloneItem {
+  justify-content: center;
+  gap: 2.5625rem; 
+}
+
 /* SECTION MY PROJECTS */
 
 .paddingSectionProjectMe {

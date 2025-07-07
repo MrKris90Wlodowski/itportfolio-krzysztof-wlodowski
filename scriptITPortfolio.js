@@ -174,6 +174,7 @@ activeNavListElement.forEach((element) => {
       if (section.dataset.section === targetList) {
         section.classList.remove("hiddenElement");
       }
+      updateCarouselPosition();
     });
   });
 });
@@ -723,6 +724,7 @@ function cloneStartEndCard() {
   const cardsTrack = document.getElementById("carouselTrack");
 
   if (allCards.length === 0) return;
+  // if (allCards.length <= 3) return;
 
   const cloneCards = Math.min(3, allCards.length);
 
@@ -749,14 +751,29 @@ function deleteAllclone() {
 // FUNCTION: for everyone create and delete project card refresh clone status
 function refreshCarouselClones() {
   deleteAllclone();
+  const originalCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)").length;
+  console.log(originalCards)
+
+  if (originalCards <=3) {
+    carouselTrack.classList.add("cloneItem");
+     return;
+  }
+  
+  carouselTrack.classList.remove("cloneItem");
   cloneStartEndCard();
 }
 
 // FUNCTION: reset carousel position to initial state after updates
 function resetCarouselPosition() {
   setTimeout(() => {
+    const originalCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)").length;
+    if (originalCards >3) {
     carouselIndexHorizontal = 3;
     carouselIndexVertical = 3;
+    } else {
+      carouselIndexHorizontal = 0;
+      carouselIndexVertical = 0;
+    }
     updateCarouselPosition();
   }, 0);
 }
