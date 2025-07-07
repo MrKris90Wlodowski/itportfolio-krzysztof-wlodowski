@@ -18,16 +18,6 @@ const buttonAddProjectModal = document.getElementById("buttonAddProjectModal");
 const modalForm = document.getElementById("modalForm");
 const closeModal = document.getElementById("closeModal");
 
-
-
-
-
-
-
-
-
-
-
 const inputProjectName = document.getElementById("inputProjectName");
 const inputTechnology = document.getElementById("inputTechnology");
 const errorMinProjectName = document.getElementById("errorMinProjectName");
@@ -278,40 +268,32 @@ function handlerInputProjectName() {
     30,
     "inputProject"
   );
-};
+}
 
 // FUNCTION: start listening for project title input changes after pressing "Add Project"
 function startValidationInputProjectName() {
-  inputProjectName.addEventListener("input",
-    handlerInputProjectName
-  )
-};
+  inputProjectName.addEventListener("input", handlerInputProjectName);
+}
 
 // FUNCTION: stop listening for project title input changes after closing the modal
 function stopValidationInputProjectName() {
-  inputProjectName.removeEventListener("input", 
-    handlerInputProjectName
-  )
-};
+  inputProjectName.removeEventListener("input", handlerInputProjectName);
+}
 
 // FUNCTION: handle real-time validation value in Technologies input must not be empty
 function handlerinputTechnology() {
   validateTechInput(inputTechnology, errorNoneTech, "inputTech");
-};
+}
 
 // FUNCTION: start listening for project technology input changes after pressing "Add Project"
 function startValidationinputTechnology() {
-  inputTechnology.addEventListener("input",
-    handlerinputTechnology
-  )
-};
+  inputTechnology.addEventListener("input", handlerinputTechnology);
+}
 
 // FUNCTION: stop listening for project technology input changes after closing the modal
 function stopValidationinputTechnology() {
-  inputTechnology.removeEventListener("input", 
-    handlerinputTechnology
-  )
-};
+  inputTechnology.removeEventListener("input", handlerinputTechnology);
+}
 
 // FUNCTION: check all modal form inputs
 function checkValidFormModal(inpuText1, dataValue1, inputText2, dataValue2) {
@@ -398,12 +380,6 @@ function createProjectAndCarouselCard(project, technology) {
   addNewProject(project, technology, uniqeDataset);
   addNewProjectCarousel(project, technology, uniqeDataset);
 }
-
-
-
-
-
-
 
 // EVENT LISTENERS: allow to create new project card and carousel card
 buttonAddProjectModal.addEventListener("click", () => {
@@ -800,14 +776,16 @@ function deleteAllclone() {
 // FUNCTION: for everyone create and delete project card refresh clone status
 function refreshCarouselClones() {
   deleteAllclone();
-  const originalCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)").length;
-  console.log(originalCards)
+  const originalCards = document.querySelectorAll(
+    ".imageProjectCarousel:not(.clone)"
+  ).length;
+  console.log(originalCards);
 
-  if (originalCards <=3) {
+  if (originalCards <= 3) {
     carouselTrack.classList.add("cloneItem");
-     return;
+    return;
   }
-  
+
   carouselTrack.classList.remove("cloneItem");
   cloneStartEndCard();
 }
@@ -815,10 +793,12 @@ function refreshCarouselClones() {
 // FUNCTION: reset carousel position to initial state after updates
 function resetCarouselPosition() {
   setTimeout(() => {
-    const originalCards = document.querySelectorAll(".imageProjectCarousel:not(.clone)").length;
-    if (originalCards >3) {
-    carouselIndexHorizontal = 3;
-    carouselIndexVertical = 3;
+    const originalCards = document.querySelectorAll(
+      ".imageProjectCarousel:not(.clone)"
+    ).length;
+    if (originalCards > 3) {
+      carouselIndexHorizontal = 3;
+      carouselIndexVertical = 3;
     } else {
       carouselIndexHorizontal = 0;
       carouselIndexVertical = 0;

@@ -231,6 +231,14 @@ p {
     border-radius: 1rem;
 }
 
+#generalMainSkillContainer {
+    width: 100%;
+}
+
+#mainSkillContainer {
+    width: 100%;
+}
+
 .paddingSectionHome {
     padding: 5.25rem 8.6875rem;
 }
@@ -698,8 +706,8 @@ p {
 }
 
 .flexWrapLogoSkill {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .displayFlex {
@@ -746,6 +754,24 @@ p {
 
 .gridColumnsProject {
     grid-template-columns: repeat(3, 1fr);
+}
+
+@media( max-width: 1280px) {
+    .flexWrapLogoSkill {
+        grid-template-columns: repeat(3, 1fr);   
+    }
+
+    .flexWrapLogoSkill > :nth-child(3n +1) {
+        justify-self: start;
+    }
+
+    .flexWrapLogoSkill > :nth-child(3n + 2) {
+        justify-self: center;
+    }
+
+    .flexWrapLogoSkill > :nth-child(3n) {
+        justify-self: end;
+    }
 }
 
 @media ( min-width: 1025px) {
@@ -913,6 +939,20 @@ p {
         display: none;
     }
 
+    /* SECTION HOME */
+
+    .flexWrapLogoSkill {
+        grid-template-columns: repeat(2, 1fr);   
+    }
+
+    .flexWrapLogoSkill > :nth-child(2n +1) {
+        justify-self: start;
+    }
+
+    .flexWrapLogoSkill > :nth-child(2n) {
+        justify-self: end;
+    }
+
     /* FOOTER */
 
     .hideFooterNavList {
@@ -939,13 +979,16 @@ p {
 
 
 @media (max-width: 480px) {
-    
-    .flexWrapLogoSkill {
-        flex-direction: column;
-        align-items: center;
-    }
 
     /* SECTION HOME AND ABOUT ME */
+
+    .flexWrapLogoSkill {
+        grid-template-columns: repeat(1, 1fr);   
+    }
+
+    .flexWrapLogoSkill > :nth-child(1n) {
+        justify-self: center;
+    }
 
     .imageMaleContainer {
         background-image: url(./images/malePortrairPic.png);
