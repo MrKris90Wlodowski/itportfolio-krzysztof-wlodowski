@@ -17,6 +17,17 @@ const buttonAddProjectModal = document.getElementById("buttonAddProjectModal");
 
 const modalForm = document.getElementById("modalForm");
 const closeModal = document.getElementById("closeModal");
+
+
+
+
+
+
+
+
+
+
+
 const inputProjectName = document.getElementById("inputProjectName");
 const inputTechnology = document.getElementById("inputTechnology");
 const errorMinProjectName = document.getElementById("errorMinProjectName");
@@ -225,6 +236,8 @@ function closeModalView() {
   errorMinProjectName.classList.add("hiddenElement");
   errorMaxProjectName.classList.add("hiddenElement");
   errorNoneTech.classList.add("hiddenElement");
+  stopValidationInputProjectName();
+  stopValidationinputTechnology();
 }
 
 // EVENT LISTENERS: allow close modal form only with icon X
@@ -255,8 +268,8 @@ function validateTechInput(inputText, errorMessage, dataValue) {
   inputText.dataset[dataValue] = isValidInput ? "valid" : "error";
 }
 
-// EVENT LISTENERS: check value in project title input length min/max
-inputProjectName.addEventListener("input", () => {
+// FUNCTION: handle real-time validation of project title input
+function handlerInputProjectName() {
   validateNameInput(
     inputProjectName,
     errorMinProjectName,
@@ -265,12 +278,40 @@ inputProjectName.addEventListener("input", () => {
     30,
     "inputProject"
   );
-});
+};
 
-// EVENT LISTENERS: check value in Technologies input must not be empty
-inputTechnology.addEventListener("input", () => {
+// FUNCTION: start listening for project title input changes after pressing "Add Project"
+function startValidationInputProjectName() {
+  inputProjectName.addEventListener("input",
+    handlerInputProjectName
+  )
+};
+
+// FUNCTION: stop listening for project title input changes after closing the modal
+function stopValidationInputProjectName() {
+  inputProjectName.removeEventListener("input", 
+    handlerInputProjectName
+  )
+};
+
+// FUNCTION: handle real-time validation value in Technologies input must not be empty
+function handlerinputTechnology() {
   validateTechInput(inputTechnology, errorNoneTech, "inputTech");
-});
+};
+
+// FUNCTION: start listening for project technology input changes after pressing "Add Project"
+function startValidationinputTechnology() {
+  inputTechnology.addEventListener("input",
+    handlerinputTechnology
+  )
+};
+
+// FUNCTION: stop listening for project technology input changes after closing the modal
+function stopValidationinputTechnology() {
+  inputTechnology.removeEventListener("input", 
+    handlerinputTechnology
+  )
+};
 
 // FUNCTION: check all modal form inputs
 function checkValidFormModal(inpuText1, dataValue1, inputText2, dataValue2) {
@@ -358,8 +399,16 @@ function createProjectAndCarouselCard(project, technology) {
   addNewProjectCarousel(project, technology, uniqeDataset);
 }
 
+
+
+
+
+
+
 // EVENT LISTENERS: allow to create new project card and carousel card
 buttonAddProjectModal.addEventListener("click", () => {
+  startValidationInputProjectName();
+  startValidationinputTechnology();
   validateNameInput(
     inputProjectName,
     errorMinProjectName,
