@@ -460,9 +460,38 @@ function sameValueInput(inpuText1, inpuText2) {
 
 // LOGIC: synchronize and check contact form name, email, and message
 
-// EVENT LISTENERS: check name value in input mobile
+// EVENT LISTENERS: set name value in input mobile
 inputNameMobile.addEventListener("input", () => {
   sameValueInput(inputName, inputNameMobile);
+});
+
+// EVENT LISTENERS: set name value in input desktop
+inputName.addEventListener("input", () => {
+  sameValueInput(inputNameMobile, inputName);
+});
+
+// EVENT LISTENERS: set email value in input mobile
+inputEmailMobile.addEventListener("input", () => {
+  sameValueInput(inputEmail, inputEmailMobile);
+});
+
+// EVENT LISTENERS: set email value in input desktop
+inputEmail.addEventListener("input", () => {
+  sameValueInput(inputEmailMobile, inputEmail);
+});
+
+// EVENT LISTENERS: set message value in input mobile
+inputMessageMobile.addEventListener("input", () => {
+  sameValueInput(inputMessage, inputMessageMobile);
+});
+
+// EVENT LISTENERS: set message value in input desktop
+inputMessage.addEventListener("input", () => {
+  sameValueInput(inputMessageMobile, inputMessage);
+});
+
+// FUNCTION: handle real-time validation of input name mobile
+function handlerInputNameMobile() {
   validateNameInput(
     inputNameMobile,
     errorMinNameMobile,
@@ -471,29 +500,76 @@ inputNameMobile.addEventListener("input", () => {
     20,
     "inputNameMobile"
   );
-});
-
-// EVENT LISTENERS: check name value in input desktop
-inputName.addEventListener("input", () => {
-  sameValueInput(inputNameMobile, inputName);
   validateNameInput(inputName, errorMinName, errorMaxName, 3, 20, "inputName");
-});
+}
 
-// EVENT LISTENERS: check email value in input mobile
-inputEmailMobile.addEventListener("input", () => {
-  sameValueInput(inputEmail, inputEmailMobile);
+// FUNCTION: start listening for input name mobile changes after pressing "Send message"
+function startValidationInputNameMobile() {
+  inputNameMobile.addEventListener("input", handlerInputNameMobile);
+}
+
+// FUNCTION: stop listening for contact form input name mobile after navigating to another page
+function stopValidationInputNameMobile() {
+  inputNameMobile.removeEventListener("input", handlerInputNameMobile);
+}
+
+// FUNCTION: handle real-time validation of input name
+function handlerInputName() {
+  validateNameInput(
+    inputNameMobile,
+    errorMinNameMobile,
+    errorMaxNameMobile,
+    3,
+    20,
+    "inputNameMobile"
+  );
+  validateNameInput(inputName, errorMinName, errorMaxName, 3, 20, "inputName");
+}
+
+// FUNCTION: start listening for input name changes after pressing "Send message"
+function startValidationInputName() {
+  inputName.addEventListener("input", handlerInputName);
+}
+
+// FUNCTION: stop listening for contact form input name after navigating to another page
+function stopValidationInputName() {
+  inputName.removeEventListener("input", handlerInputName);
+}
+
+// FUNCTION: handle real-time validation of input email mobile
+function handlerInputEmailMobile() {
   validateInputEmail(inputEmailMobile, errorEmailMobile, "inputEmailMobile");
-});
-
-// EVENT LISTENERS: check email value in input desktop
-inputEmail.addEventListener("input", () => {
-  sameValueInput(inputEmailMobile, inputEmail);
   validateInputEmail(inputEmail, errorEmail, "inputEmail");
-});
+}
 
-// EVENT LISTENERS: check message value in input mobile
-inputMessageMobile.addEventListener("input", () => {
-  sameValueInput(inputMessage, inputMessageMobile);
+// FUNCTION: start listening for input email mobile changes after pressing "Send message"
+function startValidationInputEmailMobile() {
+  inputEmailMobile.addEventListener("input", handlerInputEmailMobile);
+}
+
+// FUNCTION: stop listening for contact form input email mobile after navigating to another page
+function stopValidationInputEmailMobile() {
+  inputEmailMobile.removeEventListener("input", handlerInputEmailMobile);
+}
+
+// FUNCTION: handle real-time validation of input email
+function handlerInputEmail() {
+  validateInputEmail(inputEmail, errorEmail, "inputEmail");
+  validateInputEmail(inputEmailMobile, errorEmailMobile, "inputEmailMobile");
+}
+
+// FUNCTION: start listening for input email changes after pressing "Send message"
+function startValidationInputEmail() {
+  inputEmail.addEventListener("input", handlerInputEmail);
+}
+
+// FUNCTION: stop listening for contact form input email after navigating to another page
+function stopValidationInputEmail() {
+  inputEmail.removeEventListener("input", handlerInputEmail);
+}
+
+// FUNCTION: handle real-time validation of input message mobile
+function handlerInputMessageMobile() {
   validateNameInput(
     inputMessageMobile,
     errorMinMessageMobile,
@@ -502,11 +578,6 @@ inputMessageMobile.addEventListener("input", () => {
     100,
     "inputMessageMobile"
   );
-});
-
-// EVENT LISTENERS: check message value in input desktop
-inputMessage.addEventListener("input", () => {
-  sameValueInput(inputMessageMobile, inputMessage);
   validateNameInput(
     inputMessage,
     errorMinMessage,
@@ -515,7 +586,67 @@ inputMessage.addEventListener("input", () => {
     100,
     "inputMessage"
   );
-});
+}
+
+// FUNCTION: start listening for input message mobile changes after pressing "Send message"
+function startValidationInputMessageMobile() {
+  inputMessageMobile.addEventListener("input", handlerInputMessageMobile);
+}
+
+// FUNCTION: stop listening for contact form input message mobile after navigating to another page
+function stopValidationInputMessageMobile() {
+  inputMessageMobile.removeEventListener("input", handlerInputMessageMobile);
+}
+
+// FUNCTION: handle real-time validation of input message
+function handlerInputMessage() {
+  validateNameInput(
+    inputMessage,
+    errorMinMessage,
+    errorMaxMessage,
+    1,
+    100,
+    "inputMessage"
+  );
+  validateNameInput(
+    inputMessageMobile,
+    errorMinMessageMobile,
+    errorMaxMessageMobile,
+    1,
+    100,
+    "inputMessageMobile"
+  );
+}
+
+// FUNCTION: start listening for input message changes after pressing "Send message"
+function startValidationInputMessage() {
+  inputMessage.addEventListener("input", handlerInputMessage);
+}
+
+// FUNCTION: stop listening for contact form input message after navigating to another page
+function stopValidationInputMessage() {
+  inputMessage.removeEventListener("input", handlerInputMessage);
+}
+
+// FUNCTION: gather all function checking start validation
+function startValidationInputMobileAndDesktop() {
+  startValidationInputNameMobile();
+  startValidationInputName();
+  startValidationInputEmailMobile();
+  startValidationInputEmail();
+  startValidationInputMessageMobile();
+  startValidationInputMessage();
+}
+
+// FUNCTION: gather all function checking stop validation
+function stopValidationInputMobileAndDesktop() {
+  stopValidationInputNameMobile();
+  stopValidationInputName();
+  stopValidationInputEmailMobile();
+  stopValidationInputEmail();
+  stopValidationInputMessageMobile();
+  stopValidationInputMessage();
+}
 
 // FUNCTION: allow to check all inputs fields name, email and message
 function checkValidFormContact(
@@ -606,12 +737,14 @@ function addNewMessage() {
   if (isValidateInput) {
     createMessage(inputName, inputEmail, inputMessage);
     resetForm(inputsContact);
+    stopValidationInputMobileAndDesktop();
   }
 }
 
 // EVENT LISTENERS: start create and check new message
 buttonsSendMessage.forEach((buttonSend) =>
   buttonSend.addEventListener("click", () => {
+    startValidationInputMobileAndDesktop();
     addNewMessage();
   })
 );

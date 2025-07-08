@@ -350,6 +350,11 @@ p {
     padding: 5.25rem 8.6875rem;
 }
 
+#mainProjectConteiner {
+    width: 100%;
+    max-width: 72.625rem;
+}
+
 .imageProjectContainer {
     position: relative;
     width: 100%;
@@ -757,6 +762,21 @@ p {
 }
 
 @media( max-width: 1280px) {
+
+    /* SECTION HOME */
+
+    .gridColumnsProject {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gridColumnsProject > :nth-child(2n + 1) {
+        justify-self: center;
+    }
+
+    .gridColumnsProject > :nth-child(2n) {
+        justify-self: center;
+    }
+
     .flexWrapLogoSkill {
         grid-template-columns: repeat(3, 1fr);   
     }
