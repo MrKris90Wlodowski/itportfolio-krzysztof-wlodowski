@@ -52,9 +52,10 @@
 
 body {
     background-color: var(--midnightBlue);
-    width: 100%;
-    min-width: 320px;
-    max-width: 1920px;
+    /* width: 100%; */
+    min-height: 100vh;
+    /* min-width: 320px; */
+    /* max-width: 1920px; */
     margin: 0 auto;
 }
 
@@ -155,6 +156,13 @@ p {
 
 #mainContainer {
     background-color: var(--snowWhite);
+}
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  min-width: 320px;
+  margin: 0 auto; 
 }
 
 /* HEADER */
