@@ -7,6 +7,11 @@ const menuListMobile = document.getElementById("menuListMobile");
 const activeNavListElement = document.querySelectorAll("nav li");
 const logoHeader = document.querySelectorAll("[data-section-header]");
 const mainSections = document.querySelectorAll("[data-section]");
+const nameUser = document.getElementById("nameUser");
+const fullName = document.getElementById("fullName");
+const introduce = document.getElementById("introduce");
+const myBackground = document.getElementById("myBackground");
+const hobbies = document.getElementById("hobbies");
 
 // ELEMENTS: contact button
 const contactButton = document.getElementById("contactButton");
@@ -57,27 +62,8 @@ const buttonsSendMessage = document.querySelectorAll(
 );
 const mainMessageContainer = document.getElementById("mainMessageContainer");
 
-// ELEMENTS: create project cards from javascript data
-// const cardsProjects = [
-//   { project: "Calculator", technology: "HTML" },
-//   { project: "Non-governmental organization", technology: "HTML,CSS" },
-//   { project: "Calculator program", technology: "Java Script" },
-//   { project: "Calculator", technology: "HTML" },
-//   { project: "Non-governmental organization", technology: "HTML,CSS" },
-// ];
-
 // ELEMENTS: create tech skills from javascript data
 const mainSkillContainer = document.getElementById("mainSkillContainer");
-// const techSkill = [
-//   { skill: "HTML", experience: 1 },
-//   { skill: "CSS", experience: 1 },
-//   { skill: "Java Script", experience: 1 },
-//   { skill: "Git", experience: 1 },
-//   { skill: "Figma", experience: 1 },
-//   { skill: "Chrome", experience: 2 },
-//   { skill: "VSCode", experience: 2 },
-//   { skill: "GitHub", experience: 1 },
-// ];
 
 // ELEMENTS: navigation button carausel
 const carouselTrack = document.getElementById("carouselTrack");
@@ -109,7 +95,7 @@ const userData = {
   lastName: "Włodowski",
   info: {
     introduce:
-      "Hello! I'm Krzysztof Włodowski, a person passionate about continuous growth and exploring new paths. My background is diverse,\n my approach to life is rooted in acquiring knowledge and achieving goals with full dedication.\n Feel free to discover more about my professional journey and interests!",
+      "Hello! I'm Krzysztof Włodowski, a person passionate about continuous growth and exploring new paths.\n My background is diverse, my approach to life is rooted in acquiring knowledge and achieving goals with full dedication.\n Feel free to discover more about my professional journey and interests!",
     myBackground:
       "I have a diverse background that enriches both my professional career and personal growth.\n I am constantly striving to develop myself and make progressin every area of life I am involved in.\n My professional experience has taught me to be diligent incarrying out my responsibilities, take ownership of assignedtasks, and aim for the best possible final result.",
     hobbies:
@@ -129,10 +115,17 @@ const userData = {
     { project: "Calculator", technology: "HTML" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
     { project: "Calculator program", technology: "Java Script" },
-    { project: "Calculator", technology: "HTML,C++,C#" },
+    { project: "Calculator", technology: "HTML,C++" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
   ],
 };
+
+// DYNAMIC RENDER: first name last name and info 
+nameUser.textContent = (userData.firstName).toUpperCase();
+fullName.textContent = `${userData.firstName} ${userData.lastName}`.toUpperCase();
+introduce.textContent = userData.info.introduce;
+myBackground.textContent = userData.info.myBackground;
+hobbies.textContent = userData.info.hobbies;
 
 // LOGIC: mobile menu
 

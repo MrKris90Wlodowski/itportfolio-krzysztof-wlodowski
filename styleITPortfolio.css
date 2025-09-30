@@ -231,6 +231,10 @@ main {
     color: var(--coolGray);
 }
 
+.preLine {
+    white-space: pre-line;
+}
+
 /* SECTION HOME */
 
 .imageMaleContainer {
