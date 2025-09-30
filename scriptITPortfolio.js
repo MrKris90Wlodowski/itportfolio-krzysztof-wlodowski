@@ -58,26 +58,26 @@ const buttonsSendMessage = document.querySelectorAll(
 const mainMessageContainer = document.getElementById("mainMessageContainer");
 
 // ELEMENTS: create project cards from javascript data
-const cardsProjects = [
-  { project: "Calculator", technology: "HTML" },
-  { project: "Non-governmental organization", technology: "HTML,CSS" },
-  { project: "Calculator program", technology: "Java Script" },
-  { project: "Calculator", technology: "HTML" },
-  { project: "Non-governmental organization", technology: "HTML,CSS" },
-];
+// const cardsProjects = [
+//   { project: "Calculator", technology: "HTML" },
+//   { project: "Non-governmental organization", technology: "HTML,CSS" },
+//   { project: "Calculator program", technology: "Java Script" },
+//   { project: "Calculator", technology: "HTML" },
+//   { project: "Non-governmental organization", technology: "HTML,CSS" },
+// ];
 
 // ELEMENTS: create tech skills from javascript data
 const mainSkillContainer = document.getElementById("mainSkillContainer");
-const techSkill = [
-  { skill: "HTML", experience: 1 },
-  { skill: "CSS", experience: 1 },
-  { skill: "Java Script", experience: 1 },
-  { skill: "Git", experience: 1 },
-  { skill: "Figma", experience: 1 },
-  { skill: "Chrome", experience: 2 },
-  { skill: "VSCode", experience: 2 },
-  { skill: "GitHub", experience: 1 },
-];
+// const techSkill = [
+//   { skill: "HTML", experience: 1 },
+//   { skill: "CSS", experience: 1 },
+//   { skill: "Java Script", experience: 1 },
+//   { skill: "Git", experience: 1 },
+//   { skill: "Figma", experience: 1 },
+//   { skill: "Chrome", experience: 2 },
+//   { skill: "VSCode", experience: 2 },
+//   { skill: "GitHub", experience: 1 },
+// ];
 
 // ELEMENTS: navigation button carausel
 const carouselTrack = document.getElementById("carouselTrack");
@@ -116,12 +116,12 @@ const userData = {
       "In my free time, I enjoy developing my passions, especially physical activity and DIY projects.\n Both of these hobbies allow me to spend my time creatively and productively, while constantly growing and becoming better at what I do.",
   },
   techSkill: [
-    { skill: "HTML", experience: 1 },
+    { skill: "HTML", experience: 2 },
     { skill: "CSS", experience: 1 },
     { skill: "Java Script", experience: 1 },
     { skill: "Git", experience: 1 },
     { skill: "Figma", experience: 1 },
-    { skill: "Chrome", experience: 2 },
+    { skill: "Chrome", experience: 4 },
     { skill: "VSCode", experience: 2 },
     { skill: "GitHub", experience: 1 },
   ],
@@ -129,7 +129,7 @@ const userData = {
     { project: "Calculator", technology: "HTML" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
     { project: "Calculator program", technology: "Java Script" },
-    { project: "Calculator", technology: "HTML" },
+    { project: "Calculator", technology: "HTML,C++,C#" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
   ],
 };
@@ -752,7 +752,7 @@ buttonsSendMessage.forEach((buttonSend) =>
 // LOGIC: create project cards from javascript data
 
 // EVENT LISTENERS: automatically create project and carousel cards from array
-cardsProjects.forEach((card) => {
+(userData.cardsProjects).forEach((card) => {
   createProjectAndCarouselCard(
     { value: card.project },
     { value: card.technology }
@@ -829,7 +829,7 @@ function createTechSkill(skill, num) {
 }
 
 // EVENT LISTENERS: create skill container from array
-techSkill.forEach((tech) => {
+(userData.techSkill).forEach((tech) => {
   createTechSkill(tech.skill, tech.experience);
 });
 
