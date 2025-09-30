@@ -154,6 +154,11 @@ p {
     height: 1.03125rem;
 }
 
+main {
+  min-height: calc(100vh - (500px + 430px)); 
+  /* background-color: #fff; */
+}
+
 #mainContainer {
     background-color: var(--snowWhite);
 }
