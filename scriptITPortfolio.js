@@ -118,6 +118,23 @@ const userData = {
     { project: "Calculator", technology: "HTML,C++" },
     { project: "Non-governmental organization", technology: "HTML,CSS" },
   ],
+  messages: [
+    {
+      name: "Karol",
+      email: "karol@email.com",
+      message: "Hello, I've reviewed your impressive portfolio and am interested in disscussing a potential collaboration. Please call me at 712-218-123 to talk further."
+    },
+    {
+      name: "Ernest",
+      email: "ernest@email.com",
+      message: "Hello, Please call me at 351-152-555 to talk further."
+    },
+    {
+      name: "Jan",
+      email: "jan@email.com",
+      message: "Welcome Jan. You created really nice project"
+    }
+  ]
 };
 
 // DYNAMIC RENDER: first name last name and info 
@@ -751,6 +768,15 @@ buttonsSendMessage.forEach((buttonSend) =>
     { value: card.technology }
   );
 });
+
+// EVENT LISTENERS: automatically create message from array
+(userData.messages).forEach((message) => {
+  createMessage(
+    {value: message.name},
+    {value: message.email},
+    {value: message.message}
+  )
+})
 
 // LOGIC: create tech skills from javascript data
 
