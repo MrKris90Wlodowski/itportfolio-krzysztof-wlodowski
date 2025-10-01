@@ -214,8 +214,9 @@ main {
      
 .hrStyle {
     border-top: var(--snowWhite) 0.0625rem solid;
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin: 0 -1rem;
+    /* margin-left: -1rem;
+    margin-right: -1rem; */
     width: calc(100% + 2rem);
 }
 
@@ -696,8 +697,9 @@ main {
 }
 
 .marginLabelModalTech {
-    margin-bottom: 1.6875rem;
-    margin-top: 3.75rem;
+    margin: 3.75rem 0 1.6875rem;
+    /* margin-bottom: 1.6875rem;
+    margin-top: 3.75rem; */
 }
 
 .noScroll {
