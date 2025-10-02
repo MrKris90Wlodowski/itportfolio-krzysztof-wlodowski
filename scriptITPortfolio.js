@@ -88,8 +88,8 @@ function getCardTotalWidthtWithGap() {
   }
   return 0;
 }
-// const totalCardWidth = getCardTotalWidthtWithGap();
 
+// ELEMENTS: main user data object
 const userData = {
   firstName: "Krzysztof",
   lastName: "Włodowski",

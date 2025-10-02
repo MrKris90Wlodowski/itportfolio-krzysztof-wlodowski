@@ -156,7 +156,6 @@ p {
 
 main {
   min-height: calc(100vh - (500px + 430px)); 
-  /* background-color: #fff; */
 }
 
 #mainContainer {
@@ -184,10 +183,7 @@ main {
     width: 100%;
     max-width: 33.375rem;
     height: 8.875rem;
-    /* padding: 6.875rem 0 11.1875rem; */
     margin: 6.875rem 0 11.1875rem;
-    /* height: auto; */
-    /* margin: 6.25rem 0; */
 }
 
 .headerMenu {
@@ -215,8 +211,6 @@ main {
 .hrStyle {
     border-top: var(--snowWhite) 0.0625rem solid;
     margin: 0 -1rem;
-    /* margin-left: -1rem;
-    margin-right: -1rem; */
     width: calc(100% + 2rem);
 }
 
@@ -282,7 +276,6 @@ main {
 
 .gapInsideLogoSkillContainer {
     row-gap: 2rem;
-    /* column-gap: 4.725rem; */
     column-gap: 4.725rem;
 }
 
@@ -306,7 +299,6 @@ main {
     width: 100%;
     max-width: 11.375rem;
     height: 4.375rem;
-    /* height: auto; */
 }
 
 .mainContainerAboutMe {
@@ -384,7 +376,6 @@ main {
     background-repeat: no-repeat;
     border-radius: 1rem;
     box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-
     color: red;
     font-size: 1.25rem;
 }
@@ -401,14 +392,9 @@ main {
     background-repeat: no-repeat;
     border-radius: 1rem;
     box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-
     color: red;
     font-size: 1.25rem;
 }
-
-/* max-width: 22.5rem; */
-/* flex-shrink: 0; */
-
 
 .buttonAddProjectMargin {
     margin-bottom: 5.25rem;
@@ -472,7 +458,6 @@ main {
 }
 
 .buttonContactMeMargin {
-    /* margin-top: 5.25rem; */
     margin-top: 1.1875rem;
 }
 
@@ -653,9 +638,7 @@ main {
   }
 
 .dismensionModal {
-    /* width: 50rem; */
     width: 55.55%;
-    /* height: 25.375rem; */
     height: auto;
     padding: 3.75rem 7.5rem;
     background-color: var(--snowWhite);
@@ -698,8 +681,6 @@ main {
 
 .marginLabelModalTech {
     margin: 3.75rem 0 1.6875rem;
-    /* margin-bottom: 1.6875rem;
-    margin-top: 3.75rem; */
 }
 
 .noScroll {
@@ -951,7 +932,6 @@ main {
 
     .dismensionModal {
         padding: 2.5rem 0.625rem;
-        /* width: 17.5rem; */
         width: 87.5%;
     }
 
