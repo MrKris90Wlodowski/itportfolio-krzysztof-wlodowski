@@ -3,6 +3,8 @@
 const userInfo = {
   firstName: "Krzysztof",
   lastName: "Włodowski",
+  tel: "510 455 222",
+  email: "krzysztof_włodowski@wp.pl",
   info: {
     introduce:
       "Hello! I'm Krzysztof Włodowski, a person passionate about continuous growth and exploring new paths.\n My background is diverse, my approach to life is rooted in acquiring knowledge and achieving goals with full dedication.\n Feel free to discover more about my professional journey and interests!",

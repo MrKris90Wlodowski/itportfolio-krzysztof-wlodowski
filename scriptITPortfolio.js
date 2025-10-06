@@ -16,6 +16,10 @@ const introduce = document.getElementById("introduce");
 const myBackground = document.getElementById("myBackground");
 const hobbies = document.getElementById("hobbies");
 
+// ELEMENTS: footer
+const email = document.getElementById("email");
+const tel = document.getElementById("tel");
+
 // ELEMENTS: contact button
 const contactButton = document.getElementById("contactButton");
 
@@ -92,12 +96,14 @@ function getCardTotalWidthtWithGap() {
   return 0;
 }
 
-// DYNAMIC RENDER: first name last name and info 
+// DYNAMIC RENDER: first name last name, info , email, and tel
 nameUser.textContent = (userInfo.firstName).toUpperCase();
 fullName.textContent = `${userInfo.firstName} ${userInfo.lastName}`.toUpperCase();
 introduce.textContent = userInfo.info.introduce;
 myBackground.textContent = userInfo.info.myBackground;
 hobbies.textContent = userInfo.info.hobbies;
+email.textContent = userInfo.email;
+tel.textContent = `+ ${userInfo.tel}`;
 
 // LOGIC: mobile menu
 
