@@ -3,12 +3,36 @@ import userInfo from "./userInfo.js"
 
 // ELEMENT: main container
 const mainContainer = document.getElementById("mainContainer");
+const headerContainer = document.getElementById("headerContainer");
 
 // ELEMENT: nav links
 const navItems = document.querySelectorAll("nav li");
 
-// LOGIC: synchronize footer and header links
+// OBJECT HEADINGS AND PARAGRAPH
+const headerInfo = {
+  home: {
+    heading: `${userInfo.firstName} ${userInfo.lastName}`,
+    paragraph: "WEB-DESIGNER"
+  },
+    projects: {
+    heading: "MY PROJECTS",
+    paragraph: "MADE WITH LOVE"
+  },
+    about: {
+    heading: "ABOUT ME",
+    paragraph: `IT'S A ME, ${userInfo.firstName}`
+  },
+    contact: {
+    heading: "CONTACT ME",
+    paragraph: "SAY HELLO TO ME"
+  },
+    messages: {
+    heading: "MESSAGES",
+    paragraph: "MESSAGES FROM THE\n INTERESTED PERSON"
+  }
+}
 
+// LOGIC: synchronize footer and header links
 navItems.forEach(clickedItem => {
   clickedItem.addEventListener("click", () => {
     navItems.forEach(item => {
@@ -16,11 +40,37 @@ navItems.forEach(clickedItem => {
     })
     const targetName = clickedItem.dataset.target;
     const matchedItems = document.querySelectorAll(`li[data-target=${targetName}]`);
+    renderSection(targetName);
+    renderInfoHeader(headerInfo[targetName].heading, headerInfo[targetName].paragraph)
     matchedItems.forEach(item => {
       item.classList.add("activeListElement");
     })
   })
 })
+
+// FUNCTION: dynnamically render basic structure info header 
+function renderInfoHeader(heading, paragraph) {
+  const headerInfoContainer = document.createElement("div");
+  headerContainer.innerHTML="";
+  headerInfoContainer.classList.add("heroTextContainer");
+  const headingInfo = document.createElement("h2");
+  headingInfo.innerText=heading;
+  const paragraphInfo = document.createElement("p");
+  paragraphInfo.innerText=paragraph;
+  headerInfoContainer.appendChild(headingInfo);
+  headerInfoContainer.appendChild(paragraphInfo)
+  headerContainer.appendChild(headerInfoContainer);
+}
+
+// FUNCTION: dynamically render section in the main container
+function renderSection(target) {
+  mainContainer.innerHTML="";
+  const mainDiv = document.createElement("div");
+  const mainText = document.createElement("h3");
+  mainText.textContent=target;
+  mainDiv.appendChild(mainText);
+  mainContainer.appendChild(mainDiv);
+}
 
 
 
