@@ -1,8 +1,8 @@
 // ELEMENTS: main user data object
 
 const userInfo = {
-  firstName: "KRZYSZTOF",
-  lastName: "WŁODOWSKI",
+  firstName: "Krzysztof",
+  lastName: "Włodowski",
   tel: "514 455 242",
   email: "krzysztof_włodowski@onet.pl",
   info: {

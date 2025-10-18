@@ -11,7 +11,7 @@ const navItems = document.querySelectorAll("nav li");
 // OBJECT HEADINGS AND PARAGRAPH
 const headerInfo = {
   home: {
-    heading: `${userInfo.firstName} ${userInfo.lastName}`,
+    heading: (`${userInfo.firstName} ${userInfo.lastName}`).toUpperCase(),
     paragraph: "WEB-DESIGNER"
   },
     projects: {
@@ -20,7 +20,7 @@ const headerInfo = {
   },
     about: {
     heading: "ABOUT ME",
-    paragraph: `IT'S A ME, ${userInfo.firstName}`
+    paragraph: (`IT'S A ME, ${userInfo.firstName}`).toUpperCase(),
   },
     contact: {
     heading: "CONTACT ME",
@@ -71,6 +71,12 @@ function renderSection(target) {
   mainDiv.appendChild(mainText);
   mainContainer.appendChild(mainDiv);
 }
+
+// LOGIC: set first start subpage
+
+renderSection("home");
+renderInfoHeader(headerInfo.home.heading, headerInfo.home.paragraph)
+
 
 
 
