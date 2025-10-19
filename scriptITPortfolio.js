@@ -1,5 +1,5 @@
 // IMPORT: object include user indo data
-import userInfo from "./userInfo.js"
+import userInfo from "./userInfo.js";
 
 // ELEMENT: main container
 const mainContainer = document.getElementById("mainContainer");
@@ -11,56 +11,80 @@ const navItems = document.querySelectorAll("nav li");
 // OBJECT HEADINGS AND PARAGRAPH
 const headerInfo = {
   home: {
-    heading: (`${userInfo.firstName} ${userInfo.lastName}`).toUpperCase(),
-    paragraph: "WEB-DESIGNER"
+    heading: `${userInfo.firstName} ${userInfo.lastName}`.toUpperCase(),
+    paragraph: "WEB-DESIGNER",
   },
-    projects: {
+  projects: {
     heading: "MY PROJECTS",
-    paragraph: "MADE WITH LOVE"
+    paragraph: "MADE WITH LOVE",
   },
-    about: {
+  about: {
     heading: "ABOUT ME",
-    paragraph: (`IT'S A ME, ${userInfo.firstName}`).toUpperCase(),
+    paragraph: `IT'S A ME, ${userInfo.firstName}`.toUpperCase(),
   },
-    contact: {
+  contact: {
     heading: "CONTACT ME",
-    paragraph: "SAY HELLO TO ME"
+    paragraph: "SAY HELLO TO ME",
   },
-    messages: {
+  messages: {
     heading: "MESSAGES",
-    paragraph: "MESSAGES FROM THE\n INTERESTED PERSON"
-  }
-}
+    paragraph: "MESSAGES FROM THE\n INTERESTED PERSON",
+  },
+};
 
 // LOGIC: synchronize footer and header links
-navItems.forEach(clickedItem => {
+navItems.forEach((clickedItem) => {
   clickedItem.addEventListener("click", () => {
-    navItems.forEach(item => {
-      item.classList.remove("activeListElement")
-    })
+    navItems.forEach((item) => {
+      item.classList.remove("activeListElement");
+    });
     const targetName = clickedItem.dataset.target;
-    const matchedItems = document.querySelectorAll(`li[data-target=${targetName}]`);
+    const matchedItems = document.querySelectorAll(
+      `li[data-target=${targetName}]`
+    );
     renderSection(targetName);
-    renderInfoHeader(headerInfo[targetName].heading, headerInfo[targetName].paragraph)
-    matchedItems.forEach(item => {
+    renderInfoHeader(
+      headerInfo[targetName].heading,
+      headerInfo[targetName].paragraph
+    );
+    matchedItems.forEach((item) => {
       item.classList.add("activeListElement");
-    })
-  })
-})
+    });
+  });
+});
 
-// FUNCTION: dynnamically render basic structure info header 
+// FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
   const headerInfoContainer = document.createElement("div");
-  headerContainer.innerHTML="";
+  headerContainer.innerHTML = "";
   headerInfoContainer.classList.add("heroTextContainer");
   const headingInfo = document.createElement("h2");
-  headingInfo.innerText=heading;
+  headingInfo.innerText = heading;
   const paragraphInfo = document.createElement("p");
   paragraphInfo.innerText = paragraph;
   headerInfoContainer.appendChild(headingInfo);
-  headerInfoContainer.appendChild(paragraphInfo)
+  headerInfoContainer.appendChild(paragraphInfo);
   headerContainer.appendChild(headerInfoContainer);
 }
+
+// ABOUT ME
+
+// FUNCTION: allow to create with description in section about me
+function createArticle(heading, description, container) {
+  const articleContainer = document.createElement("div");
+  articleContainer.classList.add("articleContainer");
+  const article = document.createElement("article");
+  const headingArticle = document.createElement("h3");
+  headingArticle.textContent = heading;
+  const descriptionArticle = document.createElement("p");
+  descriptionArticle.textContent = description;
+  descriptionArticle.classList.add("marginBetweenHeadingAndParagraph", "preLine");
+  articleContainer.appendChild(headingArticle);
+  articleContainer.appendChild(descriptionArticle);
+  container.appendChild(articleContainer);
+}
+
+// MESSAGES, CONTACT
 
 // FUNCTION: allow to create new message in section message
 function createMessage(name, email, message, container) {
@@ -89,52 +113,63 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
-  // MESSAGE
-  if (target === "messages") {
-    mainContainer.innerHTML="";
-    const mainMessageContainer  = document.createElement("div");
+  // ABOUT ME
+  if (target === "about") {
+    mainContainer.innerHTML = "";
+    const mainAboutMecontainer = document.createElement("div");
+    mainAboutMecontainer.classList.add("flexStyleColumn", "alignItemsFlexCenter", "paddinSectionAboutMe", "gapBetweenElements")
+    const imageMaleContainer = document.createElement("div");
+    imageMaleContainer.classList.add("imageMaleContainer")
+    mainAboutMecontainer.appendChild(imageMaleContainer)
+    createArticle("My background", userInfo.info.myBackground, mainAboutMecontainer);
+    createArticle("My hobbies and interests", userInfo.info.hobbies, mainAboutMecontainer);
+    const buttoncontainer = document.createElement("div");
+    buttoncontainer.classList.add("displayFlexJustifyCenter", "buttonContactMeMargin");
+    const button = document.createElement("button");
+    button.classList.add("flexStyleCenter", "gapInsideButton");
+    button.textContent = "Contact me";
+    const imageButton = document.createElement("img");
+    imageButton.classList.add("iconArrowButton");
+    imageButton.src = "./images/Arrow right.svg";
+    imageButton.alt = "icon arrow sign";
+    button.appendChild(imageButton);
+    buttoncontainer.appendChild(button);
+    mainAboutMecontainer.appendChild(buttoncontainer);
+    mainContainer.appendChild(mainAboutMecontainer);
+  } 
+  // MESSAGES
+  else if (target === "messages") {
+    mainContainer.innerHTML = "";
+    const mainMessageContainer = document.createElement("div");
     mainMessageContainer.id = "mainMessageContainer";
-    mainMessageContainer.classList.add("paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages")
-    userInfo.messages.forEach(message => {
-      createMessage({value: message.name}, {value: message.email}, {value: message.message}, mainMessageContainer)
-    })
-    mainContainer.appendChild(mainMessageContainer)
+
+    mainMessageContainer.classList.add(
+      "paddingSectionMessages",
+      "flexStyleColumn",
+      "gapBetweenMessages"
+    );
+    userInfo.messages.forEach((message) => {
+      createMessage(
+        { value: message.name },
+        { value: message.email },
+        { value: message.message },
+        mainMessageContainer
+      );
+    });
+    mainContainer.appendChild(mainMessageContainer);
   } else {
-  mainContainer.innerHTML="";
-  const mainDiv = document.createElement("div");
-  const mainText = document.createElement("h3");
-  mainText.textContent=target;
-  mainDiv.appendChild(mainText);
-  mainContainer.appendChild(mainDiv);
+    mainContainer.innerHTML = "";
+    const mainDiv = document.createElement("div");
+    const mainText = document.createElement("h3");
+    mainText.textContent = target;
+    mainDiv.appendChild(mainText);
+    mainContainer.appendChild(mainDiv);
   }
 }
 
 // LOGIC: set first start subpage
 renderSection("home");
-renderInfoHeader(headerInfo.home.heading, headerInfo.home.paragraph)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+renderInfoHeader(headerInfo.home.heading, headerInfo.home.paragraph);
 
 // // ELEMENTS: mobile menu
 // const normalMenuMobile = document.getElementById("normalMenuMobile");
@@ -804,13 +839,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   );
 // }
 
-
-
-
-
-
-
-
 // // FUNCTION: allow to create new message in section message
 // function createMessage(name, email, message) {
 //   const nameValue = name.value.trim();
@@ -871,9 +899,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //     { value: card.technology }
 //   );
 // });
-
-
-
 
 // // EVENT LISTENERS: automatically create message from array
 // (userInfo.messages).forEach((message) => {
@@ -1169,21 +1194,3 @@ tel.textContent = `+ ${userInfo.tel}`;
 // window.addEventListener("resize", () => {
 //   updateCarouselPosition();
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
