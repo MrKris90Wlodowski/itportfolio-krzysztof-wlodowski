@@ -53,7 +53,7 @@ navItems.forEach((clickedItem) => {
   });
 });
 
-// FUNCTIONS: basic reusable function
+// BASIC FUNCTIONS: basic reusable function
 
 // FUNCTION: clear and create basic frame section
 function renderBasicContainer(classContainer = [], idContainer) {
@@ -63,6 +63,28 @@ function renderBasicContainer(classContainer = [], idContainer) {
   container.id = idContainer ?? "";
   return container;
 }
+
+// FUNCTION: create basic frame button
+function renderBasicButton(classButton = [], text) {
+  const button = document.createElement("button");
+  button.classList.add(...classButton);
+  button.textContent = text;
+  return button;
+}
+
+// FUNCTION: create basic frame image
+function renderBasicImage(classImage = [], source, alter) {
+    const image = document.createElement("img");
+    image.classList.add(...classImage);
+    image.src = source;
+    image.alt = alter;
+    return image;
+}
+
+
+
+
+
 
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
@@ -164,6 +186,12 @@ function createMessage(name, email, message, container) {
   container.appendChild(messageContainer);
 }
 
+// MODAL
+
+// FUNCTION: allow to create new message in section message
+
+
+
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
   // HOME
@@ -179,6 +207,14 @@ function renderSection(target) {
       "flexStyleColumn",
       "alignItemsFlexCenter",
     ]);
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("displayFlexJustifyCenter", "buttonAddProjectMargin");
+    const buttonAddProject = renderBasicButton(["flexStyleCenter", "gapInsideButton"],"Add project")
+    const imageButton = renderBasicImage(["iconPlusButton"], "./images/Vector.svg", "icon plus sign")
+    buttonAddProject.appendChild(imageButton);
+    buttonContainer.appendChild(buttonAddProject);
+
     const projectsContainer = document.createElement("div");
     projectsContainer.classList.add(
       "displayGrid",
@@ -194,6 +230,7 @@ function renderSection(target) {
         projectsContainer
       );
     });
+    mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
   }
@@ -224,29 +261,27 @@ function renderSection(target) {
       "displayFlexJustifyCenter",
       "buttonContactMeMargin"
     );
-    const button = document.createElement("button");
-    button.classList.add("flexStyleCenter", "gapInsideButton");
-    button.textContent = "Contact me";
-    button.addEventListener("click", () => {
+
+    const buttonContactMe = renderBasicButton(["flexStyleCenter", "gapInsideButton"],"Contact me")
+    buttonContactMe.addEventListener("click", () => {
       renderSection("contact");
       renderInfoHeader(
         headerInfo.contact.heading,
         headerInfo.contact.paragraph
       );
     });
-    const imageButton = document.createElement("img");
-    imageButton.classList.add("iconArrowButton");
-    imageButton.src = "./images/Arrow right.svg";
-    imageButton.alt = "icon arrow sign";
-    button.appendChild(imageButton);
-    buttoncontainer.appendChild(button);
+    const imageButton = renderBasicImage(["iconArrowButton"], "./images/Arrow right.svg", "icon arrow sign")
+    buttonContactMe.appendChild(imageButton);
+    buttoncontainer.appendChild(buttonContactMe);
     mainAboutMecontainer.appendChild(buttoncontainer);
     mainContainer.appendChild(mainAboutMecontainer);
   }
 
   // CONTACT
   else if (target === "contact") {
-    const mainContactContainer = renderBasicContainer(["paddingSectionContact"]);
+    const mainContactContainer = renderBasicContainer([
+      "paddingSectionContact",
+    ]);
     mainContainer.appendChild(mainContactContainer);
   }
 
