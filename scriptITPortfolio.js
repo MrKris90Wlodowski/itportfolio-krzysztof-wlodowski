@@ -67,6 +67,45 @@ function renderInfoHeader(heading, paragraph) {
   headerContainer.appendChild(headerInfoContainer);
 }
 
+// PROJECTS
+
+// FUNCTION: add new project card in projects section
+function addNewProject(project, technology, uniqeDataset, container) {
+  const projectValue = project.value.trim();
+  const technologyValue = technology.value
+    .trim()
+    .split(",")
+    .map((tech) => tech.trim())
+    .filter((tech) => tech !== "");
+
+  const newProject = document.createElement("div");
+  newProject.dataset.uniqe = uniqeDataset;
+  newProject.classList.add("imageProjectContainer");
+  const nameProject = document.createElement("h4");
+  nameProject.textContent = `${projectValue}`;
+  newProject.appendChild(nameProject);
+
+  const listTech = document.createElement("ul");
+  listTech.classList.add("technologyUse");
+  technologyValue.forEach((tech) => {
+    const newTech = document.createElement("li");
+    newTech.textContent = `${tech}`;
+    listTech.appendChild(newTech);
+  });
+  newProject.appendChild(listTech);
+
+  const buttonDelete = document.createElement("button");
+  buttonDelete.classList.add("imageDeleteContainer");
+  newProject.appendChild(buttonDelete);
+  // buttonDelete.addEventListener("click", () => {
+  //   deleteProject(buttonDelete, "imageProjectContainer");
+  // });
+
+  container.appendChild(newProject);
+  // checkAmountProjectCard();
+}
+
+
 // ABOUT ME
 
 // FUNCTION: allow to create with description in section about me
@@ -116,8 +155,23 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+  // PROJECTS
+  if (target === "projects") {
+    mainContainer.innerHTML = "";
+    const mainProjectsContainer = document.createElement("div");
+    mainProjectsContainer.classList.add("paddingSectionProjectMe", "flexStyleColumn", "alignItemsFlexCenter");
+    const projectsContainer = document.createElement("div");
+    projectsContainer.classList.add("displayGrid", "gapInsideMyProject", "gridColumnsProject");
+    (userInfo.cardsProjects).forEach(card => {
+      const uniqeDataset = crypto.randomUUID();;
+      addNewProject({value: card.project}, {value: card.technology}, uniqeDataset, projectsContainer)
+    })
+    mainProjectsContainer.appendChild(projectsContainer);
+    mainContainer.appendChild(mainProjectsContainer);
+  }
+
   // ABOUT ME
-  if (target === "about") {
+  else if (target === "about") {
     mainContainer.innerHTML = "";
     const mainAboutMecontainer = document.createElement("div");
     mainAboutMecontainer.classList.add(
@@ -163,6 +217,7 @@ function renderSection(target) {
     mainAboutMecontainer.appendChild(buttoncontainer);
     mainContainer.appendChild(mainAboutMecontainer);
   }
+
   // MESSAGES
   else if (target === "messages") {
     mainContainer.innerHTML = "";
