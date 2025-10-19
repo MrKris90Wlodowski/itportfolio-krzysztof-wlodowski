@@ -53,6 +53,17 @@ navItems.forEach((clickedItem) => {
   });
 });
 
+// FUNCTIONS: basic reusable function
+
+// FUNCTION: clear and create basic frame section
+function renderBasicContainer(classContainer = [], idContainer) {
+  mainContainer.innerHTML = "";
+  const container = document.createElement("div");
+  container.classList.add(...classContainer);
+  container.id = idContainer ?? "";
+  return container;
+}
+
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
   const headerInfoContainer = document.createElement("div");
@@ -105,7 +116,6 @@ function addNewProject(project, technology, uniqeDataset, container) {
   // checkAmountProjectCard();
 }
 
-
 // ABOUT ME
 
 // FUNCTION: allow to create with description in section about me
@@ -121,8 +131,9 @@ function createArticle(heading, description, container) {
     "marginBetweenHeadingAndParagraph",
     "preLine"
   );
-  articleContainer.appendChild(headingArticle);
-  articleContainer.appendChild(descriptionArticle);
+  article.appendChild(headingArticle);
+  article.appendChild(descriptionArticle);
+  articleContainer.appendChild(article);
   container.appendChild(articleContainer);
 }
 
@@ -155,31 +166,46 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+  // HOME
+  if (target === "home") {
+    const mainHomeContainer = renderBasicContainer(["paddingSectionHome"]);
+    mainContainer.appendChild(mainHomeContainer);
+  }
+
   // PROJECTS
-  if (target === "projects") {
-    mainContainer.innerHTML = "";
-    const mainProjectsContainer = document.createElement("div");
-    mainProjectsContainer.classList.add("paddingSectionProjectMe", "flexStyleColumn", "alignItemsFlexCenter");
+  else if (target === "projects") {
+    const mainProjectsContainer = renderBasicContainer([
+      "paddingSectionProjectMe",
+      "flexStyleColumn",
+      "alignItemsFlexCenter",
+    ]);
     const projectsContainer = document.createElement("div");
-    projectsContainer.classList.add("displayGrid", "gapInsideMyProject", "gridColumnsProject");
-    (userInfo.cardsProjects).forEach(card => {
-      const uniqeDataset = crypto.randomUUID();;
-      addNewProject({value: card.project}, {value: card.technology}, uniqeDataset, projectsContainer)
-    })
+    projectsContainer.classList.add(
+      "displayGrid",
+      "gapInsideMyProject",
+      "gridColumnsProject"
+    );
+    userInfo.cardsProjects.forEach((card) => {
+      const uniqeDataset = crypto.randomUUID();
+      addNewProject(
+        { value: card.project },
+        { value: card.technology },
+        uniqeDataset,
+        projectsContainer
+      );
+    });
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
   }
 
   // ABOUT ME
   else if (target === "about") {
-    mainContainer.innerHTML = "";
-    const mainAboutMecontainer = document.createElement("div");
-    mainAboutMecontainer.classList.add(
+    const mainAboutMecontainer = renderBasicContainer([
       "flexStyleColumn",
       "alignItemsFlexCenter",
       "paddinSectionAboutMe",
-      "gapBetweenElements"
-    );
+      "gapBetweenElements",
+    ]);
     const imageMaleContainer = document.createElement("div");
     imageMaleContainer.classList.add("imageMaleContainer");
     mainAboutMecontainer.appendChild(imageMaleContainer);
@@ -218,16 +244,17 @@ function renderSection(target) {
     mainContainer.appendChild(mainAboutMecontainer);
   }
 
+  // CONTACT
+  else if (target === "contact") {
+    const mainContactContainer = renderBasicContainer(["paddingSectionContact"]);
+    mainContainer.appendChild(mainContactContainer);
+  }
+
   // MESSAGES
   else if (target === "messages") {
-    mainContainer.innerHTML = "";
-    const mainMessageContainer = document.createElement("div");
-    mainMessageContainer.id = "mainMessageContainer";
-
-    mainMessageContainer.classList.add(
-      "paddingSectionMessages",
-      "flexStyleColumn",
-      "gapBetweenMessages"
+    const mainMessageContainer = renderBasicContainer(
+      ["paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages"],
+      "mainMessageContainer"
     );
     userInfo.messages.forEach((message) => {
       createMessage(
@@ -238,13 +265,6 @@ function renderSection(target) {
       );
     });
     mainContainer.appendChild(mainMessageContainer);
-  } else {
-    mainContainer.innerHTML = "";
-    const mainDiv = document.createElement("div");
-    const mainText = document.createElement("h3");
-    mainText.textContent = target;
-    mainDiv.appendChild(mainText);
-    mainContainer.appendChild(mainDiv);
   }
 }
 
