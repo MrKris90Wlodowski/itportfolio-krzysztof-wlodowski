@@ -78,7 +78,10 @@ function createArticle(heading, description, container) {
   headingArticle.textContent = heading;
   const descriptionArticle = document.createElement("p");
   descriptionArticle.textContent = description;
-  descriptionArticle.classList.add("marginBetweenHeadingAndParagraph", "preLine");
+  descriptionArticle.classList.add(
+    "marginBetweenHeadingAndParagraph",
+    "preLine"
+  );
   articleContainer.appendChild(headingArticle);
   articleContainer.appendChild(descriptionArticle);
   container.appendChild(articleContainer);
@@ -117,17 +120,40 @@ function renderSection(target) {
   if (target === "about") {
     mainContainer.innerHTML = "";
     const mainAboutMecontainer = document.createElement("div");
-    mainAboutMecontainer.classList.add("flexStyleColumn", "alignItemsFlexCenter", "paddinSectionAboutMe", "gapBetweenElements")
+    mainAboutMecontainer.classList.add(
+      "flexStyleColumn",
+      "alignItemsFlexCenter",
+      "paddinSectionAboutMe",
+      "gapBetweenElements"
+    );
     const imageMaleContainer = document.createElement("div");
-    imageMaleContainer.classList.add("imageMaleContainer")
-    mainAboutMecontainer.appendChild(imageMaleContainer)
-    createArticle("My background", userInfo.info.myBackground, mainAboutMecontainer);
-    createArticle("My hobbies and interests", userInfo.info.hobbies, mainAboutMecontainer);
+    imageMaleContainer.classList.add("imageMaleContainer");
+    mainAboutMecontainer.appendChild(imageMaleContainer);
+    createArticle(
+      "My background",
+      userInfo.info.myBackground,
+      mainAboutMecontainer
+    );
+    createArticle(
+      "My hobbies and interests",
+      userInfo.info.hobbies,
+      mainAboutMecontainer
+    );
     const buttoncontainer = document.createElement("div");
-    buttoncontainer.classList.add("displayFlexJustifyCenter", "buttonContactMeMargin");
+    buttoncontainer.classList.add(
+      "displayFlexJustifyCenter",
+      "buttonContactMeMargin"
+    );
     const button = document.createElement("button");
     button.classList.add("flexStyleCenter", "gapInsideButton");
     button.textContent = "Contact me";
+    button.addEventListener("click", () => {
+      renderSection("contact");
+      renderInfoHeader(
+        headerInfo.contact.heading,
+        headerInfo.contact.paragraph
+      );
+    });
     const imageButton = document.createElement("img");
     imageButton.classList.add("iconArrowButton");
     imageButton.src = "./images/Arrow right.svg";
@@ -136,7 +162,7 @@ function renderSection(target) {
     buttoncontainer.appendChild(button);
     mainAboutMecontainer.appendChild(buttoncontainer);
     mainContainer.appendChild(mainAboutMecontainer);
-  } 
+  }
   // MESSAGES
   else if (target === "messages") {
     mainContainer.innerHTML = "";
