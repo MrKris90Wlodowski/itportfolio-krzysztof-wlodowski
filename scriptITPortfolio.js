@@ -56,24 +56,60 @@ function renderInfoHeader(heading, paragraph) {
   const headingInfo = document.createElement("h2");
   headingInfo.innerText=heading;
   const paragraphInfo = document.createElement("p");
-  paragraphInfo.innerText=paragraph;
+  paragraphInfo.innerText = paragraph;
   headerInfoContainer.appendChild(headingInfo);
   headerInfoContainer.appendChild(paragraphInfo)
   headerContainer.appendChild(headerInfoContainer);
 }
 
+// FUNCTION: allow to create new message in section message
+function createMessage(name, email, message, container) {
+  const nameValue = name.value.trim();
+  const emailValue = email.value.trim();
+  const messageValue = message.value.trim();
+  const messageContainer = document.createElement("div");
+
+  const nameElement = document.createElement("p");
+  nameElement.textContent = `Name: ${nameValue}`;
+  nameElement.classList.add("primaryStyleText");
+  messageContainer.appendChild(nameElement);
+
+  const emailElement = document.createElement("p");
+  emailElement.textContent = `Email: ${emailValue}`;
+  emailElement.classList.add("primaryStyleText");
+  messageContainer.appendChild(emailElement);
+
+  const messageElement = document.createElement("p");
+  messageElement.textContent = `Message: ${messageValue}`;
+  messageElement.classList.add("primaryStyleText");
+  messageContainer.appendChild(messageElement);
+
+  container.appendChild(messageContainer);
+}
+
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+  // MESSAGE
+  if (target === "messages") {
+    mainContainer.innerHTML="";
+    const mainMessageContainer  = document.createElement("div");
+    mainMessageContainer.id = "mainMessageContainer";
+    mainMessageContainer.classList.add("paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages")
+    userInfo.messages.forEach(message => {
+      createMessage({value: message.name}, {value: message.email}, {value: message.message}, mainMessageContainer)
+    })
+    mainContainer.appendChild(mainMessageContainer)
+  } else {
   mainContainer.innerHTML="";
   const mainDiv = document.createElement("div");
   const mainText = document.createElement("h3");
   mainText.textContent=target;
   mainDiv.appendChild(mainText);
   mainContainer.appendChild(mainDiv);
+  }
 }
 
 // LOGIC: set first start subpage
-
 renderSection("home");
 renderInfoHeader(headerInfo.home.heading, headerInfo.home.paragraph)
 
@@ -768,6 +804,13 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   );
 // }
 
+
+
+
+
+
+
+
 // // FUNCTION: allow to create new message in section message
 // function createMessage(name, email, message) {
 //   const nameValue = name.value.trim();
@@ -828,6 +871,9 @@ tel.textContent = `+ ${userInfo.tel}`;
 //     { value: card.technology }
 //   );
 // });
+
+
+
 
 // // EVENT LISTENERS: automatically create message from array
 // (userInfo.messages).forEach((message) => {
