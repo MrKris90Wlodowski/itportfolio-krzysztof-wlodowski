@@ -55,14 +55,14 @@ navItems.forEach((clickedItem) => {
 
 // BASIC FUNCTIONS: basic reusable function
 
-
 // FUNCTION: clear and create basic frame section
 function renderBasicElement({
   clearMain = false,
   element = "div",
   classElement = [],
-  idElement= "",
-  textElement = ""
+  idElement = "",
+  textElement = "",
+  typeElement = ""
 }) {
   if (clearMain === true) {
     mainContainer.innerHTML = "";
@@ -71,15 +71,8 @@ function renderBasicElement({
   casualElement.classList.add(...classElement);
   casualElement.textContent = textElement;
   casualElement.id = idElement;
+  casualElement.type = typeElement;
   return casualElement;
-}
-
-// FUNCTION: create basic frame button
-function renderBasicButton(classButton = [], text) {
-  const button = document.createElement("button");
-  button.classList.add(...classButton);
-  button.textContent = text;
-  return button;
 }
 
 // FUNCTION: create basic frame image
@@ -173,15 +166,23 @@ function createMessage(name, email, message, container) {
   const messageValue = message.value.trim();
   const messageContainer = document.createElement("div");
 
-  const nameElement = renderBasicElement({element: "p", textElement: `Name: ${nameValue}`, classElement: ["primaryStyleText"]});
-  messageContainer.appendChild(nameElement);
+  const nameElement = renderBasicElement({
+    element: "p",
+    textElement: `Name: ${nameValue}`,
+    classElement: ["primaryStyleText"],
+  });
+  const emailElement = renderBasicElement({
+    element: "p",
+    textElement: `Email: ${emailValue}`,
+    classElement: ["primaryStyleText"],
+  });
+  const messageElement = renderBasicElement({
+    element: "p",
+    textElement: `Message: ${messageValue}`,
+    classElement: ["primaryStyleText"],
+  });
 
-  const emailElement = renderBasicElement({element: "p", textElement: `Email: ${emailValue}`, classElement: ["primaryStyleText"]});
-  messageContainer.appendChild(emailElement);
-
-  const messageElement = renderBasicElement({element: "p", textElement: `Message: ${messageValue}`, classElement: ["primaryStyleText"]});
-  messageContainer.appendChild(messageElement);
-
+  messageContainer.append(nameElement, emailElement, messageElement);
   container.appendChild(messageContainer);
 }
 
@@ -189,10 +190,46 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: allow to create modal form
 function createModal() {
-  const modal = renderBasicElement({element: "div", classElement: ["modalMainContainer"]});
-  const modalContainer = renderBasicElement({element: "div", classElement: ["dismensionModal", "positionRelative"]})
-  const modalForm  = document.createElement("form");
-  modalForm.appendChild(modalContainer);
+  const modal = renderBasicElement({
+    element: "div",
+    classElement: ["modalMainContainer"],
+  });
+  const modalContainer = renderBasicElement({
+    element: "div",
+    classElement: ["dismensionModal", "positionRelative"],
+  });
+  const modalForm = document.createElement("form");
+  const modalFormContainer = renderBasicElement({
+    classElement: [
+      "flexStyleCenter",
+      "directionFlexColumn",
+      "alignItemsFlexStart",
+    ],
+  });
+
+  const closeButtonContainer = renderBasicElement({});
+  const projectNamecontainer = renderBasicElement({
+    classElement: ["flexStyleColumn", "fullWidth"],
+  });
+  const projectTechContainer = renderBasicElement({
+    classElement: ["flexStyleColumn", "fullWidth"],
+  });
+  const addProjectContainer = renderBasicElement({
+    classElement: ["displayFlexJustifyCenter", "fullWidth"],
+  });
+  const buttonAddProject = renderBasicElement({
+    element: "button",
+    classElement: ["flexStyleCenter", "gapInsideButton", "marginButtonModal"],
+    textElement: "Add project",
+  });
+  addProjectContainer.appendChild(buttonAddProject);
+  modalFormContainer.append(
+    closeButtonContainer,
+    projectNamecontainer,
+    projectTechContainer,
+    addProjectContainer
+  );
+  modalContainer.appendChild(modalFormContainer);
   modal.appendChild(modalContainer);
   document.body.appendChild(modal);
 }
@@ -203,29 +240,35 @@ function createModal() {
 function renderSection(target) {
   // HOME
   if (target === "home") {
-    const mainHomeContainer = renderBasicElement({clearMain: true, classElement: [
-      "paddingSectionHome",
-    ]});
+    const mainHomeContainer = renderBasicElement({
+      clearMain: true,
+      classElement: ["paddingSectionHome"],
+    });
     mainContainer.appendChild(mainHomeContainer);
   }
 
   // PROJECTS
   else if (target === "projects") {
-    const mainProjectsContainer = renderBasicElement({clearMain: true, element: "div",classElement: [
-      "paddingSectionProjectMe",
-      "flexStyleColumn",
-      "alignItemsFlexCenter",
-    ]});
+    const mainProjectsContainer = renderBasicElement({
+      clearMain: true,
+      element: "div",
+      classElement: [
+        "paddingSectionProjectMe",
+        "flexStyleColumn",
+        "alignItemsFlexCenter",
+      ],
+    });
 
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add(
       "displayFlexJustifyCenter",
       "buttonAddProjectMargin"
     );
-    const buttonAddProject = renderBasicButton(
-      ["flexStyleCenter", "gapInsideButton"],
-      "Add project"
-    );
+    const buttonAddProject = renderBasicElement({
+      element: "button",
+      classElement: ["flexStyleCenter", "gapInsideButton"],
+      textElement: "Add project"
+    });
     const imageButton = renderBasicImage(
       ["iconPlusButton"],
       "./images/Vector.svg",
@@ -233,7 +276,7 @@ function renderSection(target) {
     );
     buttonAddProject.addEventListener("click", () => {
       createModal();
-    })
+    });
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
 
@@ -259,12 +302,16 @@ function renderSection(target) {
 
   // ABOUT ME
   else if (target === "about") {
-    const mainAboutMecontainer = renderBasicElement({clearMain: true, element: "div",classElement: [
-      "flexStyleColumn",
-      "alignItemsFlexCenter",
-      "paddinSectionAboutMe",
-      "gapBetweenElements",
-    ]});
+    const mainAboutMecontainer = renderBasicElement({
+      clearMain: true,
+      element: "div",
+      classElement: [
+        "flexStyleColumn",
+        "alignItemsFlexCenter",
+        "paddinSectionAboutMe",
+        "gapBetweenElements",
+      ],
+    });
     const imageMaleContainer = document.createElement("div");
     imageMaleContainer.classList.add("imageMaleContainer");
     mainAboutMecontainer.appendChild(imageMaleContainer);
@@ -284,10 +331,11 @@ function renderSection(target) {
       "buttonContactMeMargin"
     );
 
-    const buttonContactMe = renderBasicButton(
-      ["flexStyleCenter", "gapInsideButton"],
-      "Contact me"
-    );
+    const buttonContactMe = renderBasicElement({
+      element: "button",
+      classElement: ["flexStyleCenter", "gapInsideButton"],
+      textElement: "Contact me",
+    });
     buttonContactMe.addEventListener("click", () => {
       renderSection("contact");
       renderInfoHeader(
@@ -308,18 +356,26 @@ function renderSection(target) {
 
   // CONTACT
   else if (target === "contact") {
-    const mainContactContainer = renderBasicElement({clearMain: true, element: "div",classElement: [
-      "paddingSectionContact",
-    ]});
+    const mainContactContainer = renderBasicElement({
+      clearMain: true,
+      element: "div",
+      classElement: ["paddingSectionContact"],
+    });
     mainContainer.appendChild(mainContactContainer);
   }
 
   // MESSAGES
   else if (target === "messages") {
-    const mainMessageContainer = renderBasicElement({clearMain: true, element: "div",
-      classElement: ["paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages"],
-      idElement: "mainMessageContainer"
-  });
+    const mainMessageContainer = renderBasicElement({
+      clearMain: true,
+      element: "div",
+      classElement: [
+        "paddingSectionMessages",
+        "flexStyleColumn",
+        "gapBetweenMessages",
+      ],
+      idElement: "mainMessageContainer",
+    });
     userInfo.messages.forEach((message) => {
       createMessage(
         { value: message.name },
