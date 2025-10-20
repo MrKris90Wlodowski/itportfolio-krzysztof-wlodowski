@@ -173,25 +173,29 @@ function createMessage(name, email, message, container) {
   const messageValue = message.value.trim();
   const messageContainer = document.createElement("div");
 
-  const nameElement = document.createElement("p");
-  nameElement.textContent = `Name: ${nameValue}`;
-  nameElement.classList.add("primaryStyleText");
+  const nameElement = renderBasicElement({element: "p", textElement: `Name: ${nameValue}`, classElement: ["primaryStyleText"]});
   messageContainer.appendChild(nameElement);
 
-  const emailElement = document.createElement("p");
-  emailElement.textContent = `Email: ${emailValue}`;
-  emailElement.classList.add("primaryStyleText");
+  const emailElement = renderBasicElement({element: "p", textElement: `Email: ${emailValue}`, classElement: ["primaryStyleText"]});
   messageContainer.appendChild(emailElement);
 
-  const messageElement = document.createElement("p");
-  messageElement.textContent = `Message: ${messageValue}`;
-  messageElement.classList.add("primaryStyleText");
+  const messageElement = renderBasicElement({element: "p", textElement: `Message: ${messageValue}`, classElement: ["primaryStyleText"]});
   messageContainer.appendChild(messageElement);
 
   container.appendChild(messageContainer);
 }
 
 // MODAL
+
+// FUNCTION: allow to create modal form
+function createModal() {
+  const modal = renderBasicElement({element: "div", classElement: ["modalMainContainer"]});
+  const modalContainer = renderBasicElement({element: "div", classElement: ["dismensionModal", "positionRelative"]})
+  const modalForm  = document.createElement("form");
+  modalForm.appendChild(modalContainer);
+  modal.appendChild(modalContainer);
+  document.body.appendChild(modal);
+}
 
 // FUNCTION: allow to create new message in section message
 
@@ -227,6 +231,9 @@ function renderSection(target) {
       "./images/Vector.svg",
       "icon plus sign"
     );
+    buttonAddProject.addEventListener("click", () => {
+      createModal();
+    })
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
 
