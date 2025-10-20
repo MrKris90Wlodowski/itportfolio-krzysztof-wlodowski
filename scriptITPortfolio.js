@@ -55,13 +55,23 @@ navItems.forEach((clickedItem) => {
 
 // BASIC FUNCTIONS: basic reusable function
 
+
 // FUNCTION: clear and create basic frame section
-function renderBasicContainer(classContainer = [], idContainer) {
-  mainContainer.innerHTML = "";
-  const container = document.createElement("div");
-  container.classList.add(...classContainer);
-  container.id = idContainer ?? "";
-  return container;
+function renderBasicElement({
+  clearMain = false,
+  element = "div",
+  classElement = [],
+  idElement= "",
+  textElement = ""
+}) {
+  if (clearMain === true) {
+    mainContainer.innerHTML = "";
+  }
+  const casualElement = document.createElement(element);
+  casualElement.classList.add(...classElement);
+  casualElement.textContent = textElement;
+  casualElement.id = idElement;
+  return casualElement;
 }
 
 // FUNCTION: create basic frame button
@@ -74,17 +84,12 @@ function renderBasicButton(classButton = [], text) {
 
 // FUNCTION: create basic frame image
 function renderBasicImage(classImage = [], source, alter) {
-    const image = document.createElement("img");
-    image.classList.add(...classImage);
-    image.src = source;
-    image.alt = alter;
-    return image;
+  const image = document.createElement("img");
+  image.classList.add(...classImage);
+  image.src = source;
+  image.alt = alter;
+  return image;
 }
-
-
-
-
-
 
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
@@ -190,28 +195,38 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: allow to create new message in section message
 
-
-
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
   // HOME
   if (target === "home") {
-    const mainHomeContainer = renderBasicContainer(["paddingSectionHome"]);
+    const mainHomeContainer = renderBasicElement({clearMain: true, classElement: [
+      "paddingSectionHome",
+    ]});
     mainContainer.appendChild(mainHomeContainer);
   }
 
   // PROJECTS
   else if (target === "projects") {
-    const mainProjectsContainer = renderBasicContainer([
+    const mainProjectsContainer = renderBasicElement({clearMain: true, element: "div",classElement: [
       "paddingSectionProjectMe",
       "flexStyleColumn",
       "alignItemsFlexCenter",
-    ]);
+    ]});
 
     const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("displayFlexJustifyCenter", "buttonAddProjectMargin");
-    const buttonAddProject = renderBasicButton(["flexStyleCenter", "gapInsideButton"],"Add project")
-    const imageButton = renderBasicImage(["iconPlusButton"], "./images/Vector.svg", "icon plus sign")
+    buttonContainer.classList.add(
+      "displayFlexJustifyCenter",
+      "buttonAddProjectMargin"
+    );
+    const buttonAddProject = renderBasicButton(
+      ["flexStyleCenter", "gapInsideButton"],
+      "Add project"
+    );
+    const imageButton = renderBasicImage(
+      ["iconPlusButton"],
+      "./images/Vector.svg",
+      "icon plus sign"
+    );
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
 
@@ -237,12 +252,12 @@ function renderSection(target) {
 
   // ABOUT ME
   else if (target === "about") {
-    const mainAboutMecontainer = renderBasicContainer([
+    const mainAboutMecontainer = renderBasicElement({clearMain: true, element: "div",classElement: [
       "flexStyleColumn",
       "alignItemsFlexCenter",
       "paddinSectionAboutMe",
       "gapBetweenElements",
-    ]);
+    ]});
     const imageMaleContainer = document.createElement("div");
     imageMaleContainer.classList.add("imageMaleContainer");
     mainAboutMecontainer.appendChild(imageMaleContainer);
@@ -262,7 +277,10 @@ function renderSection(target) {
       "buttonContactMeMargin"
     );
 
-    const buttonContactMe = renderBasicButton(["flexStyleCenter", "gapInsideButton"],"Contact me")
+    const buttonContactMe = renderBasicButton(
+      ["flexStyleCenter", "gapInsideButton"],
+      "Contact me"
+    );
     buttonContactMe.addEventListener("click", () => {
       renderSection("contact");
       renderInfoHeader(
@@ -270,7 +288,11 @@ function renderSection(target) {
         headerInfo.contact.paragraph
       );
     });
-    const imageButton = renderBasicImage(["iconArrowButton"], "./images/Arrow right.svg", "icon arrow sign")
+    const imageButton = renderBasicImage(
+      ["iconArrowButton"],
+      "./images/Arrow right.svg",
+      "icon arrow sign"
+    );
     buttonContactMe.appendChild(imageButton);
     buttoncontainer.appendChild(buttonContactMe);
     mainAboutMecontainer.appendChild(buttoncontainer);
@@ -279,18 +301,18 @@ function renderSection(target) {
 
   // CONTACT
   else if (target === "contact") {
-    const mainContactContainer = renderBasicContainer([
+    const mainContactContainer = renderBasicElement({clearMain: true, element: "div",classElement: [
       "paddingSectionContact",
-    ]);
+    ]});
     mainContainer.appendChild(mainContactContainer);
   }
 
   // MESSAGES
   else if (target === "messages") {
-    const mainMessageContainer = renderBasicContainer(
-      ["paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages"],
-      "mainMessageContainer"
-    );
+    const mainMessageContainer = renderBasicElement({clearMain: true, element: "div",
+      classElement: ["paddingSectionMessages", "flexStyleColumn", "gapBetweenMessages"],
+      idElement: "mainMessageContainer"
+  });
     userInfo.messages.forEach((message) => {
       createMessage(
         { value: message.name },
