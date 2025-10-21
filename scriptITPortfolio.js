@@ -1,11 +1,9 @@
 // IMPORT: object include user indo data
 import userInfo from "./userInfo.js";
 
-// ELEMENT: main container
+// ELEMENT HTML STRUCTURE: main amd header container and nav links
 const mainContainer = document.getElementById("mainContainer");
 const headerContainer = document.getElementById("headerContainer");
-
-// ELEMENT: nav links
 const navItems = document.querySelectorAll("nav li");
 
 // OBJECT HEADINGS AND PARAGRAPH
@@ -62,7 +60,7 @@ function renderBasicElement({
   classElement = [],
   idElement = "",
   textElement = "",
-  typeElement = ""
+  typeElement = "",
 }) {
   if (clearMain === true) {
     mainContainer.innerHTML = "";
@@ -75,12 +73,26 @@ function renderBasicElement({
   return casualElement;
 }
 
+// FUNCTION: create basic form field
+function renderFormField({ fieldForm, labelForm, inputForm, errorForm }) {
+  const field = fieldForm;
+  const label = labelForm;
+  const input = inputForm;
+  const error = errorForm;
+  field.append(label, input, error);
+  return field;
+}
+
 // FUNCTION: create basic frame image
-function renderBasicImage(classImage = [], source, alter) {
+function renderBasicImage({
+  classImage = [],
+  sourceImage = "",
+  alterImage = "",
+}) {
   const image = document.createElement("img");
   image.classList.add(...classImage);
-  image.src = source;
-  image.alt = alter;
+  image.src = sourceImage;
+  image.alt = alterImage;
   return image;
 }
 
@@ -208,12 +220,29 @@ function createModal() {
   });
 
   const closeButtonContainer = renderBasicElement({});
+  const closeButton = renderBasicElement({
+    element: "button",
+    classElement: ["closeLogoX"],
+  });
+  const closeImage = renderBasicImage({
+    classImage: ["dimensionCloseLogoX"],
+    sourceImage: "./images/iconX.svg",
+    alterImage: "icon close X",
+  });
+  closeButton.appendChild(closeImage);
+  closeButtonContainer.appendChild(closeButton);
+
   const projectNamecontainer = renderBasicElement({
     classElement: ["flexStyleColumn", "fullWidth"],
   });
+  // const projectNamecontainer = renderFormField({
+  //   fieldForm: renderBasicElement({})
+  // })
+
   const projectTechContainer = renderBasicElement({
     classElement: ["flexStyleColumn", "fullWidth"],
   });
+
   const addProjectContainer = renderBasicElement({
     classElement: ["displayFlexJustifyCenter", "fullWidth"],
   });
@@ -244,6 +273,22 @@ function renderSection(target) {
       clearMain: true,
       classElement: ["paddingSectionHome"],
     });
+    const imageMaleContainer = renderBasicElement({
+      classElement: ["imageMaleContainer"],
+    });
+    const skillContainer = renderBasicElement({
+      classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
+    });
+    const homeContainer = renderBasicElement({
+      classElement: [
+        "flexStyleColumn",
+        "justify-content",
+        "alignItemsFlexCenter",
+      ],
+    });
+    homeContainer.appendChild(imageMaleContainer);
+    mainHomeContainer.appendChild(homeContainer);
+
     mainContainer.appendChild(mainHomeContainer);
   }
 
@@ -267,13 +312,13 @@ function renderSection(target) {
     const buttonAddProject = renderBasicElement({
       element: "button",
       classElement: ["flexStyleCenter", "gapInsideButton"],
-      textElement: "Add project"
+      textElement: "Add project",
     });
-    const imageButton = renderBasicImage(
-      ["iconPlusButton"],
-      "./images/Vector.svg",
-      "icon plus sign"
-    );
+    const imageButton = renderBasicImage({
+      classImage: ["iconPlusButton"],
+      sourceImage: "./images/Vector.svg",
+      alterImage: "icon plus sign",
+    });
     buttonAddProject.addEventListener("click", () => {
       createModal();
     });
@@ -312,8 +357,9 @@ function renderSection(target) {
         "gapBetweenElements",
       ],
     });
-    const imageMaleContainer = document.createElement("div");
-    imageMaleContainer.classList.add("imageMaleContainer");
+    const imageMaleContainer = renderBasicElement({
+      classElement: ["imageMaleContainer"],
+    });
     mainAboutMecontainer.appendChild(imageMaleContainer);
     createArticle(
       "My background",
@@ -343,11 +389,11 @@ function renderSection(target) {
         headerInfo.contact.paragraph
       );
     });
-    const imageButton = renderBasicImage(
-      ["iconArrowButton"],
-      "./images/Arrow right.svg",
-      "icon arrow sign"
-    );
+    const imageButton = renderBasicImage({
+      classImage: ["iconArrowButton"],
+      sourceImage: "./images/Arrow right.svg",
+      alterImage: "icon arrow sign",
+    });
     buttonContactMe.appendChild(imageButton);
     buttoncontainer.appendChild(buttonContactMe);
     mainAboutMecontainer.appendChild(buttoncontainer);
@@ -361,6 +407,20 @@ function renderSection(target) {
       element: "div",
       classElement: ["paddingSectionContact"],
     });
+    const buttonContainer = renderBasicElement({
+      element: "div",
+      classElement: [
+        "displayFlexJustifyCenter",
+        "buttonSendMessageMargin",
+        "paddingSectionContactButton",
+      ],
+    });
+    const buttonSendMessage = renderBasicElement({
+      element: "button",
+      textElement: "Send message",
+    });
+    buttonContainer.appendChild(buttonSendMessage);
+    mainContactContainer.appendChild(buttonContainer);
     mainContainer.appendChild(mainContactContainer);
   }
 
@@ -1060,31 +1120,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   );
 // }
 
-// // FUNCTION: allow to create new message in section message
-// function createMessage(name, email, message) {
-//   const nameValue = name.value.trim();
-//   const emailValue = email.value.trim();
-//   const messageValue = message.value.trim();
-//   const messageContainer = document.createElement("div");
-
-//   const nameElement = document.createElement("p");
-//   nameElement.textContent = `Name: ${nameValue}`;
-//   nameElement.classList.add("primaryStyleText");
-//   messageContainer.appendChild(nameElement);
-
-//   const emailElement = document.createElement("p");
-//   emailElement.textContent = `Email: ${emailValue}`;
-//   emailElement.classList.add("primaryStyleText");
-//   messageContainer.appendChild(emailElement);
-
-//   const messageElement = document.createElement("p");
-//   messageElement.textContent = `Message: ${messageValue}`;
-//   messageElement.classList.add("primaryStyleText");
-//   messageContainer.appendChild(messageElement);
-
-//   mainMessageContainer.appendChild(messageContainer);
-// }
-
 // // FUNCTION: allow and check to create new message in section message
 // function addNewMessage() {
 //   validateMobilieDesktopForm();
@@ -1120,15 +1155,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //     { value: card.technology }
 //   );
 // });
-
-// // EVENT LISTENERS: automatically create message from array
-// (userInfo.messages).forEach((message) => {
-//   createMessage(
-//     {value: message.name},
-//     {value: message.email},
-//     {value: message.message}
-//   )
-// })
 
 // // LOGIC: create tech skills from javascript data
 
