@@ -1,34 +1,11 @@
-// IMPORT: object include user indo data
+// IMPORT: object include user info data and structure application
 import userInfo from "./userInfo.js";
+import structureApp from "./structureITPortfolio.js";
 
 // ELEMENT HTML STRUCTURE: main amd header container and nav links
 const mainContainer = document.getElementById("mainContainer");
 const headerContainer = document.getElementById("headerContainer");
 const navItems = document.querySelectorAll("nav li");
-
-// OBJECT HEADINGS AND PARAGRAPH
-const headerInfo = {
-  home: {
-    heading: `${userInfo.firstName} ${userInfo.lastName}`.toUpperCase(),
-    paragraph: "WEB-DESIGNER",
-  },
-  projects: {
-    heading: "MY PROJECTS",
-    paragraph: "MADE WITH LOVE",
-  },
-  about: {
-    heading: "ABOUT ME",
-    paragraph: `IT'S A ME, ${userInfo.firstName}`.toUpperCase(),
-  },
-  contact: {
-    heading: "CONTACT ME",
-    paragraph: "SAY HELLO TO ME",
-  },
-  messages: {
-    heading: "MESSAGES",
-    paragraph: "MESSAGES FROM THE\n INTERESTED PERSON",
-  },
-};
 
 // LOGIC: synchronize footer and header links
 navItems.forEach((clickedItem) => {
@@ -42,8 +19,8 @@ navItems.forEach((clickedItem) => {
     );
     renderSection(targetName);
     renderInfoHeader(
-      headerInfo[targetName].heading,
-      headerInfo[targetName].paragraph
+      structureApp.headerInfo[targetName].heading,
+      structureApp.headerInfo[targetName].paragraph
     );
     matchedItems.forEach((item) => {
       item.classList.add("activeListElement");
@@ -133,8 +110,7 @@ function addNewProject(project, technology, uniqeDataset, container) {
   });
   newProject.appendChild(listTech);
 
-  const buttonDelete = document.createElement("button");
-  buttonDelete.classList.add("imageDeleteContainer");
+  const buttonDelete = renderBasicElement({element: "button", classElement: ["imageDeleteContainer"]});
   newProject.appendChild(buttonDelete);
   // buttonDelete.addEventListener("click", () => {
   //   deleteProject(buttonDelete, "imageProjectContainer");
@@ -446,7 +422,7 @@ function renderSection(target) {
 
 // LOGIC: set first start subpage
 renderSection("home");
-renderInfoHeader(headerInfo.home.heading, headerInfo.home.paragraph);
+renderInfoHeader(structureApp.headerInfo.home.heading, structureApp.headerInfo.home.paragraph);
 
 // // ELEMENTS: mobile menu
 // const normalMenuMobile = document.getElementById("normalMenuMobile");
