@@ -98,15 +98,11 @@ function renderBasicImage({
 
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
-  const headerInfoContainer = document.createElement("div");
   headerContainer.innerHTML = "";
-  headerInfoContainer.classList.add("heroTextContainer");
-  const headingInfo = document.createElement("h2");
-  headingInfo.innerText = heading;
-  const paragraphInfo = document.createElement("p");
-  paragraphInfo.innerText = paragraph;
-  headerInfoContainer.appendChild(headingInfo);
-  headerInfoContainer.appendChild(paragraphInfo);
+  const headerInfoContainer = renderBasicElement({classElement: ["heroTextContainer"]});
+  const headingInfo = renderBasicElement({element: "h2", textElement: heading});
+  const paragraphInfo = renderBasicElement({element: "p", textElement: paragraph});
+  headerInfoContainer.append(headingInfo, paragraphInfo);
   headerContainer.appendChild(headerInfoContainer);
 }
 
