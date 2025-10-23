@@ -83,6 +83,27 @@ function renderInfoHeader(heading, paragraph) {
   headerContainer.appendChild(headerInfoContainer);
 }
 
+// HOME
+
+// // FUNCTION: create container with full and empty experience circles
+function createCircleExpContainer(num) {
+  const circleContainer = renderBasicElement({classElement: ["displayFlex", "gapBetweenCircles"]});
+
+  if (num > 5) num = 5;
+
+  for (let i = 0; i < num; i++) {
+    const circleFull = renderBasicImage({sourceImage: "./images/CircleAndDisc/full circle.svg", classImage: ["dotExperienceDismension"]});
+    circleContainer.appendChild(circleFull);
+  }
+
+  for (let i = 0; i < 5 - num; i++) {
+    const circleEmpty = renderBasicImage({sourceImage: "./images/CircleAndDisc/empty circle.svg", classImage: ["dotExperienceDismension"]});
+    circleContainer.appendChild(circleEmpty);
+  }
+
+  return circleContainer;
+}
+
 // PROJECTS
 
 // FUNCTION: add new project card in projects section
@@ -251,6 +272,12 @@ function renderSection(target) {
     const skillContainer = renderBasicElement({
       classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
     });
+
+    (userInfo.techSkill).forEach(tech => {
+      skillContainer.appendChild(createCircleExpContainer(tech.experience));
+      console.log(tech.experience);
+      console.log(tech.skill);
+    })
     const homeContainer = renderBasicElement({
       classElement: [
         "flexStyleColumn",
@@ -259,7 +286,7 @@ function renderSection(target) {
       ],
     });
     homeContainer.appendChild(imageMaleContainer);
-    mainHomeContainer.appendChild(homeContainer);
+    mainHomeContainer.append(homeContainer, skillContainer);
 
     mainContainer.appendChild(mainHomeContainer);
   }
@@ -1153,6 +1180,19 @@ tel.textContent = `+ ${userInfo.tel}`;
 
 //   return circleContainer;
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // FUNCTION: create full skill container
 // function createTechSkill(skill, num) {
