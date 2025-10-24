@@ -76,9 +76,17 @@ function renderBasicImage({
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
   headerContainer.innerHTML = "";
-  const headerInfoContainer = renderBasicElement({classElement: ["heroTextContainer"]});
-  const headingInfo = renderBasicElement({element: "h2", textElement: heading});
-  const paragraphInfo = renderBasicElement({element: "p", textElement: paragraph});
+  const headerInfoContainer = renderBasicElement({
+    classElement: ["heroTextContainer"],
+  });
+  const headingInfo = renderBasicElement({
+    element: "h2",
+    textElement: heading,
+  });
+  const paragraphInfo = renderBasicElement({
+    element: "p",
+    textElement: paragraph,
+  });
   headerInfoContainer.append(headingInfo, paragraphInfo);
   headerContainer.appendChild(headerInfoContainer);
 }
@@ -87,21 +95,71 @@ function renderInfoHeader(heading, paragraph) {
 
 // // FUNCTION: create container with full and empty experience circles
 function createCircleExpContainer(num) {
-  const circleContainer = renderBasicElement({classElement: ["displayFlex", "gapBetweenCircles"]});
+  const circleContainer = renderBasicElement({
+    classElement: ["displayFlex", "gapBetweenCircles"],
+  });
 
   if (num > 5) num = 5;
 
   for (let i = 0; i < num; i++) {
-    const circleFull = renderBasicImage({sourceImage: "./images/CircleAndDisc/full circle.svg", classImage: ["dotExperienceDismension"]});
+    const circleFull = renderBasicImage({
+      sourceImage: "./images/CircleAndDisc/full circle.svg",
+      classImage: ["dotExperienceDismension"],
+    });
     circleContainer.appendChild(circleFull);
   }
 
   for (let i = 0; i < 5 - num; i++) {
-    const circleEmpty = renderBasicImage({sourceImage: "./images/CircleAndDisc/empty circle.svg", classImage: ["dotExperienceDismension"]});
+    const circleEmpty = renderBasicImage({
+      sourceImage: "./images/CircleAndDisc/empty circle.svg",
+      classImage: ["dotExperienceDismension"],
+    });
     circleContainer.appendChild(circleEmpty);
   }
 
   return circleContainer;
+}
+
+// // FUNCTION: create full skill container
+function createTechSkill(skill, num, container) {
+  const skillContainer = renderBasicElement({
+    classElement: ["displayFlex", "gapInsideLogoSkill", "logoSkillContainer"],
+  });
+  const skillImgContainer = renderBasicElement({
+    classElement: ["dimensionSkillLogo"],
+  });
+  const imageSkill = renderBasicImage({
+    sourceImage: `./images/MySkills/${skill}.svg`,
+    alterImage: `logo ${skill}`,
+  });
+
+  skillImgContainer.appendChild(imageSkill);
+  skillContainer.appendChild(skillImgContainer);
+
+  const skillExperienceContainer = renderBasicElement({
+    classElement: ["flexStyleColumn", "justifyContentSpaceBetween"],
+  });
+  const nameSkill = renderBasicElement({
+    element: "p",
+    textElement: `${skill}`,
+  });
+
+  skillExperienceContainer.appendChild(nameSkill);
+
+  const circleExpContainer = document.createElement("div");
+
+  skillContainer.appendChild(skillExperienceContainer);
+  circleExpContainer.appendChild(createCircleExpContainer(num));
+  skillExperienceContainer.appendChild(circleExpContainer);
+
+  const yearOfExperience = renderBasicElement({
+    element: "p",
+    classElement: ["yearsOfExperience"],
+    textElement: num === 1 ? `${num} year` : `${num} years`,
+  });
+  skillExperienceContainer.appendChild(yearOfExperience);
+
+  container.appendChild(skillContainer);
 }
 
 // PROJECTS
@@ -131,7 +189,10 @@ function addNewProject(project, technology, uniqeDataset, container) {
   });
   newProject.appendChild(listTech);
 
-  const buttonDelete = renderBasicElement({element: "button", classElement: ["imageDeleteContainer"]});
+  const buttonDelete = renderBasicElement({
+    element: "button",
+    classElement: ["imageDeleteContainer"],
+  });
   newProject.appendChild(buttonDelete);
   // buttonDelete.addEventListener("click", () => {
   //   deleteProject(buttonDelete, "imageProjectContainer");
@@ -269,15 +330,16 @@ function renderSection(target) {
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
     });
-    const skillContainer = renderBasicElement({
+    const techContainer = renderBasicElement({
       classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
     });
 
-    (userInfo.techSkill).forEach(tech => {
-      skillContainer.appendChild(createCircleExpContainer(tech.experience));
+    userInfo.techSkill.forEach((tech) => {
+      createTechSkill(tech.skill, tech.experience, techContainer)
+      // skillContainer.appendChild(createCircleExpContainer(tech.experience));
       console.log(tech.experience);
       console.log(tech.skill);
-    })
+    });
     const homeContainer = renderBasicElement({
       classElement: [
         "flexStyleColumn",
@@ -286,7 +348,7 @@ function renderSection(target) {
       ],
     });
     homeContainer.appendChild(imageMaleContainer);
-    mainHomeContainer.append(homeContainer, skillContainer);
+    mainHomeContainer.append(homeContainer, techContainer);
 
     mainContainer.appendChild(mainHomeContainer);
   }
@@ -449,7 +511,10 @@ function renderSection(target) {
 
 // LOGIC: set first start subpage
 renderSection("home");
-renderInfoHeader(structureApp.headerInfo.home.heading, structureApp.headerInfo.home.paragraph);
+renderInfoHeader(
+  structureApp.headerInfo.home.heading,
+  structureApp.headerInfo.home.paragraph
+);
 
 // // ELEMENTS: mobile menu
 // const normalMenuMobile = document.getElementById("normalMenuMobile");
@@ -1180,19 +1245,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 
 //   return circleContainer;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // FUNCTION: create full skill container
 // function createTechSkill(skill, num) {
