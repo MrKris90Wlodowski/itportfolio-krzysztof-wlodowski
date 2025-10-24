@@ -6,6 +6,20 @@ import structureApp from "./structureITPortfolio.js";
 const mainContainer = document.getElementById("mainContainer");
 const headerContainer = document.getElementById("headerContainer");
 const navItems = document.querySelectorAll("nav li");
+const normalMenuMobile = document.getElementById("normalMenuMobile");
+const goldMenuMobile = document.getElementById("goldMenuMobile");
+const menuListMobile = document.getElementById("menuListMobile");
+
+// FUNCTION: show and hide hamburger menu
+function showHideMobileMenu() {
+  menuListMobile.classList.toggle("activeElement");
+  normalMenuMobile.classList.toggle("activeElement");
+  goldMenuMobile.classList.toggle("activeElement");
+}
+
+// EVENT LISTENERS: controller steer gold and normal hamburger menu
+normalMenuMobile.addEventListener("click", showHideMobileMenu);
+goldMenuMobile.addEventListener("click", showHideMobileMenu);
 
 // LOGIC: synchronize footer and header links
 navItems.forEach((clickedItem) => {
@@ -205,20 +219,24 @@ function addNewProject(project, technology, uniqeDataset, container) {
 // ABOUT ME
 
 // FUNCTION: allow to create with description in section about me
-function createArticle(heading, description, container) {
+function createArticle({
+  heading = "",
+  description = "",
+  classArticleContainer = [],
+  classHeadingArticle = [],
+  classDescriptionArticle = [],
+  container,
+}) {
   const articleContainer = document.createElement("div");
-  articleContainer.classList.add("articleContainer");
+  articleContainer.classList.add(...classArticleContainer);
   const article = document.createElement("article");
   const headingArticle = document.createElement("h3");
+  headingArticle.classList.add(...classHeadingArticle);
   headingArticle.textContent = heading;
   const descriptionArticle = document.createElement("p");
+  descriptionArticle.classList.add(...classDescriptionArticle);
   descriptionArticle.textContent = description;
-  descriptionArticle.classList.add(
-    "marginBetweenHeadingAndParagraph",
-    "preLine"
-  );
-  article.appendChild(headingArticle);
-  article.appendChild(descriptionArticle);
+  article.append(headingArticle, descriptionArticle);
   articleContainer.appendChild(article);
   container.appendChild(articleContainer);
 }
@@ -330,12 +348,13 @@ function renderSection(target) {
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
     });
+
     const techContainer = renderBasicElement({
       classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
     });
 
     userInfo.techSkill.forEach((tech) => {
-      createTechSkill(tech.skill, tech.experience, techContainer)
+      createTechSkill(tech.skill, tech.experience, techContainer);
       // skillContainer.appendChild(createCircleExpContainer(tech.experience));
       console.log(tech.experience);
       console.log(tech.skill);
@@ -348,6 +367,13 @@ function renderSection(target) {
       ],
     });
     homeContainer.appendChild(imageMaleContainer);
+    createArticle({
+      heading: "About me",
+      description: userInfo.info.introduce,
+      classHeadingArticle: ["marginHeadingAboutMe"],
+      classDescriptionArticle: ["preLine"],
+      container: homeContainer,
+    });
     mainHomeContainer.append(homeContainer, techContainer);
 
     mainContainer.appendChild(mainHomeContainer);
@@ -422,16 +448,18 @@ function renderSection(target) {
       classElement: ["imageMaleContainer"],
     });
     mainAboutMecontainer.appendChild(imageMaleContainer);
-    createArticle(
-      "My background",
-      userInfo.info.myBackground,
-      mainAboutMecontainer
-    );
-    createArticle(
-      "My hobbies and interests",
-      userInfo.info.hobbies,
-      mainAboutMecontainer
-    );
+    createArticle({
+      heading: "My background",
+      description: userInfo.info.myBackground,
+      classArticleContainer: "articleContainer",
+      container: mainAboutMecontainer,
+    });
+    createArticle({
+      heading: "My hobbies and interests",
+      description: userInfo.info.hobbies,
+      classArticleContainer: "articleContainer",
+      container: mainAboutMecontainer,
+    });
     const buttoncontainer = document.createElement("div");
     buttoncontainer.classList.add(
       "displayFlexJustifyCenter",
@@ -515,11 +543,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.heading,
   structureApp.headerInfo.home.paragraph
 );
-
-// // ELEMENTS: mobile menu
-// const normalMenuMobile = document.getElementById("normalMenuMobile");
-// const goldMenuMobile = document.getElementById("goldMenuMobile");
-// const menuListMobile = document.getElementById("menuListMobile");
 
 // // ELEMENTS: show section
 // const activeNavListElement = document.querySelectorAll("nav li");
@@ -619,19 +642,6 @@ renderInfoHeader(
 // hobbies.textContent = userInfo.info.hobbies;
 email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
-
-// // LOGIC: mobile menu
-
-// // FUNCTION: show and hide hamburger menu
-// function showHideMobileMenu() {
-//   menuListMobile.classList.toggle("activeElement");
-//   normalMenuMobile.classList.toggle("activeElement");
-//   goldMenuMobile.classList.toggle("activeElement");
-// }
-
-// // EVENT LISTENERS: controller steer gold and normal hamburger menu
-// normalMenuMobile.addEventListener("click", showHideMobileMenu);
-// goldMenuMobile.addEventListener("click", showHideMobileMenu);
 
 // // LOGIC: show section
 
@@ -1218,80 +1228,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //     { value: card.project },
 //     { value: card.technology }
 //   );
-// });
-
-// // LOGIC: create tech skills from javascript data
-
-// // FUNCTION: create container with full and empty experience circles
-// function createCircleExpContainer(num) {
-//   const circleContainer = document.createElement("div");
-//   circleContainer.classList.add("displayFlex", "gapBetweenCircles");
-
-//   if (num > 5) num = 5;
-
-//   for (let i = 0; i < num; i++) {
-//     const circleFull = document.createElement("img");
-//     circleFull.src = "./images/CircleAndDisc/full circle.svg";
-//     circleFull.classList.add("dotExperienceDismension");
-//     circleContainer.appendChild(circleFull);
-//   }
-
-//   for (let i = 0; i < 5 - num; i++) {
-//     const circleEmpty = document.createElement("img");
-//     circleEmpty.src = "./images/CircleAndDisc/empty circle.svg";
-//     circleEmpty.classList.add("dotExperienceDismension");
-//     circleContainer.appendChild(circleEmpty);
-//   }
-
-//   return circleContainer;
-// }
-
-// // FUNCTION: create full skill container
-// function createTechSkill(skill, num) {
-//   const skillContainer = document.createElement("div");
-//   skillContainer.classList.add(
-//     "displayFlex",
-//     "gapInsideLogoSkill",
-//     "logoSkillContainer"
-//   );
-
-//   const skillImgContainer = document.createElement("div");
-//   skillImgContainer.classList.add("dimensionSkillLogo");
-
-//   const imageSkill = document.createElement("img");
-//   imageSkill.src = `./images/MySkills/${skill}.svg`;
-//   imageSkill.alt = `logo ${skill}`;
-
-//   skillImgContainer.appendChild(imageSkill);
-//   skillContainer.appendChild(skillImgContainer);
-
-//   const skillExperienceContainer = document.createElement("div");
-//   skillExperienceContainer.classList.add(
-//     "flexStyleColumn",
-//     "justifyContentSpaceBetween"
-//   );
-
-//   const nameSkill = document.createElement("p");
-//   nameSkill.textContent = `${skill}`;
-//   skillExperienceContainer.appendChild(nameSkill);
-
-//   const circleExpContainer = document.createElement("div");
-
-//   skillContainer.appendChild(skillExperienceContainer);
-//   circleExpContainer.appendChild(createCircleExpContainer(num));
-//   skillExperienceContainer.appendChild(circleExpContainer);
-
-//   const yearOfExperience = document.createElement("p");
-//   yearOfExperience.classList.add("yearsOfExperience");
-//   yearOfExperience.textContent = num === 1 ? `${num} year` : `${num} years`;
-//   skillExperienceContainer.appendChild(yearOfExperience);
-
-//   mainSkillContainer.appendChild(skillContainer);
-// }
-
-// // EVENT LISTENERS: create skill container from array
-// (userInfo.techSkill).forEach((tech) => {
-//   createTechSkill(tech.skill, tech.experience);
 // });
 
 // // LOGIC: check amount of project card
