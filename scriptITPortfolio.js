@@ -64,14 +64,34 @@ function renderBasicElement({
   return casualElement;
 }
 
+// FUNCTION: create basic label
+function renderLabel({forlabel, classLabel = [], textLabel}) {
+  const labelElement = document.createElement("label");
+  labelElement.htmlFor = forlabel;
+  labelElement.classList.add(...classLabel);
+  labelElement.textContent = textLabel;
+}
+
+// FUNCTION: create basic input
+function renderInput({classInput = [], typeInput = "text", requiredInput = true, placeholderInput}) {
+  const inputElement = document.createElement("input");
+  inputElement.classList.add(...classInput);
+  inputElement.type = typeInput;
+  inputElement.required = requiredInput;
+  inputElement.placeholder = placeholderInput;
+}
+
+
+
 // FUNCTION: create basic form field
-function renderFormField({ fieldForm, labelForm, inputForm, errorForm }) {
-  const field = fieldForm;
+function renderFormField({ fieldForm = renderBasicElement({classElement: ["flexStyleColumn", "fullWidth"]}), labelForm, inputForm, inputField, errorForm }) {
+  const mainField = fieldForm;
   const label = labelForm;
+  const inputField = inputField;
   const input = inputForm;
   const error = errorForm;
   field.append(label, input, error);
-  return field;
+  return mainField;
 }
 
 // FUNCTION: create basic frame image
@@ -408,6 +428,7 @@ function renderSection(target) {
     });
     buttonAddProject.addEventListener("click", () => {
       createModal();
+      document.body.classList.add("noScroll");
     });
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
