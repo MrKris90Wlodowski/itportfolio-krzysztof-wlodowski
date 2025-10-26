@@ -319,9 +319,7 @@ function createModal() {
   const modalForm = document.createElement("form");
   const modalFormContainer = renderBasicElement({
     classElement: [
-      "flexStyleCenter",
-      "directionFlexColumn",
-      "alignItemsFlexStart",
+      "flexStyleCenter", "directionFlexColumn", "alignItemsFlexStart"
     ],
   });
 
@@ -338,11 +336,58 @@ function createModal() {
   closeButton.appendChild(closeImage);
   closeButtonContainer.appendChild(closeButton);
 
-  const projectNamecontainer = renderBasicElement({
-    classElement: ["flexStyleColumn", "fullWidth"],
+  const projectNamecontainer = renderFormField({
+    fieldForm: renderBasicElement({
+      classElement: [
+        "flexStyleColumn", "fullWidth"
+      ],
+    }),
+    labelForm: renderBasicLabel({
+      classLabel: ["primaryStyleText", "marginLabelModalProject"],
+      forlabel: "inputProjectName",
+      textLabel: structureApp.formInfo.label.project,
+    }),
+    inputFieldForm: renderBasicElement({
+      classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
+    }),
+    inputForm: renderBasicInput({
+      idInput: "inputProjectName",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.project,
+      classInput: ["inputStyle", "validInputLine"],
+    }),
+    errorForm: renderBasicElement({
+      element: "p",
+      classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
+      textElement: structureApp.formInfo.errorMessage.min("technology", 5),
+    }),
   });
-  const projectTechContainer = renderBasicElement({
-    classElement: ["flexStyleColumn", "fullWidth"],
+  // const projectTechContainer = renderBasicElement({
+  //   classElement: ["flexStyleColumn", "fullWidth"],
+  // });
+    const projectTechContainer = renderFormField({
+    fieldForm: renderBasicElement({
+      classElement: [
+        "flexStyleColumn", "fullWidth"
+      ],
+    }),
+    labelForm: renderBasicLabel({
+      classLabel: ["primaryStyleText", "marginLabelModalProject"],
+      forlabel: "inputTechnology",
+      textLabel: structureApp.formInfo.label.technology,
+    }),
+    inputFieldForm: renderBasicElement({
+      classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
+    }),
+    inputForm: renderBasicInput({
+      idInput: "inputTechnology",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
+      classInput: ["inputStyle", "validInputLine"],
+    }),
+    errorForm: renderBasicElement({
+      element: "p",
+      classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
+      textElement: structureApp.formInfo.errorMessage.technology,
+    }),
   });
 
   const addProjectContainer = renderBasicElement({
@@ -354,12 +399,13 @@ function createModal() {
     textElement: "Add project",
   });
   addProjectContainer.appendChild(buttonAddProject);
-  modalFormContainer.append(
+  modalForm.append(
     closeButtonContainer,
     projectNamecontainer,
     projectTechContainer,
     addProjectContainer
   );
+  modalFormContainer.appendChild(modalForm);
   modalContainer.appendChild(modalFormContainer);
   modal.appendChild(modalContainer);
   document.body.appendChild(modal);
@@ -622,7 +668,12 @@ function renderSection(target) {
       textElement: "Send message",
     });
     buttonContainer.appendChild(buttonSendMessage);
-    mainContactContainer.append(nameFormField, emailFormField, messageFormField, buttonContainer);
+    mainContactContainer.append(
+      nameFormField,
+      emailFormField,
+      messageFormField,
+      buttonContainer
+    );
     mainContainer.appendChild(mainContactContainer);
   }
 
@@ -656,6 +707,81 @@ renderInfoHeader(
   structureApp.headerInfo.home.heading,
   structureApp.headerInfo.home.paragraph
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // ELEMENTS: show section
 // const activeNavListElement = document.querySelectorAll("nav li");
