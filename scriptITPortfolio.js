@@ -65,33 +65,47 @@ function renderBasicElement({
 }
 
 // FUNCTION: create basic label
-function renderLabel({forlabel, classLabel = [], textLabel}) {
+function renderBasicLabel({ forlabel, classLabel = [], textLabel }) {
   const labelElement = document.createElement("label");
   labelElement.htmlFor = forlabel;
   labelElement.classList.add(...classLabel);
   labelElement.textContent = textLabel;
+  return labelElement;
 }
 
 // FUNCTION: create basic input
-function renderInput({classInput = [], typeInput = "text", requiredInput = true, placeholderInput}) {
+function renderBasicInput({
+  classInput = [],
+  typeInput = "text",
+  requiredInput = true,
+  placeholderInput,
+  idInput,
+}) {
   const inputElement = document.createElement("input");
+  inputElement.id = idInput;
   inputElement.classList.add(...classInput);
   inputElement.type = typeInput;
   inputElement.required = requiredInput;
   inputElement.placeholder = placeholderInput;
+  return inputElement;
 }
 
-
-
 // FUNCTION: create basic form field
-function renderFormField({ fieldForm = renderBasicElement({classElement: ["flexStyleColumn", "fullWidth"]}), labelForm, inputForm, inputField, errorForm }) {
-  const mainField = fieldForm;
+function renderFormField({
+  fieldForm,
+  labelForm,
+  inputForm,
+  inputFieldForm,
+  errorForm,
+}) {
+  const formField = fieldForm;
   const label = labelForm;
-  const inputField = inputField;
+  const inputField = inputFieldForm;
   const input = inputForm;
   const error = errorForm;
-  field.append(label, input, error);
-  return mainField;
+  inputField.append(input, error);
+  formField.append(label, inputField);
+  return formField;
 }
 
 // FUNCTION: create basic frame image
@@ -327,10 +341,6 @@ function createModal() {
   const projectNamecontainer = renderBasicElement({
     classElement: ["flexStyleColumn", "fullWidth"],
   });
-  // const projectNamecontainer = renderFormField({
-  //   fieldForm: renderBasicElement({})
-  // })
-
   const projectTechContainer = renderBasicElement({
     classElement: ["flexStyleColumn", "fullWidth"],
   });
@@ -375,9 +385,6 @@ function renderSection(target) {
 
     userInfo.techSkill.forEach((tech) => {
       createTechSkill(tech.skill, tech.experience, techContainer);
-      // skillContainer.appendChild(createCircleExpContainer(tech.experience));
-      console.log(tech.experience);
-      console.log(tech.skill);
     });
     const homeContainer = renderBasicElement({
       classElement: [
@@ -517,6 +524,91 @@ function renderSection(target) {
       element: "div",
       classElement: ["paddingSectionContact"],
     });
+
+    const nameFormField = renderFormField({
+      fieldForm: renderBasicElement({
+        classElement: [
+          "flexStyleColumn",
+          "gapBetweenLabelAndInput",
+          "fullSpaceInput",
+        ],
+      }),
+      labelForm: renderBasicLabel({
+        classLabel: ["primaryStyleText"],
+        forlabel: "inputName",
+        textLabel: structureApp.formInfo.label.name,
+      }),
+      inputFieldForm: renderBasicElement({
+        classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
+      }),
+      inputForm: renderBasicInput({
+        idInput: "inputName",
+        placeholderInput: structureApp.formInfo.inputPlaceholder.name,
+        classInput: ["inputStyle", "validInputLine"],
+      }),
+      errorForm: renderBasicElement({
+        element: "p",
+        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+        textElement: structureApp.formInfo.errorMessage.min("name", 4),
+      }),
+    });
+
+    const emailFormField = renderFormField({
+      fieldForm: renderBasicElement({
+        classElement: [
+          "flexStyleColumn",
+          "gapBetweenLabelAndInput",
+          "fullSpaceInput",
+        ],
+      }),
+      labelForm: renderBasicLabel({
+        classLabel: ["primaryStyleText"],
+        forlabel: "inputName",
+        textLabel: structureApp.formInfo.label.email,
+      }),
+      inputFieldForm: renderBasicElement({
+        classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
+      }),
+      inputForm: renderBasicInput({
+        idInput: "inputName",
+        placeholderInput: structureApp.formInfo.inputPlaceholder.email,
+        classInput: ["inputStyle", "validInputLine"],
+      }),
+      errorForm: renderBasicElement({
+        element: "p",
+        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+        textElement: structureApp.formInfo.errorMessage.email,
+      }),
+    });
+
+    const messageFormField = renderFormField({
+      fieldForm: renderBasicElement({
+        classElement: [
+          "flexStyleColumn",
+          "gapBetweenLabelAndInput",
+          "fullSpaceInput",
+        ],
+      }),
+      labelForm: renderBasicLabel({
+        classLabel: ["primaryStyleText"],
+        forlabel: "inputName",
+        textLabel: structureApp.formInfo.label.message,
+      }),
+      inputFieldForm: renderBasicElement({
+        classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
+      }),
+      inputForm: renderBasicInput({
+        idInput: "inputName",
+        placeholderInput: structureApp.formInfo.inputPlaceholder.message,
+        classInput: ["inputStyle", "validInputLine"],
+      }),
+      errorForm: renderBasicElement({
+        element: "p",
+        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+        textElement: structureApp.formInfo.errorMessage.message,
+      }),
+    });
+
     const buttonContainer = renderBasicElement({
       element: "div",
       classElement: [
@@ -530,7 +622,7 @@ function renderSection(target) {
       textElement: "Send message",
     });
     buttonContainer.appendChild(buttonSendMessage);
-    mainContactContainer.appendChild(buttonContainer);
+    mainContactContainer.append(nameFormField, emailFormField, messageFormField, buttonContainer);
     mainContainer.appendChild(mainContactContainer);
   }
 
