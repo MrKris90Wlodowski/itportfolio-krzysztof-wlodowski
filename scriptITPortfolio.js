@@ -23,24 +23,25 @@ goldMenuMobile.addEventListener("click", showHideMobileMenu);
 
 // LOGIC: synchronize footer and header links
 navItems.forEach((clickedItem) => {
-  clickedItem.addEventListener("click", () => {
-    navItems.forEach((item) => {
-      item.classList.remove("activeListElement");
+    clickedItem.addEventListener("click", () => {
+      navItems.forEach((item) => {
+        item.classList.remove("activeListElement");
+      });
+      const targetName = clickedItem.dataset.target;
+      const matchedItems = document.querySelectorAll(
+        `li[data-target=${targetName}]`
+      );
+      renderSection(targetName);
+      renderInfoHeader(
+        structureApp.headerInfo[targetName].heading,
+        structureApp.headerInfo[targetName].paragraph
+      );
+      matchedItems.forEach((item) => {
+        item.classList.add("activeListElement");
+      });
     });
-    const targetName = clickedItem.dataset.target;
-    const matchedItems = document.querySelectorAll(
-      `li[data-target=${targetName}]`
-    );
-    renderSection(targetName);
-    renderInfoHeader(
-      structureApp.headerInfo[targetName].heading,
-      structureApp.headerInfo[targetName].paragraph
-    );
-    matchedItems.forEach((item) => {
-      item.classList.add("activeListElement");
-    });
-  });
-});
+  }
+);
 
 // BASIC FUNCTIONS: basic reusable function
 
@@ -346,9 +347,9 @@ function createModal() {
   closeButtonContainer.appendChild(closeButton);
   // PROJECT NAME FIELD
   const inputProject = renderBasicInput({
-      idInput: "inputProjectName",
-      placeholderInput: structureApp.formInfo.inputPlaceholder.project,
-      classInput: ["inputStyle", "validInputLine"]
+    idInput: "inputProjectName",
+    placeholderInput: structureApp.formInfo.inputPlaceholder.project,
+    classInput: ["inputStyle", "validInputLine"],
   });
   const projectNamecontainer = renderFormField({
     fieldForm: renderBasicElement({
@@ -371,10 +372,10 @@ function createModal() {
   });
   // TECHNOLOGY FIELD
   const inputTechnology = renderBasicInput({
-      idInput: "inputTechnology",
-      placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
-      classInput: ["inputStyle", "validInputLine"],
-    });
+    idInput: "inputTechnology",
+    placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
+    classInput: ["inputStyle", "validInputLine"],
+  });
   const projectTechContainer = renderFormField({
     fieldForm: renderBasicElement({
       classElement: ["flexStyleColumn", "fullWidth"],
@@ -406,9 +407,14 @@ function createModal() {
   buttonAddProject.addEventListener("click", (event) => {
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
-    const  uniqeDataset = crypto.randomUUID();
-    addNewProject(inputProject, inputTechnology, uniqeDataset, projectsContainer)
-  })
+    const uniqeDataset = crypto.randomUUID();
+    addNewProject(
+      inputProject,
+      inputTechnology,
+      uniqeDataset,
+      projectsContainer
+    );
+  });
   addProjectContainer.appendChild(buttonAddProject);
   // ASSEMBLE STRUCTURE
   modalForm.append(
@@ -498,10 +504,10 @@ function renderSection(target) {
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
 
-    const projectsContainer = renderBasicElement({classElement: ["displayGrid",
-      "gapInsideMyProject",
-      "gridColumnsProject"],
-    idElement: "projectsContainer"})
+    const projectsContainer = renderBasicElement({
+      classElement: ["displayGrid", "gapInsideMyProject", "gridColumnsProject"],
+      idElement: "projectsContainer",
+    });
     userInfo.cardsProjects.forEach((card) => {
       const uniqeDataset = crypto.randomUUID();
       addNewProject(
@@ -556,6 +562,13 @@ function renderSection(target) {
       textElement: "Contact me",
     });
     buttonContactMe.addEventListener("click", () => {
+      const contactItems = document.querySelectorAll(`[data-target="contact"]`)
+      navItems.forEach(item => {
+        item.classList.remove("activeListElement");
+      });
+      contactItems.forEach(item => {
+        item.classList.add("activeListElement");
+      })
       renderSection("contact");
       renderInfoHeader(
         headerInfo.contact.heading,
@@ -853,31 +866,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   });
 // });
 
-// // LOGIC: contact button
-
-// // EVENT LISTENERS:  move to Contact section
-// contactButton.addEventListener("click", () => {
-//   activeNavListElement.forEach((navList) =>
-//     navList.classList.remove("activeListElement")
-//   );
-//   const contactNavList = document.querySelectorAll('[data-target="contact"]');
-//   contactNavList.forEach((contactList) =>
-//     contactList.classList.add("activeListElement")
-//   );
-
-//   logoHeader.forEach((logo) => logo.classList.add("hiddenElement"));
-//   const logoMessages = document.querySelector(
-//     '[data-section-header="contact"]'
-//   );
-//   logoMessages.classList.remove("hiddenElement");
-
-//   mainSections.forEach((section) => section.classList.add("hiddenElement"));
-//   const sectionContact = document.querySelectorAll('[data-section="contact"]');
-//   sectionContact.forEach((secContact) =>
-//     secContact.classList.remove("hiddenElement")
-//   );
-// });
-
 // // LOGIC: add project button and modalform
 
 // // EVENT LISTENERS: open modal form
@@ -885,10 +873,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   modalForm.classList.remove("hiddenElement");
 //   document.body.classList.add("noScroll");
 // });
-
-
-
-
 
 // // FUNCTION: allow close modal form and unlock scroll
 // function closeModalView() {
