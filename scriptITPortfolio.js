@@ -308,21 +308,26 @@ function createMessage(name, email, message, container) {
 
 // FUNCTION: allow to create modal form
 function createModal() {
+  // MAIN STRUCTURE
   const modal = renderBasicElement({
     element: "div",
     classElement: ["modalMainContainer"],
+    idElement: "modal",
   });
   const modalContainer = renderBasicElement({
     element: "div",
     classElement: ["dismensionModal", "positionRelative"],
+    idElement: "modalContainer",
   });
   const modalForm = document.createElement("form");
   const modalFormContainer = renderBasicElement({
     classElement: [
-      "flexStyleCenter", "directionFlexColumn", "alignItemsFlexStart"
+      "flexStyleCenter",
+      "directionFlexColumn",
+      "alignItemsFlexStart",
     ],
   });
-
+  // CLOSE BUTTON
   const closeButtonContainer = renderBasicElement({});
   const closeButton = renderBasicElement({
     element: "button",
@@ -334,13 +339,20 @@ function createModal() {
     alterImage: "icon close X",
   });
   closeButton.appendChild(closeImage);
+  closeButton.addEventListener("click", () => {
+    modal.remove();
+    document.body.classList.remove("noScroll");
+  });
   closeButtonContainer.appendChild(closeButton);
-
+  // PROJECT NAME FIELD
+  const inputProject = renderBasicInput({
+      idInput: "inputProjectName",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.project,
+      classInput: ["inputStyle", "validInputLine"]
+  });
   const projectNamecontainer = renderFormField({
     fieldForm: renderBasicElement({
-      classElement: [
-        "flexStyleColumn", "fullWidth"
-      ],
+      classElement: ["flexStyleColumn", "fullWidth"],
     }),
     labelForm: renderBasicLabel({
       classLabel: ["primaryStyleText", "marginLabelModalProject"],
@@ -350,46 +362,39 @@ function createModal() {
     inputFieldForm: renderBasicElement({
       classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
     }),
-    inputForm: renderBasicInput({
-      idInput: "inputProjectName",
-      placeholderInput: structureApp.formInfo.inputPlaceholder.project,
-      classInput: ["inputStyle", "validInputLine"],
-    }),
+    inputForm: inputProject,
     errorForm: renderBasicElement({
       element: "p",
       classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
       textElement: structureApp.formInfo.errorMessage.min("technology", 5),
     }),
   });
-  // const projectTechContainer = renderBasicElement({
-  //   classElement: ["flexStyleColumn", "fullWidth"],
-  // });
-    const projectTechContainer = renderFormField({
+  // TECHNOLOGY FIELD
+  const inputTechnology = renderBasicInput({
+      idInput: "inputTechnology",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
+      classInput: ["inputStyle", "validInputLine"],
+    });
+  const projectTechContainer = renderFormField({
     fieldForm: renderBasicElement({
-      classElement: [
-        "flexStyleColumn", "fullWidth"
-      ],
+      classElement: ["flexStyleColumn", "fullWidth"],
     }),
     labelForm: renderBasicLabel({
-      classLabel: ["primaryStyleText", "marginLabelModalProject"],
+      classLabel: ["primaryStyleText", "marginLabelModalTech"],
       forlabel: "inputTechnology",
       textLabel: structureApp.formInfo.label.technology,
     }),
     inputFieldForm: renderBasicElement({
       classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
     }),
-    inputForm: renderBasicInput({
-      idInput: "inputTechnology",
-      placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
-      classInput: ["inputStyle", "validInputLine"],
-    }),
+    inputForm: inputTechnology,
     errorForm: renderBasicElement({
       element: "p",
       classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
       textElement: structureApp.formInfo.errorMessage.technology,
     }),
   });
-
+  // ADD BUTTON
   const addProjectContainer = renderBasicElement({
     classElement: ["displayFlexJustifyCenter", "fullWidth"],
   });
@@ -398,15 +403,22 @@ function createModal() {
     classElement: ["flexStyleCenter", "gapInsideButton", "marginButtonModal"],
     textElement: "Add project",
   });
+  buttonAddProject.addEventListener("click", (event) => {
+    event.preventDefault();
+    const projectsContainer = document.getElementById("projectsContainer");
+    const  uniqeDataset = crypto.randomUUID();
+    addNewProject(inputProject, inputTechnology, uniqeDataset, projectsContainer)
+  })
   addProjectContainer.appendChild(buttonAddProject);
+  // ASSEMBLE STRUCTURE
   modalForm.append(
     closeButtonContainer,
     projectNamecontainer,
     projectTechContainer,
     addProjectContainer
   );
-  modalFormContainer.appendChild(modalForm);
-  modalContainer.appendChild(modalFormContainer);
+  modalForm.appendChild(modalFormContainer);
+  modalContainer.appendChild(modalForm);
   modal.appendChild(modalContainer);
   document.body.appendChild(modal);
 }
@@ -486,12 +498,10 @@ function renderSection(target) {
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
 
-    const projectsContainer = document.createElement("div");
-    projectsContainer.classList.add(
-      "displayGrid",
+    const projectsContainer = renderBasicElement({classElement: ["displayGrid",
       "gapInsideMyProject",
-      "gridColumnsProject"
-    );
+      "gridColumnsProject"],
+    idElement: "projectsContainer"})
     userInfo.cardsProjects.forEach((card) => {
       const uniqeDataset = crypto.randomUUID();
       addNewProject(
@@ -679,6 +689,7 @@ function renderSection(target) {
 
   // MESSAGES
   else if (target === "messages") {
+    // MAIN STRUCTURE
     const mainMessageContainer = renderBasicElement({
       clearMain: true,
       element: "div",
@@ -689,6 +700,7 @@ function renderSection(target) {
       ],
       idElement: "mainMessageContainer",
     });
+    // DYNAMIC CREATE MESSAGE
     userInfo.messages.forEach((message) => {
       createMessage(
         { value: message.name },
@@ -697,6 +709,7 @@ function renderSection(target) {
         mainMessageContainer
       );
     });
+    // ASSEMBLE STRUCTURE
     mainContainer.appendChild(mainMessageContainer);
   }
 }
@@ -707,81 +720,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.heading,
   structureApp.headerInfo.home.paragraph
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // ELEMENTS: show section
 // const activeNavListElement = document.querySelectorAll("nav li");
@@ -947,6 +885,10 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   modalForm.classList.remove("hiddenElement");
 //   document.body.classList.add("noScroll");
 // });
+
+
+
+
 
 // // FUNCTION: allow close modal form and unlock scroll
 // function closeModalView() {
