@@ -23,25 +23,24 @@ goldMenuMobile.addEventListener("click", showHideMobileMenu);
 
 // LOGIC: synchronize footer and header links
 navItems.forEach((clickedItem) => {
-    clickedItem.addEventListener("click", () => {
-      navItems.forEach((item) => {
-        item.classList.remove("activeListElement");
-      });
-      const targetName = clickedItem.dataset.target;
-      const matchedItems = document.querySelectorAll(
-        `li[data-target=${targetName}]`
-      );
-      renderSection(targetName);
-      renderInfoHeader(
-        structureApp.headerInfo[targetName].heading,
-        structureApp.headerInfo[targetName].paragraph
-      );
-      matchedItems.forEach((item) => {
-        item.classList.add("activeListElement");
-      });
+  clickedItem.addEventListener("click", () => {
+    navItems.forEach((item) => {
+      item.classList.remove("activeListElement");
     });
-  }
-);
+    const targetName = clickedItem.dataset.target;
+    const matchedItems = document.querySelectorAll(
+      `li[data-target=${targetName}]`
+    );
+    renderSection(targetName);
+    renderInfoHeader(
+      structureApp.headerInfo[targetName].heading,
+      structureApp.headerInfo[targetName].paragraph
+    );
+    matchedItems.forEach((item) => {
+      item.classList.add("activeListElement");
+    });
+  });
+});
 
 // BASIC FUNCTIONS: basic reusable function
 
@@ -250,6 +249,41 @@ function addNewProject(project, technology, uniqeDataset, container) {
   container.appendChild(newProject);
   // checkAmountProjectCard();
 }
+// FUNCTION: check validate input
+function errorMessage({
+  min = null,
+  max = null,
+  value,
+  special,
+  specialErrorText,
+  textElement,
+  inputElement,
+  minErrorText,
+  maxErrorText,
+}) {
+  const valueSearch = value;
+  if (min && max) {
+    if (valueSearch < min) {
+      inputElement.classList.remove("validInputLine");
+      inputElement.classList.add("errorInputLine");
+      textElement.textContent = minErrorText;
+      textElement.classList.remove("hiddenElement");
+    } else if (valueSearch > max) {
+      inputElement.classList.remove("validInputLine");
+      inputElement.classList.add("errorInputLine");
+      textElement.textContent = maxErrorText;
+      textElement.classList.remove("hiddenElement");
+    } else {
+      inputElement.classList.remove("errorInputLine");
+      inputElement.classList.add("validInputLine");
+      textElement.classList.add("hiddenElement");
+      return 1;
+    }
+    //   // EMAIL
+    // } else if (special === string) {
+    //   textElement.textContent = specialErrorText
+  }
+}
 
 // ABOUT ME
 
@@ -262,15 +296,20 @@ function createArticle({
   classDescriptionArticle = [],
   container,
 }) {
-  const articleContainer = document.createElement("div");
-  articleContainer.classList.add(...classArticleContainer);
-  const article = document.createElement("article");
-  const headingArticle = document.createElement("h3");
-  headingArticle.classList.add(...classHeadingArticle);
-  headingArticle.textContent = heading;
-  const descriptionArticle = document.createElement("p");
-  descriptionArticle.classList.add(...classDescriptionArticle);
-  descriptionArticle.textContent = description;
+  const articleContainer = renderBasicElement({
+    classElement: [...classArticleContainer],
+  });
+  const article = renderBasicElement({ element: "article" });
+  const headingArticle = renderBasicElement({
+    element: "h3",
+    classElement: [...classHeadingArticle],
+    textElement: heading,
+  });
+  const descriptionArticle = renderBasicElement({
+    element: "p",
+    classElement: [...classDescriptionArticle],
+    textElement: description,
+  });
   article.append(headingArticle, descriptionArticle);
   articleContainer.appendChild(article);
   container.appendChild(articleContainer);
@@ -351,6 +390,11 @@ function createModal() {
     placeholderInput: structureApp.formInfo.inputPlaceholder.project,
     classInput: ["inputStyle", "validInputLine"],
   });
+  const errorProject = renderBasicElement({
+    element: "p",
+    classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
+    // textElement: structureApp.formInfo.errorMessage.min("technology", 5),
+  });
   const projectNamecontainer = renderFormField({
     fieldForm: renderBasicElement({
       classElement: ["flexStyleColumn", "fullWidth"],
@@ -364,11 +408,7 @@ function createModal() {
       classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
     }),
     inputForm: inputProject,
-    errorForm: renderBasicElement({
-      element: "p",
-      classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
-      textElement: structureApp.formInfo.errorMessage.min("technology", 5),
-    }),
+    errorForm: errorProject,
   });
   // TECHNOLOGY FIELD
   const inputTechnology = renderBasicInput({
@@ -405,15 +445,38 @@ function createModal() {
     textElement: "Add project",
   });
   buttonAddProject.addEventListener("click", (event) => {
+    inputProject.addEventListener("input", () => {
+      const projectValue = inputProject.value.trim().length;
+      errorMessage({
+        min: 3,
+        max: 30,
+        value: projectValue,
+        textElement: errorProject,
+        inputElement: inputProject,
+        minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
+        maxErrorText: structureApp.formInfo.errorMessage.max("title", 30)
+      });
+    });
+    inputTechnology.addEventListener("input", () => {
+      const projectTechnology = inputTechnology.value.trim().length;
+    });
+
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
-    addNewProject(
-      inputProject,
-      inputTechnology,
-      uniqeDataset,
-      projectsContainer
-    );
+
+    // addNewProject(
+    //   inputProject,
+    //   inputTechnology,
+    //   uniqeDataset,
+    //   projectsContainer
+    // );
+    // modal.remove();
+    // document.body.classList.remove("noScroll");
+    // userInfo.cardsProjects.push({
+    //   project: inputProject.value.trim(),
+    //   technology: inputTechnology.value.trim().split(",").join(","),
+    // });
   });
   addProjectContainer.appendChild(buttonAddProject);
   // ASSEMBLE STRUCTURE
@@ -562,13 +625,13 @@ function renderSection(target) {
       textElement: "Contact me",
     });
     buttonContactMe.addEventListener("click", () => {
-      const contactItems = document.querySelectorAll(`[data-target="contact"]`)
-      navItems.forEach(item => {
+      const contactItems = document.querySelectorAll(`[data-target="contact"]`);
+      navItems.forEach((item) => {
         item.classList.remove("activeListElement");
       });
-      contactItems.forEach(item => {
+      contactItems.forEach((item) => {
         item.classList.add("activeListElement");
-      })
+      });
       renderSection("contact");
       renderInfoHeader(
         headerInfo.contact.heading,
