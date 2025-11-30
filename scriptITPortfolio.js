@@ -531,6 +531,9 @@ function createModal() {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+
+
+
   // HOME
   if (target === "home") {
     const mainHomeContainer = renderBasicElement({
@@ -567,6 +570,8 @@ function renderSection(target) {
 
     mainContainer.appendChild(mainHomeContainer);
   }
+
+
 
   // PROJECTS
   else if (target === "projects") {
@@ -619,6 +624,8 @@ function renderSection(target) {
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
   }
+
+
 
   // ABOUT ME
   else if (target === "about") {
@@ -684,6 +691,8 @@ function renderSection(target) {
     mainContainer.appendChild(mainAboutMecontainer);
   }
 
+
+
   // CONTACT
   else if (target === "contact") {
     const mainContactContainer = renderBasicElement({
@@ -691,6 +700,21 @@ function renderSection(target) {
       element: "div",
       classElement: ["paddingSectionContact"],
     });
+    const formContact = renderBasicElement({
+      element: "form",
+    })
+    const formContactContainer = renderBasicElement({
+      element: "div",
+      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"]
+    })
+    const inputsNameAndEmailContainer = renderBasicElement({
+      element: "div",
+      classElement: ["displayFlexInputNameAndEmail"]
+    })
+    const inputsContactContainer = renderBasicElement({
+      element: "div",
+      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"]
+    })
 
     const nameFormField = renderFormField({
       fieldForm: renderBasicElement({
@@ -789,14 +813,23 @@ function renderSection(target) {
       textElement: "Send message",
     });
     buttonContainer.appendChild(buttonSendMessage);
-    mainContactContainer.append(
+    inputsNameAndEmailContainer.append(
       nameFormField,
-      emailFormField,
-      messageFormField,
+      emailFormField
+    )
+    inputsContactContainer.append(inputsNameAndEmailContainer,messageFormField)
+    formContactContainer.append(
+      inputsContactContainer,
       buttonContainer
     );
+
+
+    formContact.appendChild(formContactContainer)
+    mainContactContainer.appendChild(formContact);
     mainContainer.appendChild(mainContactContainer);
   }
+
+
 
   // MESSAGES
   else if (target === "messages") {
