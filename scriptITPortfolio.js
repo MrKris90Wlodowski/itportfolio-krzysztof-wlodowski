@@ -416,6 +416,11 @@ function createModal() {
     placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
     classInput: ["inputStyle", "validInputLine"],
   });
+  const errorTechnology = renderBasicElement({
+    element: "p",
+    classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
+    // textElement: structureApp.formInfo.errorMessage.min("technology", 5),
+  });
   const projectTechContainer = renderFormField({
     fieldForm: renderBasicElement({
       classElement: ["flexStyleColumn", "fullWidth"],
@@ -429,11 +434,7 @@ function createModal() {
       classElement: ["flexStyleColumn", "fullWidth", "positionRelative"],
     }),
     inputForm: inputTechnology,
-    errorForm: renderBasicElement({
-      element: "p",
-      classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
-      textElement: structureApp.formInfo.errorMessage.technology,
-    }),
+    errorForm: errorTechnology,
   });
   // ADD BUTTON
   const addProjectContainer = renderBasicElement({
@@ -444,8 +445,9 @@ function createModal() {
     classElement: ["flexStyleCenter", "gapInsideButton", "marginButtonModal"],
     textElement: "Add project",
   });
+  let isValidate = false;
   buttonAddProject.addEventListener("click", (event) => {
-    inputProject.addEventListener("input", () => {
+    
       const projectValue = inputProject.value.trim().length;
       errorMessage({
         min: 3,
@@ -454,13 +456,46 @@ function createModal() {
         textElement: errorProject,
         inputElement: inputProject,
         minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
-        maxErrorText: structureApp.formInfo.errorMessage.max("title", 30)
+        maxErrorText: structureApp.formInfo.errorMessage.max("title", 30),
       });
-    });
-    inputTechnology.addEventListener("input", () => {
       const projectTechnology = inputTechnology.value.trim().length;
-    });
+      errorMessage({
+        min: 1,
+        max: +Infinity,
+        value: projectTechnology,
+        textElement: errorTechnology,
+        inputElement: inputTechnology,
+        minErrorText: structureApp.formInfo.errorMessage.technology
+      });
+   
 
+    if (!isValidate) {
+      inputProject.addEventListener("input", () => {
+        const projectValue = inputProject.value.trim().length;
+        errorMessage({
+          min: 3,
+          max: 30,
+          value: projectValue,
+          textElement: errorProject,
+          inputElement: inputProject,
+          minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
+          maxErrorText: structureApp.formInfo.errorMessage.max("title", 30),
+        });
+      });
+      inputTechnology.addEventListener("input", () => {
+        const projectTechnology = inputTechnology.value.trim().length;
+        errorMessage({
+          min: 1,
+          max: +Infinity,
+          value: projectTechnology,
+          textElement: errorTechnology,
+          inputElement: inputTechnology,
+          minErrorText: structureApp.formInfo.errorMessage.technology,
+        });
+      });
+    }
+
+    isValidate = true
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
