@@ -268,12 +268,13 @@ function errorMessage({
       inputElement.classList.remove("errorInputLine");
       inputElement.classList.add("validInputLine");
       textElement.classList.add("hiddenElement");
-      return 1;
+      return true;
     } else {
       inputElement.classList.remove("validInputLine");
       inputElement.classList.add("errorInputLine");
       textElement.textContent = specialErrorText;
       textElement.classList.remove("hiddenElement");
+      return false;
     }
   } else {
     if (min && max) {
@@ -282,20 +283,19 @@ function errorMessage({
         inputElement.classList.add("errorInputLine");
         textElement.textContent = minErrorText;
         textElement.classList.remove("hiddenElement");
+        return false;
       } else if (valueSearch > max) {
         inputElement.classList.remove("validInputLine");
         inputElement.classList.add("errorInputLine");
         textElement.textContent = maxErrorText;
         textElement.classList.remove("hiddenElement");
+        return false;
       } else {
         inputElement.classList.remove("errorInputLine");
         inputElement.classList.add("validInputLine");
         textElement.classList.add("hiddenElement");
-        return 1;
+        return true;
       }
-      //   // EMAIL
-      // } else if (special === string) {
-      //   textElement.textContent = specialErrorText
     }
   }
 }
@@ -461,9 +461,11 @@ function createModal() {
     textElement: "Add project",
   });
   let isValidate = false;
+  let isProject = false;
+  let isTech = false;
   buttonAddProject.addEventListener("click", (event) => {
     const projectValue = inputProject.value.trim().length;
-    errorMessage({
+    isProject = errorMessage({
       min: 3,
       max: 30,
       value: projectValue,
@@ -473,7 +475,7 @@ function createModal() {
       maxErrorText: structureApp.formInfo.errorMessage.max("title", 30),
     });
     const projectTechnology = inputTechnology.value.trim().length;
-    errorMessage({
+    isTech = errorMessage({
       min: 1,
       max: +Infinity,
       value: projectTechnology,
@@ -485,7 +487,7 @@ function createModal() {
     if (!isValidate) {
       inputProject.addEventListener("input", () => {
         const projectValue = inputProject.value.trim().length;
-        errorMessage({
+        isProject = errorMessage({
           min: 3,
           max: 30,
           value: projectValue,
@@ -497,7 +499,7 @@ function createModal() {
       });
       inputTechnology.addEventListener("input", () => {
         const projectTechnology = inputTechnology.value.trim().length;
-        errorMessage({
+        isTech = errorMessage({
           min: 1,
           max: +Infinity,
           value: projectTechnology,
@@ -513,18 +515,19 @@ function createModal() {
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
 
-    // addNewProject(
-    //   inputProject,
-    //   inputTechnology,
-    //   uniqeDataset,
-    //   projectsContainer
-    // );
-    // modal.remove();
-    // document.body.classList.remove("noScroll");
-    // userInfo.cardsProjects.push({
-    //   project: inputProject.value.trim(),
-    //   technology: inputTechnology.value.trim().split(",").join(","),
-    // });
+    if (isProject && isTech) {
+    addNewProject(
+      inputProject,
+      inputTechnology,
+      uniqeDataset,
+      projectsContainer
+    );
+    modal.remove();
+    document.body.classList.remove("noScroll");
+    userInfo.cardsProjects.push({
+      project: inputProject.value.trim(),
+      technology: inputTechnology.value.trim().split(",").join(","),
+    })};
   });
   addProjectContainer.appendChild(buttonAddProject);
   // ASSEMBLE STRUCTURE
@@ -826,6 +829,9 @@ function renderSection(target) {
       textElement: "Send message",
     });
     let isValidate = false;
+    let isName = false;
+    let isEmail = false;
+    let isInfo = false;
     buttonSendMessage.addEventListener("click", (event) => {
       const nameValue = inputName.value.trim().length;
       errorMessage({
