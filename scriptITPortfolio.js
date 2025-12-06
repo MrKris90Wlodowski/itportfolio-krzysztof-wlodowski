@@ -487,7 +487,7 @@ function createModal() {
     if (!isValidate) {
       inputProject.addEventListener("input", () => {
         const projectValue = inputProject.value.trim().length;
-        isProject = errorMessage({
+        errorMessage({
           min: 3,
           max: 30,
           value: projectValue,
@@ -499,7 +499,7 @@ function createModal() {
       });
       inputTechnology.addEventListener("input", () => {
         const projectTechnology = inputTechnology.value.trim().length;
-        isTech = errorMessage({
+        errorMessage({
           min: 1,
           max: +Infinity,
           value: projectTechnology,
@@ -516,18 +516,19 @@ function createModal() {
     const uniqeDataset = crypto.randomUUID();
 
     if (isProject && isTech) {
-    addNewProject(
-      inputProject,
-      inputTechnology,
-      uniqeDataset,
-      projectsContainer
-    );
-    modal.remove();
-    document.body.classList.remove("noScroll");
-    userInfo.cardsProjects.push({
-      project: inputProject.value.trim(),
-      technology: inputTechnology.value.trim().split(",").join(","),
-    })};
+      addNewProject(
+        inputProject,
+        inputTechnology,
+        uniqeDataset,
+        projectsContainer
+      );
+      modal.remove();
+      document.body.classList.remove("noScroll");
+      userInfo.cardsProjects.push({
+        project: inputProject.value.trim(),
+        technology: inputTechnology.value.trim().split(",").join(","),
+      });
+    }
   });
   addProjectContainer.appendChild(buttonAddProject);
   // ASSEMBLE STRUCTURE
@@ -834,7 +835,7 @@ function renderSection(target) {
     let isInfo = false;
     buttonSendMessage.addEventListener("click", (event) => {
       const nameValue = inputName.value.trim().length;
-      errorMessage({
+      isName = errorMessage({
         min: 3,
         max: 20,
         value: nameValue,
@@ -844,7 +845,7 @@ function renderSection(target) {
         maxErrorText: structureApp.formInfo.errorMessage.max("name", 20),
       });
       const emailValue = inputEmail.value.trim();
-      errorMessage({
+      isEmail = errorMessage({
         isEmail: true,
         value: emailValue,
         textElement: errorEmail,
@@ -852,7 +853,7 @@ function renderSection(target) {
         specialErrorText: structureApp.formInfo.errorMessage.email,
       });
       const infoValue = inputInfo.value.trim().length;
-      errorMessage({
+      isInfo = errorMessage({
         min: 1,
         max: 100,
         value: infoValue,
@@ -904,6 +905,17 @@ function renderSection(target) {
 
       isValidate = true;
       event.preventDefault();
+
+      if (isName && isEmail && isInfo) {
+        userInfo.messages.push({
+          name: inputName.value.trim(),
+          email: inputEmail.value.trim(),
+          message: inputInfo.value.trim(),
+        });
+        inputName.value = "",
+        inputEmail.value = "",
+        inputInfo.value = ""
+      }
     });
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
