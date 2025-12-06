@@ -253,35 +253,50 @@ function addNewProject(project, technology, uniqeDataset, container) {
 function errorMessage({
   min = null,
   max = null,
+  isEmail = false,
   value,
-  special,
   specialErrorText,
   textElement,
   inputElement,
   minErrorText,
   maxErrorText,
 }) {
+  const valueEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const valueSearch = value;
-  if (min && max) {
-    if (valueSearch < min) {
-      inputElement.classList.remove("validInputLine");
-      inputElement.classList.add("errorInputLine");
-      textElement.textContent = minErrorText;
-      textElement.classList.remove("hiddenElement");
-    } else if (valueSearch > max) {
-      inputElement.classList.remove("validInputLine");
-      inputElement.classList.add("errorInputLine");
-      textElement.textContent = maxErrorText;
-      textElement.classList.remove("hiddenElement");
-    } else {
+  if (isEmail) {
+    if (valueEmail.test(valueSearch)) {
       inputElement.classList.remove("errorInputLine");
       inputElement.classList.add("validInputLine");
       textElement.classList.add("hiddenElement");
       return 1;
+    } else {
+      inputElement.classList.remove("validInputLine");
+      inputElement.classList.add("errorInputLine");
+      textElement.textContent = specialErrorText;
+      textElement.classList.remove("hiddenElement");
     }
-    //   // EMAIL
-    // } else if (special === string) {
-    //   textElement.textContent = specialErrorText
+  } else {
+    if (min && max) {
+      if (valueSearch < min) {
+        inputElement.classList.remove("validInputLine");
+        inputElement.classList.add("errorInputLine");
+        textElement.textContent = minErrorText;
+        textElement.classList.remove("hiddenElement");
+      } else if (valueSearch > max) {
+        inputElement.classList.remove("validInputLine");
+        inputElement.classList.add("errorInputLine");
+        textElement.textContent = maxErrorText;
+        textElement.classList.remove("hiddenElement");
+      } else {
+        inputElement.classList.remove("errorInputLine");
+        inputElement.classList.add("validInputLine");
+        textElement.classList.add("hiddenElement");
+        return 1;
+      }
+      //   // EMAIL
+      // } else if (special === string) {
+      //   textElement.textContent = specialErrorText
+    }
   }
 }
 
@@ -767,13 +782,13 @@ function renderSection(target) {
       errorForm: errorEmail,
     });
 
-    // MESSAGE FIELD
-    const inputMessage = renderBasicInput({
-      idInput: "inputMessage",
+    // INFO FIELD
+    const inputInfo = renderBasicInput({
+      idInput: "inputInfo",
       placeholderInput: structureApp.formInfo.inputPlaceholder.message,
       classInput: ["inputStyle", "validInputLine"],
     });
-    const errorMessage = renderBasicElement({
+    const errorInfo = renderBasicElement({
       element: "p",
       classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
       textElement: structureApp.formInfo.errorMessage.message,
@@ -788,14 +803,14 @@ function renderSection(target) {
       }),
       labelForm: renderBasicLabel({
         classLabel: ["primaryStyleText"],
-        forlabel: "inputMessage",
+        forlabel: "inputInfo",
         textLabel: structureApp.formInfo.label.message,
       }),
       inputFieldForm: renderBasicElement({
         classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
       }),
-      inputForm: inputMessage,
-      errorForm: errorMessage
+      inputForm: inputInfo,
+      errorForm: errorInfo,
     });
 
     const buttonContainer = renderBasicElement({
@@ -809,6 +824,80 @@ function renderSection(target) {
     const buttonSendMessage = renderBasicElement({
       element: "button",
       textElement: "Send message",
+    });
+    let isValidate = false;
+    buttonSendMessage.addEventListener("click", (event) => {
+      const nameValue = inputName.value.trim().length;
+      errorMessage({
+        min: 3,
+        max: 20,
+        value: nameValue,
+        textElement: errorName,
+        inputElement: inputName,
+        minErrorText: structureApp.formInfo.errorMessage.min("name", 3),
+        maxErrorText: structureApp.formInfo.errorMessage.max("name", 20),
+      });
+      const emailValue = inputEmail.value.trim();
+      errorMessage({
+        isEmail: true,
+        value: emailValue,
+        textElement: errorEmail,
+        inputElement: inputEmail,
+        specialErrorText: structureApp.formInfo.errorMessage.email,
+      });
+      const infoValue = inputInfo.value.trim().length;
+      errorMessage({
+        min: 1,
+        max: 100,
+        value: infoValue,
+        textElement: errorInfo,
+        inputElement: inputInfo,
+        minErrorText: structureApp.formInfo.errorMessage.message,
+        maxErrorText: structureApp.formInfo.errorMessage.max("message", 100),
+      });
+
+      if (!isValidate) {
+        inputName.addEventListener("input", () => {
+          const nameValue = inputName.value.trim().length;
+          errorMessage({
+            min: 3,
+            max: 20,
+            value: nameValue,
+            textElement: errorName,
+            inputElement: inputName,
+            minErrorText: structureApp.formInfo.errorMessage.min("name", 3),
+            maxErrorText: structureApp.formInfo.errorMessage.max("name", 20),
+          });
+          inputEmail.addEventListener("input", () => {
+            const emailValue = inputEmail.value.trim();
+            errorMessage({
+              isEmail: true,
+              value: emailValue,
+              textElement: errorEmail,
+              inputElement: inputEmail,
+              specialErrorText: structureApp.formInfo.errorMessage.email,
+            });
+            inputInfo.addEventListener("input", () => {
+              const infoValue = inputInfo.value.trim().length;
+              errorMessage({
+                min: 1,
+                max: 100,
+                value: infoValue,
+                textElement: errorInfo,
+                inputElement: inputInfo,
+                minErrorText: structureApp.formInfo.errorMessage.message,
+                maxErrorText: structureApp.formInfo.errorMessage.max(
+                  "message",
+                  100
+                ),
+              });
+            });
+          });
+        });
+      }
+
+      isValidate = true;
+      event.preventDefault();
     });
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
