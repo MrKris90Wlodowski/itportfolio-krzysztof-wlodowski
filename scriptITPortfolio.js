@@ -447,27 +447,25 @@ function createModal() {
   });
   let isValidate = false;
   buttonAddProject.addEventListener("click", (event) => {
-    
-      const projectValue = inputProject.value.trim().length;
-      errorMessage({
-        min: 3,
-        max: 30,
-        value: projectValue,
-        textElement: errorProject,
-        inputElement: inputProject,
-        minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
-        maxErrorText: structureApp.formInfo.errorMessage.max("title", 30),
-      });
-      const projectTechnology = inputTechnology.value.trim().length;
-      errorMessage({
-        min: 1,
-        max: +Infinity,
-        value: projectTechnology,
-        textElement: errorTechnology,
-        inputElement: inputTechnology,
-        minErrorText: structureApp.formInfo.errorMessage.technology
-      });
-   
+    const projectValue = inputProject.value.trim().length;
+    errorMessage({
+      min: 3,
+      max: 30,
+      value: projectValue,
+      textElement: errorProject,
+      inputElement: inputProject,
+      minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
+      maxErrorText: structureApp.formInfo.errorMessage.max("title", 30),
+    });
+    const projectTechnology = inputTechnology.value.trim().length;
+    errorMessage({
+      min: 1,
+      max: +Infinity,
+      value: projectTechnology,
+      textElement: errorTechnology,
+      inputElement: inputTechnology,
+      minErrorText: structureApp.formInfo.errorMessage.technology,
+    });
 
     if (!isValidate) {
       inputProject.addEventListener("input", () => {
@@ -495,7 +493,7 @@ function createModal() {
       });
     }
 
-    isValidate = true
+    isValidate = true;
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
@@ -531,9 +529,6 @@ function createModal() {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
-
-
-
   // HOME
   if (target === "home") {
     const mainHomeContainer = renderBasicElement({
@@ -570,8 +565,6 @@ function renderSection(target) {
 
     mainContainer.appendChild(mainHomeContainer);
   }
-
-
 
   // PROJECTS
   else if (target === "projects") {
@@ -624,8 +617,6 @@ function renderSection(target) {
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
   }
-
-
 
   // ABOUT ME
   else if (target === "about") {
@@ -691,8 +682,6 @@ function renderSection(target) {
     mainContainer.appendChild(mainAboutMecontainer);
   }
 
-
-
   // CONTACT
   else if (target === "contact") {
     const mainContactContainer = renderBasicElement({
@@ -702,20 +691,31 @@ function renderSection(target) {
     });
     const formContact = renderBasicElement({
       element: "form",
-    })
+    });
     const formContactContainer = renderBasicElement({
       element: "div",
-      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"]
-    })
+      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"],
+    });
     const inputsNameAndEmailContainer = renderBasicElement({
       element: "div",
-      classElement: ["displayFlexInputNameAndEmail"]
-    })
+      classElement: ["displayFlexInputNameAndEmail"],
+    });
     const inputsContactContainer = renderBasicElement({
       element: "div",
-      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"]
-    })
+      classElement: ["flexStyleColumn", "gapBetweenColumnInInput"],
+    });
 
+    // NAME FIELD
+    const inputName = renderBasicInput({
+      idInput: "inputName",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.name,
+      classInput: ["inputStyle", "validInputLine"],
+    });
+    const errorName = renderBasicElement({
+      element: "p",
+      classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+      textElement: structureApp.formInfo.errorMessage.min("name", 4),
+    });
     const nameFormField = renderFormField({
       fieldForm: renderBasicElement({
         classElement: [
@@ -732,18 +732,21 @@ function renderSection(target) {
       inputFieldForm: renderBasicElement({
         classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
       }),
-      inputForm: renderBasicInput({
-        idInput: "inputName",
-        placeholderInput: structureApp.formInfo.inputPlaceholder.name,
-        classInput: ["inputStyle", "validInputLine"],
-      }),
-      errorForm: renderBasicElement({
-        element: "p",
-        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
-        textElement: structureApp.formInfo.errorMessage.min("name", 4),
-      }),
+      inputForm: inputName,
+      errorForm: errorName,
     });
 
+    // EMAIL FIELD
+    const inputEmail = renderBasicInput({
+      idInput: "inpuEmail",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.email,
+      classInput: ["inputStyle", "validInputLine"],
+    });
+    const errorEmail = renderBasicElement({
+      element: "p",
+      classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+      textElement: structureApp.formInfo.errorMessage.email,
+    });
     const emailFormField = renderFormField({
       fieldForm: renderBasicElement({
         classElement: [
@@ -754,24 +757,27 @@ function renderSection(target) {
       }),
       labelForm: renderBasicLabel({
         classLabel: ["primaryStyleText"],
-        forlabel: "inputName",
+        forlabel: "inpuEmail",
         textLabel: structureApp.formInfo.label.email,
       }),
       inputFieldForm: renderBasicElement({
         classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
       }),
-      inputForm: renderBasicInput({
-        idInput: "inputName",
-        placeholderInput: structureApp.formInfo.inputPlaceholder.email,
-        classInput: ["inputStyle", "validInputLine"],
-      }),
-      errorForm: renderBasicElement({
-        element: "p",
-        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
-        textElement: structureApp.formInfo.errorMessage.email,
-      }),
+      inputForm: inputEmail,
+      errorForm: errorEmail,
     });
 
+    // MESSAGE FIELD
+    const inputMessage = renderBasicInput({
+      idInput: "inputMessage",
+      placeholderInput: structureApp.formInfo.inputPlaceholder.message,
+      classInput: ["inputStyle", "validInputLine"],
+    });
+    const errorMessage = renderBasicElement({
+      element: "p",
+      classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
+      textElement: structureApp.formInfo.errorMessage.message,
+    });
     const messageFormField = renderFormField({
       fieldForm: renderBasicElement({
         classElement: [
@@ -782,22 +788,14 @@ function renderSection(target) {
       }),
       labelForm: renderBasicLabel({
         classLabel: ["primaryStyleText"],
-        forlabel: "inputName",
+        forlabel: "inputMessage",
         textLabel: structureApp.formInfo.label.message,
       }),
       inputFieldForm: renderBasicElement({
         classElement: ["flexStyleColumn", "fullSpaceInput", "positionRelative"],
       }),
-      inputForm: renderBasicInput({
-        idInput: "inputName",
-        placeholderInput: structureApp.formInfo.inputPlaceholder.message,
-        classInput: ["inputStyle", "validInputLine"],
-      }),
-      errorForm: renderBasicElement({
-        element: "p",
-        classElement: ["errorInfo", "hiddenElement", "absoluteContactError"],
-        textElement: structureApp.formInfo.errorMessage.message,
-      }),
+      inputForm: inputMessage,
+      errorForm: errorMessage
     });
 
     const buttonContainer = renderBasicElement({
@@ -813,23 +811,17 @@ function renderSection(target) {
       textElement: "Send message",
     });
     buttonContainer.appendChild(buttonSendMessage);
-    inputsNameAndEmailContainer.append(
-      nameFormField,
-      emailFormField
-    )
-    inputsContactContainer.append(inputsNameAndEmailContainer,messageFormField)
-    formContactContainer.append(
-      inputsContactContainer,
-      buttonContainer
+    inputsNameAndEmailContainer.append(nameFormField, emailFormField);
+    inputsContactContainer.append(
+      inputsNameAndEmailContainer,
+      messageFormField
     );
+    formContactContainer.append(inputsContactContainer, buttonContainer);
 
-
-    formContact.appendChild(formContactContainer)
+    formContact.appendChild(formContactContainer);
     mainContactContainer.appendChild(formContact);
     mainContainer.appendChild(mainContactContainer);
   }
-
-
 
   // MESSAGES
   else if (target === "messages") {
