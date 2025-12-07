@@ -548,11 +548,14 @@ function createModal() {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+
+  // ======================
   // HOME
+  // ======================
   if (target === "home") {
     const mainHomeContainer = renderBasicElement({
       clearMain: true,
-      classElement: ["paddingSectionHome"],
+      classElement: ["paddingSectionHome","container"],
     });
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
@@ -585,7 +588,9 @@ function renderSection(target) {
     mainContainer.appendChild(mainHomeContainer);
   }
 
+  // ======================
   // PROJECTS
+  // ======================
   else if (target === "projects") {
     const mainProjectsContainer = renderBasicElement({
       clearMain: true,
@@ -594,6 +599,7 @@ function renderSection(target) {
         "paddingSectionProjectMe",
         "flexStyleColumn",
         "alignItemsFlexCenter",
+        "container"
       ],
     });
 
@@ -637,7 +643,9 @@ function renderSection(target) {
     mainContainer.appendChild(mainProjectsContainer);
   }
 
+  // ======================
   // ABOUT ME
+  // ======================
   else if (target === "about") {
     const mainAboutMecontainer = renderBasicElement({
       clearMain: true,
@@ -647,6 +655,7 @@ function renderSection(target) {
         "alignItemsFlexCenter",
         "paddinSectionAboutMe",
         "gapBetweenElements",
+        "container"
       ],
     });
     const imageMaleContainer = renderBasicElement({
@@ -701,12 +710,14 @@ function renderSection(target) {
     mainContainer.appendChild(mainAboutMecontainer);
   }
 
+  // ======================
   // CONTACT
+  // ======================
   else if (target === "contact") {
     const mainContactContainer = renderBasicElement({
       clearMain: true,
       element: "div",
-      classElement: ["paddingSectionContact"],
+      classElement: ["paddingSectionContact", "container"],
     });
     const formContact = renderBasicElement({
       element: "form",
@@ -912,9 +923,7 @@ function renderSection(target) {
           email: inputEmail.value.trim(),
           message: inputInfo.value.trim(),
         });
-        inputName.value = "",
-        inputEmail.value = "",
-        inputInfo.value = ""
+        (inputName.value = ""), (inputEmail.value = ""), (inputInfo.value = "");
       }
     });
     buttonContainer.appendChild(buttonSendMessage);
@@ -930,7 +939,9 @@ function renderSection(target) {
     mainContainer.appendChild(mainContactContainer);
   }
 
-  // MESSAGES
+  // ======================
+  //        MESSAGES
+  // ======================
   else if (target === "messages") {
     // MAIN STRUCTURE
     const mainMessageContainer = renderBasicElement({
@@ -940,6 +951,7 @@ function renderSection(target) {
         "paddingSectionMessages",
         "flexStyleColumn",
         "gapBetweenMessages",
+        "container",
       ],
       idElement: "mainMessageContainer",
     });
@@ -974,8 +986,6 @@ renderInfoHeader(
 // const myBackground = document.getElementById("myBackground");
 // const hobbies = document.getElementById("hobbies");
 
-
-
 // const inputProjectName = document.getElementById("inputProjectName");
 // const inputTechnology = document.getElementById("inputTechnology");
 // const errorMinProjectName = document.getElementById("errorMinProjectName");
@@ -990,7 +1000,6 @@ renderInfoHeader(
 // const projectContainer = document.querySelectorAll(".imageProjectContainer");
 // const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
 // const noProjectMessage = document.getElementById("noProjectsMessageContainer");
-
 
 // const buttonsSendMessage = document.querySelectorAll(
 //   '[data-button="sendMessage"]'
@@ -1027,7 +1036,6 @@ renderInfoHeader(
 email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
 
-
 //     mainSections.forEach((section) => {
 //       section.classList.add("hiddenElement");
 //       if (section.dataset.section === targetList) {
@@ -1045,7 +1053,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   modalForm.classList.remove("hiddenElement");
 //   document.body.classList.add("noScroll");
 // });
-
 
 // // FUNCTION: add new project card in projects section
 // function addNewProject(project, technology, uniqeDataset) {
@@ -1121,7 +1128,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   addNewProjectCarousel(project, technology, uniqeDataset);
 // }
 
-
 // // LOGIC: icon trash button and delete project
 
 // // FUNCTION: delete project cards from both the project section and the carousel
@@ -1154,10 +1160,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //     }
 //   })
 // );
-
-
-
-
 
 // // LOGIC: create project cards from javascript data
 
