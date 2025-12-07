@@ -213,7 +213,7 @@ function createTechSkill(skill, num, container) {
 // PROJECTS
 
 // FUNCTION: add new project card in projects section
-function addNewProject(project, technology, uniqeDataset, container) {
+function addNewProject(project, technology, uniqeDataset, container, index) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
     .trim()
@@ -222,7 +222,8 @@ function addNewProject(project, technology, uniqeDataset, container) {
     .filter((tech) => tech !== "");
 
   const newProject = document.createElement("div");
-  newProject.dataset.uniqe = uniqeDataset;
+  newProject.dataset.id = uniqeDataset;
+  newProject.dataset.index = index;
   newProject.classList.add("imageProjectContainer");
   const nameProject = document.createElement("h4");
   nameProject.textContent = `${projectValue}`;
@@ -242,9 +243,10 @@ function addNewProject(project, technology, uniqeDataset, container) {
     classElement: ["imageDeleteContainer"],
   });
   newProject.appendChild(buttonDelete);
-  // buttonDelete.addEventListener("click", () => {
-  //   deleteProject(buttonDelete, "imageProjectContainer");
-  // });
+  buttonDelete.addEventListener("click", (event) => {
+    const project = event.currentTarget.closest(".imageProjectContainer");
+    project.remove();
+  });
 
   container.appendChild(newProject);
   // checkAmountProjectCard();
@@ -514,13 +516,15 @@ function createModal() {
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
+    const index = projectsContainer.children.length
 
     if (isProject && isTech) {
       addNewProject(
         inputProject,
         inputTechnology,
         uniqeDataset,
-        projectsContainer
+        projectsContainer,
+        index
       );
       modal.remove();
       document.body.classList.remove("noScroll");
@@ -678,12 +682,14 @@ function renderSection(target) {
       idElement: "projectsContainer",
     });
     userInfo.cardsProjects.forEach((card) => {
+      const index = projectsContainer.children.length
       const uniqeDataset = crypto.randomUUID();
       addNewProject(
         { value: card.project },
         { value: card.technology },
         uniqeDataset,
-        projectsContainer
+        projectsContainer,
+        index
       );
     });
     mainProjectsContainer.appendChild(buttonContainer);
