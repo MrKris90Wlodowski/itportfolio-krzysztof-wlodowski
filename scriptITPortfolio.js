@@ -548,14 +548,13 @@ function createModal() {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
-
   // ======================
   // HOME
   // ======================
   if (target === "home") {
     const mainHomeContainer = renderBasicElement({
       clearMain: true,
-      classElement: ["paddingSectionHome","container"],
+      classElement: ["paddingSectionHome", "container"],
     });
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
@@ -583,7 +582,56 @@ function renderSection(target) {
       classDescriptionArticle: ["preLine"],
       container: homeContainer,
     });
-    mainHomeContainer.append(homeContainer, techContainer);
+    const carasuelTrackContainer = renderBasicElement({
+      idElement: "carouselTrack",
+    });
+    const carasuelContainer = renderBasicElement({
+      idElement: "carousel",
+    });
+    const carasuelMainContainer = renderBasicElement({
+      idElement: "carouselContainer",
+      classElement: ["marginProjectsCarousel"],
+    });
+    carasuelContainer.appendChild(carasuelTrackContainer);
+    carasuelMainContainer.appendChild(carasuelContainer);
+
+    const buttonNavigateFirst = renderBasicElement({
+      element: "button",
+      classElement: [
+        "dismensionButtonArrow",
+        "displayFlexJustifyCenter",
+        "alignItemsFlexCenter",
+      ],
+    });
+        const buttonNavigateSecond = renderBasicElement({
+      element: "button",
+      classElement: [
+        "dismensionButtonArrow",
+        "displayFlexJustifyCenter",
+        "alignItemsFlexCenter",
+      ],
+    });
+    const buttonsContainer = renderBasicElement({
+      classElement: [
+        "displayFlexJustifyCenter",
+        "alignItemsFlexCenter",
+        "marginAndGapButton",
+        "buttonsDesktop",
+      ],
+    });
+    const buttonsMainContainer = renderBasicElement({
+      idElement: "navButtonsDesktop",
+    });
+    buttonNavigateFirst.appendChild(renderBasicImage({sourceImage: "./images/IconLeft.svg", alterImage: "icon left arrow"}))
+    buttonNavigateSecond.appendChild(renderBasicImage({sourceImage: "./images/IconRight.svg", alterImage: "icon right arrow"}))
+    buttonsContainer.append(buttonNavigateFirst,buttonNavigateSecond)
+    buttonsMainContainer.appendChild(buttonsContainer);
+    mainHomeContainer.append(
+      homeContainer,
+      techContainer,
+      carasuelMainContainer,
+      buttonsMainContainer
+    );
 
     mainContainer.appendChild(mainHomeContainer);
   }
@@ -599,7 +647,7 @@ function renderSection(target) {
         "paddingSectionProjectMe",
         "flexStyleColumn",
         "alignItemsFlexCenter",
-        "container"
+        "container",
       ],
     });
 
@@ -655,7 +703,7 @@ function renderSection(target) {
         "alignItemsFlexCenter",
         "paddinSectionAboutMe",
         "gapBetweenElements",
-        "container"
+        "container",
       ],
     });
     const imageMaleContainer = renderBasicElement({
