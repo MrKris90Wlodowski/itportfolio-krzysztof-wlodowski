@@ -612,6 +612,19 @@ function renderSection(target) {
     const carasuelTrackContainer = renderBasicElement({
       idElement: "carouselTrack",
     });
+
+    userInfo.cardsProjects.forEach((card) => {
+      const index = carasuelTrackContainer.children.length;
+      const uniqeDataset = crypto.randomUUID();
+      addNewProject({
+        project: { value: card.project },
+        technology: { value: card.technology },
+        uniqeDataset: uniqeDataset,
+        container: carasuelTrackContainer,
+        index: index,
+      });
+    });
+
     const carasuelContainer = renderBasicElement({
       idElement: "carousel",
     });
@@ -722,8 +735,8 @@ function renderSection(target) {
         technology: { value: card.technology },
         uniqeDataset: uniqeDataset,
         container: projectsContainer,
-        index: index
-    });
+        index: index,
+      });
     });
     mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
