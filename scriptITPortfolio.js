@@ -245,7 +245,21 @@ function addNewProject(project, technology, uniqeDataset, container, index) {
   newProject.appendChild(buttonDelete);
   buttonDelete.addEventListener("click", (event) => {
     const project = event.currentTarget.closest(".imageProjectContainer");
+    const index = Number(project.dataset.index)
     project.remove();
+    userInfo.cardsProjects.splice(index, 1);
+    container.innerHTML = "";
+    userInfo.cardsProjects.forEach((card) => {
+      const index = container.children.length;
+      const uniqeDataset = crypto.randomUUID();
+      addNewProject(
+        { value: card.project },
+        { value: card.technology },
+        uniqeDataset,
+        container,
+        index
+      );
+    });
   });
 
   container.appendChild(newProject);
@@ -516,7 +530,7 @@ function createModal() {
     event.preventDefault();
     const projectsContainer = document.getElementById("projectsContainer");
     const uniqeDataset = crypto.randomUUID();
-    const index = projectsContainer.children.length
+    const index = projectsContainer.children.length;
 
     if (isProject && isTech) {
       addNewProject(
@@ -607,7 +621,7 @@ function renderSection(target) {
         "alignItemsFlexCenter",
       ],
     });
-        const buttonNavigateSecond = renderBasicElement({
+    const buttonNavigateSecond = renderBasicElement({
       element: "button",
       classElement: [
         "dismensionButtonArrow",
@@ -626,9 +640,19 @@ function renderSection(target) {
     const buttonsMainContainer = renderBasicElement({
       idElement: "navButtonsDesktop",
     });
-    buttonNavigateFirst.appendChild(renderBasicImage({sourceImage: "./images/IconLeft.svg", alterImage: "icon left arrow"}))
-    buttonNavigateSecond.appendChild(renderBasicImage({sourceImage: "./images/IconRight.svg", alterImage: "icon right arrow"}))
-    buttonsContainer.append(buttonNavigateFirst,buttonNavigateSecond)
+    buttonNavigateFirst.appendChild(
+      renderBasicImage({
+        sourceImage: "./images/IconLeft.svg",
+        alterImage: "icon left arrow",
+      })
+    );
+    buttonNavigateSecond.appendChild(
+      renderBasicImage({
+        sourceImage: "./images/IconRight.svg",
+        alterImage: "icon right arrow",
+      })
+    );
+    buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
       homeContainer,
@@ -682,7 +706,7 @@ function renderSection(target) {
       idElement: "projectsContainer",
     });
     userInfo.cardsProjects.forEach((card) => {
-      const index = projectsContainer.children.length
+      const index = projectsContainer.children.length;
       const uniqeDataset = crypto.randomUUID();
       addNewProject(
         { value: card.project },
