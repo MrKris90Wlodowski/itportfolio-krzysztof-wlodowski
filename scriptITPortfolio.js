@@ -213,7 +213,14 @@ function createTechSkill(skill, num, container) {
 // PROJECTS
 
 // FUNCTION: add new project card in projects section
-function addNewProject(project, technology, uniqeDataset, container, index) {
+function addNewProject({
+  project,
+  technology,
+  uniqeDataset,
+  container,
+  index,
+  isDeleteButton = true,
+}) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
     .trim()
@@ -238,29 +245,31 @@ function addNewProject(project, technology, uniqeDataset, container, index) {
   });
   newProject.appendChild(listTech);
 
-  const buttonDelete = renderBasicElement({
-    element: "button",
-    classElement: ["imageDeleteContainer"],
-  });
-  newProject.appendChild(buttonDelete);
-  buttonDelete.addEventListener("click", (event) => {
-    const project = event.currentTarget.closest(".imageProjectContainer");
-    const index = Number(project.dataset.index)
-    project.remove();
-    userInfo.cardsProjects.splice(index, 1);
-    container.innerHTML = "";
-    userInfo.cardsProjects.forEach((card) => {
-      const index = container.children.length;
-      const uniqeDataset = crypto.randomUUID();
-      addNewProject(
-        { value: card.project },
-        { value: card.technology },
-        uniqeDataset,
-        container,
-        index
-      );
+  if (isDeleteButton) {
+    const buttonDelete = renderBasicElement({
+      element: "button",
+      classElement: ["imageDeleteContainer"],
     });
-  });
+    newProject.appendChild(buttonDelete);
+    buttonDelete.addEventListener("click", (event) => {
+      const project = event.currentTarget.closest(".imageProjectContainer");
+      const index = Number(project.dataset.index);
+      project.remove();
+      userInfo.cardsProjects.splice(index, 1);
+      container.innerHTML = "";
+      userInfo.cardsProjects.forEach((card) => {
+        const index = container.children.length;
+        const uniqeDataset = crypto.randomUUID();
+        addNewProject({
+          project: { value: card.project },
+          technology: { value: card.technology },
+          uniqeDataset: uniqeDataset,
+          container: container,
+          index: index,
+        });
+      });
+    });
+  }
 
   container.appendChild(newProject);
   // checkAmountProjectCard();
@@ -533,13 +542,13 @@ function createModal() {
     const index = projectsContainer.children.length;
 
     if (isProject && isTech) {
-      addNewProject(
-        inputProject,
-        inputTechnology,
-        uniqeDataset,
-        projectsContainer,
-        index
-      );
+      addNewProject({
+        project: inputProject,
+        technology: inputTechnology,
+        uniqeDataset: uniqeDataset,
+        container: projectsContainer,
+        index: index,
+      });
       modal.remove();
       document.body.classList.remove("noScroll");
       userInfo.cardsProjects.push({
@@ -708,13 +717,13 @@ function renderSection(target) {
     userInfo.cardsProjects.forEach((card) => {
       const index = projectsContainer.children.length;
       const uniqeDataset = crypto.randomUUID();
-      addNewProject(
-        { value: card.project },
-        { value: card.technology },
-        uniqeDataset,
-        projectsContainer,
-        index
-      );
+      addNewProject({
+        project: { value: card.project },
+        technology: { value: card.technology },
+        uniqeDataset: uniqeDataset,
+        container: projectsContainer,
+        index: index
+    });
     });
     mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
@@ -1054,16 +1063,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.paragraph
 );
 
-
-// const inputProjectName = document.getElementById("inputProjectName");
-// const inputTechnology = document.getElementById("inputTechnology");
-// const errorMinProjectName = document.getElementById("errorMinProjectName");
-// const errorMaxProjectName = document.getElementById("errorMaxProjectName");
-// const errorNoneTech = document.getElementById("errorNoneTech");
-
-// const inputsModal = document.querySelectorAll('[data-input="modal"]');
-// const inputsContact = document.querySelectorAll('[data-input="contact"]');
-
 // // ELEMENTS: icon trash button and delete project
 // const mainProjectConteiner = document.getElementById("mainProjectConteiner");
 // const projectContainer = document.querySelectorAll(".imageProjectContainer");
@@ -1115,7 +1114,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   });
 // });
 
-
 // // FUNCTION: add new project card in carousel
 // function addNewProjectCarousel(project, technology, uniqeDataset) {
 //   const projectCarouselValue = project.value.trim();
@@ -1145,48 +1143,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   refreshCarouselClones();
 //   resetCarouselPosition();
 // }
-
-// // FUNCTION: create project card and carousel card with same data
-// function createProjectAndCarouselCard(project, technology) {
-//   const uniqeDataset = crypto.randomUUID();
-
-//   addNewProject(project, technology, uniqeDataset);
-//   addNewProjectCarousel(project, technology, uniqeDataset);
-// }
-
-// // LOGIC: icon trash button and delete project
-
-// // FUNCTION: delete project cards from both the project section and the carousel
-// function deleteProject(buttonDelete, classValue) {
-//   const singleProject = buttonDelete.closest(`.${classValue}`);
-//   const uniqeDataset = singleProject.dataset.uniqe;
-//   const allUniqeCard = document.querySelectorAll(
-//     `[data-uniqe="${uniqeDataset}"]`
-//   );
-//   if (singleProject) {
-//     allUniqeCard.forEach((card) => card.remove());
-//     refreshCarouselClones();
-//     resetCarouselPosition();
-//   }
-//   checkAmountProjectCard();
-// }
-
-// // EVENT LISTENERS: manual delete both project card and carusel card
-// buttonDeleteProject.forEach((buttonDelete) =>
-//   buttonDelete.addEventListener("click", () => {
-//     const singleProject = buttonDelete.closest(".imageProjectContainer");
-//     const uniqeDataset = singleProject.dataset.uniqe;
-//     const allUniqeCard = document.querySelectorAll(
-//       `[data-uniqe="${uniqeDataset}"]`
-//     );
-//     if (singleProject) {
-//       allUniqeCard.forEach((card) => card.remove());
-//       refreshCarouselClones();
-//       resetCarouselPosition();
-//     }
-//   })
-// );
-
 
 // // LOGIC: check amount of project card
 
