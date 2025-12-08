@@ -384,6 +384,15 @@ function createMessage(name, email, message, container) {
   container.appendChild(messageContainer);
 }
 
+function updateElementPosition(newParent,oldParent,child) {
+  if (window.innerWidth < 1024) {
+    child.style.backgroundColor = "#F9F9F9"
+    newParent.insertBefore(child, newParent.firstChild);
+  } else {
+    oldParent.appendChild(child);
+  }
+}
+
 // MODAL
 
 // FUNCTION: allow to create modal form
@@ -1037,6 +1046,11 @@ function renderSection(target) {
     formContact.appendChild(formContactContainer);
     mainContactContainer.appendChild(formContact);
     mainContainer.appendChild(mainContactContainer);
+
+    window.addEventListener("resize", () => {
+      const bodyElelment = document.body
+      updateElementPosition(bodyElelment,formContactContainer,inputsContactContainer)
+    })
   }
 
   // ======================
