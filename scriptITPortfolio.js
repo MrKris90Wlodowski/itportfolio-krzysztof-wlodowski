@@ -1054,15 +1054,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.paragraph
 );
 
-// // ELEMENTS: show section
-// const activeNavListElement = document.querySelectorAll("nav li");
-// const logoHeader = document.querySelectorAll("[data-section-header]");
-// const mainSections = document.querySelectorAll("[data-section]");
-// const nameUser = document.getElementById("nameUser");
-// const fullName = document.getElementById("fullName");
-// const introduce = document.getElementById("introduce");
-// const myBackground = document.getElementById("myBackground");
-// const hobbies = document.getElementById("hobbies");
 
 // const inputProjectName = document.getElementById("inputProjectName");
 // const inputTechnology = document.getElementById("inputTechnology");
@@ -1124,49 +1115,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   });
 // });
 
-// // LOGIC: add project button and modalform
-
-// // EVENT LISTENERS: open modal form
-// buttonAddProject.addEventListener("click", () => {
-//   modalForm.classList.remove("hiddenElement");
-//   document.body.classList.add("noScroll");
-// });
-
-// // FUNCTION: add new project card in projects section
-// function addNewProject(project, technology, uniqeDataset) {
-//   const projectValue = project.value.trim();
-//   const technologyValue = technology.value
-//     .trim()
-//     .split(",")
-//     .map((tech) => tech.trim())
-//     .filter((tech) => tech !== "");
-
-//   const newProject = document.createElement("div");
-//   newProject.dataset.uniqe = uniqeDataset;
-//   newProject.classList.add("imageProjectContainer");
-//   const nameProject = document.createElement("h4");
-//   nameProject.textContent = `${projectValue}`;
-//   newProject.appendChild(nameProject);
-
-//   const listTech = document.createElement("ul");
-//   listTech.classList.add("technologyUse");
-//   technologyValue.forEach((tech) => {
-//     const newTech = document.createElement("li");
-//     newTech.textContent = `${tech}`;
-//     listTech.appendChild(newTech);
-//   });
-//   newProject.appendChild(listTech);
-
-//   const buttonDelete = document.createElement("button");
-//   buttonDelete.classList.add("imageDeleteContainer");
-//   newProject.appendChild(buttonDelete);
-//   buttonDelete.addEventListener("click", () => {
-//     deleteProject(buttonDelete, "imageProjectContainer");
-//   });
-
-//   mainProjectConteiner.appendChild(newProject);
-//   checkAmountProjectCard();
-// }
 
 // // FUNCTION: add new project card in carousel
 // function addNewProjectCarousel(project, technology, uniqeDataset) {
@@ -1239,15 +1187,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   })
 // );
 
-// // LOGIC: create project cards from javascript data
-
-// // EVENT LISTENERS: automatically create project and carousel cards from array
-// (userInfo.cardsProjects).forEach((card) => {
-//   createProjectAndCarouselCard(
-//     { value: card.project },
-//     { value: card.technology }
-//   );
-// });
 
 // // LOGIC: check amount of project card
 
