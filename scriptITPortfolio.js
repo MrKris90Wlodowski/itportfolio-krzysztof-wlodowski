@@ -123,22 +123,31 @@ function renderBasicImage({
 
 //FUNCTION: update basic render element basic info condition to size screen
 function updateElement({ imgDesktop, altDesktop, imgMobile, altMobile }) {
-  const element = document.createElement("div")
-  window.addEventListener("resize", () => {
+  const element = document.createElement("div");
+
+  function renderConditionalElement() {
     element.innerHTML = "";
     if (window.innerWidth > 1024) {
-      element.appendChild(renderBasicImage({
-        sourceImage: imgDesktop,
-        alterImage: altDesktop,
-      }));
+      element.appendChild(
+        renderBasicImage({
+          sourceImage: imgDesktop,
+          alterImage: altDesktop,
+        })
+      );
     } else {
-      element.appendChild(renderBasicImage({
-        sourceImage: imgMobile,
-        alterImage: altMobile,
-      }));
+      element.appendChild(
+        renderBasicImage({
+          sourceImage: imgMobile,
+          alterImage: altMobile,
+        })
+      );
     }
-  });
-  return element
+  }
+
+  window.addEventListener("resize", () => renderConditionalElement());
+  renderConditionalElement()
+
+  return element;
 }
 
 // FUNCTION: dynnamically render basic structure info header
@@ -231,6 +240,7 @@ function createTechSkill(skill, num, container) {
 }
 
 function createCarauselElement(array, container) {
+  container.innerHTML = ""
   const oldArray = array;
   const firstThreeElements = [
     array[array.length - 3],
@@ -725,9 +735,11 @@ function renderSection(target) {
       })
     );
     buttonNavigateSecond.appendChild(
-      renderBasicImage({
-        sourceImage: "./images/IconRight.svg",
-        alterImage: "icon right arrow",
+      updateElement({
+        imgDesktop: "./images/IconRight.svg",
+        altDesktop: "icon right arrow",
+        imgMobile: "./images/IconUp.svg",
+        altMobile: "icon up arrow",
       })
     );
     buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
@@ -794,6 +806,20 @@ function renderSection(target) {
         index: index,
       });
     });
+    if (userInfo.cardsProjects.length === 0) {
+      // const noProjectsMessageContainer = renderBasicElement({
+      //   idElement: "noProjectsMessageContainer"
+      // })
+      const noProjectMessage = renderBasicElement({
+        idElement: "noProjectsMessage",
+        element: "p",
+        classElement: ["flexStyleCenter"],
+        textElement: "There are no project to display"
+      })
+      // noProjectsMessageContainer.appendChild(noProjectMessage)
+      // projectsContainer.appendChild(noProjectsMessageContainer)
+      projectsContainer.appendChild(noProjectMessage);
+    }
     mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
@@ -1147,14 +1173,6 @@ renderInfoHeader(
 // const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
 // const noProjectMessage = document.getElementById("noProjectsMessageContainer");
 
-// const buttonsSendMessage = document.querySelectorAll(
-//   '[data-button="sendMessage"]'
-// );
-// const mainMessageContainer = document.getElementById("mainMessageContainer");
-
-// // ELEMENTS: create tech skills from javascript data
-// const mainSkillContainer = document.getElementById("mainSkillContainer");
-
 // // ELEMENTS: navigation button carausel
 // const carouselTrack = document.getElementById("carouselTrack");
 // const imageProjectCarouselList = document.querySelectorAll(
@@ -1183,30 +1201,6 @@ email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
 
 // // LOGIC: check amount of project card
-
-// // FUNCTION: control visibility of message and carousel navigation based on number of project cards
-// function checkAmountProjectCard() {
-//   const projectCard = document.querySelectorAll(".imageProjectContainer");
-//   const noProjectsMessageContainer = document.getElementById(
-//     "noProjectsMessageContainer"
-//   );
-//   const navButtonsDesktop = document.getElementById("navButtonsDesktop");
-//   const navButtonsMobile = document.getElementById("navButtonsMobile");
-
-//   if (projectCard.length > 3) {
-//     navButtonsMobile.classList.remove("hiddenElement");
-//     navButtonsDesktop.classList.remove("hiddenElement");
-//   } else {
-//     navButtonsMobile.classList.add("hiddenElement");
-//     navButtonsDesktop.classList.add("hiddenElement");
-//   }
-
-//   if (projectCard.length === 0) {
-//     noProjectsMessageContainer.classList.remove("hiddenElement");
-//   } else {
-//     noProjectsMessageContainer.classList.add("hiddenElement");
-//   }
-// }
 
 // //   LOGIC: navigation button carausel
 
