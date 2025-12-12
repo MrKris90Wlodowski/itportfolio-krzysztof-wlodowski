@@ -368,7 +368,8 @@ main {
 .imageProjectContainer {
     position: relative;
     width: 100%;
-    max-width: 22.5rem;
+    /* max-width: 22.5rem; default */
+    min-width: 22.5rem;
     min-height: 28.75rem;
     background-image: url(./images/Rectangle\ 5\ \(3\).png);
     background-size: cover;

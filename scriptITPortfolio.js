@@ -210,6 +210,37 @@ function createTechSkill(skill, num, container) {
   container.appendChild(skillContainer);
 }
 
+function createCarauselElement(array, container) {
+  const oldArray = array;
+  const firstThreeElements = [
+    array[array.length - 3],
+    array[array.length - 2],
+    array[array.length - 1],
+  ];
+  const lastThreeElements = [array[0], array[1], array[2]];
+  const newArray = [...firstThreeElements, ...array, ...lastThreeElements];
+  // console.log(newCarausel);
+  if (array.length <= 3) {
+    oldArray.forEach((element) => {
+      addNewProject({
+        project: {value: element.project},
+        technology: {value: element.technology},
+        isDeleteButton: false,
+        container: container,
+      });
+    });
+  } else {
+    newArray.forEach((element) => {
+      addNewProject({
+        project: {value: element.project},
+        technology: {value: element.technology},
+        isDeleteButton: false,
+        container: container,
+      });
+    });
+  }
+}
+
 // PROJECTS
 
 // FUNCTION: add new project card in projects section
@@ -384,9 +415,9 @@ function createMessage(name, email, message, container) {
   container.appendChild(messageContainer);
 }
 
-function updateElementPosition(newParent,oldParent,child) {
+function updateElementPosition(newParent, oldParent, child) {
   if (window.innerWidth < 1024) {
-    child.style.backgroundColor = "#F9F9F9"
+    child.style.backgroundColor = "#F9F9F9";
     newParent.insertBefore(child, newParent.firstChild);
   } else {
     oldParent.appendChild(child);
@@ -631,8 +662,12 @@ function renderSection(target) {
         uniqeDataset: uniqeDataset,
         container: carasuelTrackContainer,
         index: index,
+        isDeleteButton: false,
       });
     });
+    if (userInfo.cardsProjects.length > 3) {
+      createCarauselElement(userInfo.cardsProjects, carasuelTrackContainer);
+    }
 
     const carasuelContainer = renderBasicElement({
       idElement: "carousel",
@@ -1048,9 +1083,13 @@ function renderSection(target) {
     mainContainer.appendChild(mainContactContainer);
 
     window.addEventListener("resize", () => {
-      const bodyElelment = document.body
-      updateElementPosition(bodyElelment,formContactContainer,inputsContactContainer)
-    })
+      const bodyElelment = document.body;
+      updateElementPosition(
+        bodyElelment,
+        formContactContainer,
+        inputsContactContainer
+      );
+    });
   }
 
   // ======================
@@ -1130,46 +1169,6 @@ renderInfoHeader(
 
 email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
-
-//     mainSections.forEach((section) => {
-//       section.classList.add("hiddenElement");
-//       if (section.dataset.section === targetList) {
-//         section.classList.remove("hiddenElement");
-//       }
-//       updateCarouselPosition();
-//     });
-//   });
-// });
-
-// // FUNCTION: add new project card in carousel
-// function addNewProjectCarousel(project, technology, uniqeDataset) {
-//   const projectCarouselValue = project.value.trim();
-//   const technologyCarouselValue = technology.value
-//     .trim()
-//     .split(",")
-//     .map((tech) => tech.trim())
-//     .filter((tech) => tech !== "");
-
-//   const newCarouselProject = document.createElement("div");
-//   newCarouselProject.dataset.uniqe = uniqeDataset;
-//   newCarouselProject.classList.add("imageProjectCarousel");
-//   const nameCarouselProject = document.createElement("h4");
-//   nameCarouselProject.textContent = `${projectCarouselValue}`;
-//   newCarouselProject.appendChild(nameCarouselProject);
-
-//   const listTech = document.createElement("ul");
-//   listTech.classList.add("technologyUse");
-//   technologyCarouselValue.forEach((tech) => {
-//     const newTech = document.createElement("li");
-//     newTech.textContent = `${tech}`;
-//     listTech.appendChild(newTech);
-//   });
-//   newCarouselProject.appendChild(listTech);
-
-//   carouselTrack.appendChild(newCarouselProject);
-//   refreshCarouselClones();
-//   resetCarouselPosition();
-// }
 
 // // LOGIC: check amount of project card
 
