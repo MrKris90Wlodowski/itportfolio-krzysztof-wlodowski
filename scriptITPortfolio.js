@@ -121,6 +121,26 @@ function renderBasicImage({
   return image;
 }
 
+//FUNCTION: update basic render element basic info condition to size screen
+function updateElement({ imgDesktop, altDesktop, imgMobile, altMobile }) {
+  const element = document.createElement("div")
+  window.addEventListener("resize", () => {
+    element.innerHTML = "";
+    if (window.innerWidth > 1024) {
+      element.appendChild(renderBasicImage({
+        sourceImage: imgDesktop,
+        alterImage: altDesktop,
+      }));
+    } else {
+      element.appendChild(renderBasicImage({
+        sourceImage: imgMobile,
+        alterImage: altMobile,
+      }));
+    }
+  });
+  return element
+}
+
 // FUNCTION: dynnamically render basic structure info header
 function renderInfoHeader(heading, paragraph) {
   headerContainer.innerHTML = "";
@@ -220,25 +240,15 @@ function createCarauselElement(array, container) {
   const lastThreeElements = [array[0], array[1], array[2]];
   const newArray = [...firstThreeElements, ...array, ...lastThreeElements];
   // console.log(newCarausel);
-  if (array.length <= 3) {
-    oldArray.forEach((element) => {
-      addNewProject({
-        project: {value: element.project},
-        technology: {value: element.technology},
-        isDeleteButton: false,
-        container: container,
-      });
+
+  (array.length <= 3 ? oldArray : newArray).forEach((element) => {
+    addNewProject({
+      project: { value: element.project },
+      technology: { value: element.technology },
+      isDeleteButton: false,
+      container: container,
     });
-  } else {
-    newArray.forEach((element) => {
-      addNewProject({
-        project: {value: element.project},
-        technology: {value: element.technology},
-        isDeleteButton: false,
-        container: container,
-      });
-    });
-  }
+  });
 }
 
 // PROJECTS
@@ -707,9 +717,11 @@ function renderSection(target) {
       idElement: "navButtonsDesktop",
     });
     buttonNavigateFirst.appendChild(
-      renderBasicImage({
-        sourceImage: "./images/IconLeft.svg",
-        alterImage: "icon left arrow",
+      updateElement({
+        imgDesktop: "./images/IconLeft.svg",
+        altDesktop: "icon left arrow",
+        imgMobile: "./images/IconDown.svg",
+        altMobile: "icon down arrow",
       })
     );
     buttonNavigateSecond.appendChild(

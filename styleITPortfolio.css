@@ -831,9 +831,9 @@ main {
        padding: 5.25rem 1rem; 
     }
 
-    .buttonsDesktop {
+    /* .buttonsDesktop {
         display: none;
-    }
+    } */
 
     .gapInsideLogoSkillContainer {
         row-gap: 2.25rem;
