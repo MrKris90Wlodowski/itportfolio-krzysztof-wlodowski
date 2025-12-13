@@ -262,9 +262,9 @@ function createCarauselElement(array, container) {
 }
 
 // FUNCTION: move carousel
-function moveCarousel(track, prev, next) {
-  let carouselIndexVertical = 3;
-  let carouselIndexHorizontal = 3;
+function moveCarousel(track,value, prev, next) {
+  // let carouselIndexVertical = 3;
+  // let carouselIndexHorizontal = 3;
   const heightCard = 460;
   const widthCard = 360;
   const gapBetweenCards = 41;
@@ -278,9 +278,11 @@ function moveCarousel(track, prev, next) {
       : totalCardHeight * 3;
 
   if (window.innerWidth > 1024) {
-    track.style.transform = `translateX(-${starterPosition}px)`;
+    track.style.transform = `translateY(-${0}px)`;
+    track.style.transform = `translateX(-${starterPosition + (value * totalCardWidth)}px)`;
   } else {
-    track.style.transform = `translateY(-${starterPosition}px)`;
+    track.style.transform = `translateX(-${0}px)`;
+    track.style.transform = `translateY(-${starterPosition + (value * totalCardHeight)}px)`;
   }
 }
 
@@ -722,6 +724,7 @@ function renderSection(target) {
     carasuelMainContainer.appendChild(carasuelContainer);
 
     // if (userInfo.cardsProjects.length > 3) {}
+    let value = 0
     const buttonNavigateFirst = renderBasicElement({
       element: "button",
       classElement: [
@@ -731,7 +734,9 @@ function renderSection(target) {
       ],
     });
     buttonNavigateFirst.addEventListener("click", () => {
-      moveCarousel(carasuelTrackContainer);
+      value ++ 
+      moveCarousel(carasuelTrackContainer,value);
+      console.log(value)
     });
     const buttonNavigateSecond = renderBasicElement({
       element: "button",
@@ -742,7 +747,9 @@ function renderSection(target) {
       ],
     });
     buttonNavigateSecond.addEventListener("click", () => {
-      moveCarousel(carasuelTrackContainer);
+      value --
+      moveCarousel(carasuelTrackContainer,value);
+      console.log(value)
     });
     const buttonsContainer = renderBasicElement({
       classElement: [
@@ -1197,158 +1204,5 @@ renderInfoHeader(
   structureApp.headerInfo.home.paragraph
 );
 
-// let carouselIndexVertical = 3;
-// let carouselIndexHorizontal = 3;
-// const heightOneCard = 460;
-// const gapBetweenCards = 41;
-// const totalCardHeight = heightOneCard + gapBetweenCards;
-// function getCardTotalWidthtWithGap() {
-//   const card = document.querySelector(".imageProjectCarousel");
-//   if (card) {
-//     const cardWidth = card.offsetWidth;
-//     return cardWidth + gapBetweenCards;
-//   }
-//   return 0;
-// }
-
 email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
-
-// // LOGIC: check amount of project card
-
-// //   LOGIC: navigation button carausel
-
-// // FUNCTION: update carousel position based on screen width (horizontal for desktop, vertical for mobile)
-// function updateCarouselPosition() {
-//   const isMobile = window.innerWidth <= 1024;
-//   const totalCardWidth = getCardTotalWidthtWithGap();
-
-//   const offsetY = carouselIndexVertical * totalCardHeight;
-//   const offsetX = carouselIndexHorizontal * totalCardWidth;
-
-//   carouselTrack.style.transform = isMobile
-//     ? `translateY(-${offsetY}px)`
-//     : `translateX(-${offsetX}px)`;
-// }
-
-// // FUNCTION: reset carousel position to initial state after updates
-// function resetCarouselPosition() {
-//   setTimeout(() => {
-//     const originalCards = document.querySelectorAll(
-//       ".imageProjectCarousel:not(.clone)"
-//     ).length;
-//     if (originalCards > 3) {
-//       carouselIndexHorizontal = 3;
-//       carouselIndexVertical = 3;
-//     } else {
-//       carouselIndexHorizontal = 0;
-//       carouselIndexVertical = 0;
-//     }
-//     updateCarouselPosition();
-//   }, 0);
-// }
-
-// // FUNCTION: temporarily disable carousel transition animation
-// function disableTransition() {
-//   carouselTrack.style.transition = "none";
-// }
-
-// // FUNCTION:  re-enable carousel transition animation
-// function enableTransition() {
-//   carouselTrack.style.transition = "";
-// }
-
-// // FUNCTION: allow scroll carasuel with infiniteloop style mode
-// function checkAndResetInfiniteScroll() {
-//   const allCards = document.querySelectorAll(
-//     ".imageProjectCarousel:not(.clone)"
-//   );
-//   const totalOriginalCards = allCards.length;
-
-//   if (carouselIndexHorizontal >= totalOriginalCards + 3) {
-//     disableTransition();
-//     carouselIndexHorizontal = 3;
-//     carouselIndexVertical = 3;
-//     updateCarouselPosition();
-//     requestAnimationFrame(() => enableTransition());
-//   }
-
-//   if (carouselIndexHorizontal < 0) {
-//     disableTransition();
-//     carouselIndexHorizontal = totalOriginalCards;
-//     carouselIndexVertical = totalOriginalCards;
-//     updateCarouselPosition();
-//     requestAnimationFrame(() => enableTransition());
-//   }
-// }
-
-// // FUNCTION: allow to move down carausel project card
-// function clickDown() {
-//   const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
-
-//   if (carouselIndexVertical < totalCards - 3) {
-//     carouselIndexVertical++;
-//     carouselIndexHorizontal++;
-//     updateCarouselPosition();
-//   }
-//   checkAndResetInfiniteScroll();
-// }
-
-// // FUNCTION: allow to move up carausel project card
-// function clickUp() {
-//   if (carouselIndexVertical >= 0) {
-//     carouselIndexVertical--;
-//     carouselIndexHorizontal--;
-//     updateCarouselPosition();
-//   }
-//   checkAndResetInfiniteScroll();
-// }
-
-// // FUNCTION: allow to move right carausel project card
-// function clickRight() {
-//   const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
-
-//   if (carouselIndexHorizontal < totalCards - 3) {
-//     carouselIndexVertical++;
-//     carouselIndexHorizontal++;
-//     updateCarouselPosition();
-//   }
-//   checkAndResetInfiniteScroll();
-// }
-
-// // FUNCTION: allow to move left carausel project card
-// function clickLeft() {
-//   const totalCards = document.querySelectorAll(".imageProjectCarousel").length;
-
-//   if (carouselIndexHorizontal >= 0) {
-//     carouselIndexVertical--;
-//     carouselIndexHorizontal--;
-//     updateCarouselPosition();
-//   }
-//   checkAndResetInfiniteScroll();
-// }
-
-// // EVENT LISTENERS: move down carausel
-// iconDownButton.addEventListener("click", () => {
-//   clickDown();
-// });
-
-// // EVENT LISTENERS: move up carausel
-// iconUpButton.addEventListener("click", () => {
-//   clickUp();
-// });
-
-// // EVENT LISTENERS: move right carausel
-// iconRightButton.addEventListener("click", () => {
-//   clickRight();
-// });
-
-// // EVENT LISTENERS: move left carausel
-// iconLeftButton.addEventListener("click", () => {
-//   clickLeft();
-// });
-
-// // EVENT LISTENERS: update carousel position on window resize
-// window.addEventListener("resize", () => {
-//   updateCarouselPosition();
-// });
