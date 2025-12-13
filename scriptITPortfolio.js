@@ -145,7 +145,7 @@ function updateElement({ imgDesktop, altDesktop, imgMobile, altMobile }) {
   }
 
   window.addEventListener("resize", () => renderConditionalElement());
-  renderConditionalElement()
+  renderConditionalElement();
 
   return element;
 }
@@ -240,7 +240,7 @@ function createTechSkill(skill, num, container) {
 }
 
 function createCarauselElement(array, container) {
-  container.innerHTML = ""
+  container.innerHTML = "";
   const oldArray = array;
   const firstThreeElements = [
     array[array.length - 3],
@@ -259,6 +259,29 @@ function createCarauselElement(array, container) {
       container: container,
     });
   });
+}
+
+// FUNCTION: move carousel
+function moveCarousel(track, prev, next) {
+  let carouselIndexVertical = 3;
+  let carouselIndexHorizontal = 3;
+  const heightCard = 460;
+  const widthCard = 360;
+  const gapBetweenCards = 41;
+  const totalCardHeight = heightCard + gapBetweenCards;
+  const totalCardWidth = widthCard + gapBetweenCards;
+  const starterPosition =
+    userInfo.cardsProjects.length <= 3
+      ? 0
+      : window.innerWidth > 1024
+      ? totalCardWidth * 3
+      : totalCardHeight * 3;
+
+  if (window.innerWidth > 1024) {
+    track.style.transform = `translateX(-${starterPosition}px)`;
+  } else {
+    track.style.transform = `translateY(-${starterPosition}px)`;
+  }
 }
 
 // PROJECTS
@@ -685,9 +708,8 @@ function renderSection(target) {
         isDeleteButton: false,
       });
     });
-    if (userInfo.cardsProjects.length > 3) {
-      createCarauselElement(userInfo.cardsProjects, carasuelTrackContainer);
-    }
+
+    createCarauselElement(userInfo.cardsProjects, carasuelTrackContainer);
 
     const carasuelContainer = renderBasicElement({
       idElement: "carousel",
@@ -699,6 +721,7 @@ function renderSection(target) {
     carasuelContainer.appendChild(carasuelTrackContainer);
     carasuelMainContainer.appendChild(carasuelContainer);
 
+    // if (userInfo.cardsProjects.length > 3) {}
     const buttonNavigateFirst = renderBasicElement({
       element: "button",
       classElement: [
@@ -707,6 +730,9 @@ function renderSection(target) {
         "alignItemsFlexCenter",
       ],
     });
+    buttonNavigateFirst.addEventListener("click", () => {
+      moveCarousel(carasuelTrackContainer);
+    });
     const buttonNavigateSecond = renderBasicElement({
       element: "button",
       classElement: [
@@ -714,6 +740,9 @@ function renderSection(target) {
         "displayFlexJustifyCenter",
         "alignItemsFlexCenter",
       ],
+    });
+    buttonNavigateSecond.addEventListener("click", () => {
+      moveCarousel(carasuelTrackContainer);
     });
     const buttonsContainer = renderBasicElement({
       classElement: [
@@ -742,6 +771,7 @@ function renderSection(target) {
         altMobile: "icon up arrow",
       })
     );
+    // moveCarousel(carasuelTrackContainer);
     buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
@@ -814,8 +844,8 @@ function renderSection(target) {
         idElement: "noProjectsMessage",
         element: "p",
         classElement: ["flexStyleCenter"],
-        textElement: "There are no project to display"
-      })
+        textElement: "There are no project to display",
+      });
       // noProjectsMessageContainer.appendChild(noProjectMessage)
       // projectsContainer.appendChild(noProjectsMessageContainer)
       projectsContainer.appendChild(noProjectMessage);
@@ -1167,22 +1197,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.paragraph
 );
 
-// // ELEMENTS: icon trash button and delete project
-// const mainProjectConteiner = document.getElementById("mainProjectConteiner");
-// const projectContainer = document.querySelectorAll(".imageProjectContainer");
-// const buttonDeleteProject = document.querySelectorAll(".imageDeleteContainer");
-// const noProjectMessage = document.getElementById("noProjectsMessageContainer");
-
-// // ELEMENTS: navigation button carausel
-// const carouselTrack = document.getElementById("carouselTrack");
-// const imageProjectCarouselList = document.querySelectorAll(
-//   ".imageProjectCarousel"
-// );
-// const iconLeftButton = document.getElementById("iconLeftButton");
-// const iconRightButton = document.getElementById("iconRightButton");
-// const iconDownButton = document.getElementById("iconDownButton");
-// const iconUpButton = document.getElementById("iconUpButton");
-
 // let carouselIndexVertical = 3;
 // let carouselIndexHorizontal = 3;
 // const heightOneCard = 460;
@@ -1215,55 +1229,6 @@ tel.textContent = `+ ${userInfo.tel}`;
 //   carouselTrack.style.transform = isMobile
 //     ? `translateY(-${offsetY}px)`
 //     : `translateX(-${offsetX}px)`;
-// }
-
-// // FUNCTION:
-// function cloneStartEndCard() {
-//   const allCards = document.querySelectorAll(
-//     ".imageProjectCarousel:not(.clone)"
-//   );
-//   const cardsTrack = document.getElementById("carouselTrack");
-
-//   if (allCards.length === 0) return;
-//   // if (allCards.length <= 3) return;
-
-//   const cloneCards = Math.min(3, allCards.length);
-
-//   for (let i = 0; i < cloneCards; i++) {
-//     const clone = allCards[i].cloneNode(true);
-//     clone.classList.add("clone");
-//     cardsTrack.appendChild(clone);
-//   }
-
-//   for (let i = 1; i <= cloneCards; i++) {
-//     const clone = allCards[allCards.length - i].cloneNode(true);
-//     clone.classList.add("clone");
-//     cardsTrack.insertBefore(clone, cardsTrack.firstChild);
-//     // cardsTrack.insertBefore(clone,cardsTrack);
-//   }
-// }
-
-// // FUNCTION: allow delete all carousel cards with the "clone" class
-// function deleteAllclone() {
-//   const cloneElements = document.querySelectorAll(".clone");
-//   cloneElements.forEach((clone) => clone.remove());
-// }
-
-// // FUNCTION: for everyone create and delete project card refresh clone status
-// function refreshCarouselClones() {
-//   deleteAllclone();
-//   const originalCards = document.querySelectorAll(
-//     ".imageProjectCarousel:not(.clone)"
-//   ).length;
-//   console.log(originalCards);
-
-//   if (originalCards <= 3) {
-//     carouselTrack.classList.add("cloneItem");
-//     return;
-//   }
-
-//   carouselTrack.classList.remove("cloneItem");
-//   cloneStartEndCard();
 // }
 
 // // FUNCTION: reset carousel position to initial state after updates
