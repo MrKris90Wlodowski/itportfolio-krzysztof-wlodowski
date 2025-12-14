@@ -262,7 +262,7 @@ function createCarauselElement(array, container) {
 }
 
 // FUNCTION: move carousel
-function moveCarousel(track,value, prev, next) {
+function moveCarousel(track,value) {
   // let carouselIndexVertical = 3;
   // let carouselIndexHorizontal = 3;
   const heightCard = 460;
@@ -734,7 +734,7 @@ function renderSection(target) {
       ],
     });
     buttonNavigateFirst.addEventListener("click", () => {
-      value ++ 
+      value -- 
       moveCarousel(carasuelTrackContainer,value);
       console.log(value)
     });
@@ -747,7 +747,7 @@ function renderSection(target) {
       ],
     });
     buttonNavigateSecond.addEventListener("click", () => {
-      value --
+      value ++
       moveCarousel(carasuelTrackContainer,value);
       console.log(value)
     });
@@ -778,7 +778,10 @@ function renderSection(target) {
         altMobile: "icon up arrow",
       })
     );
-    // moveCarousel(carasuelTrackContainer);
+    window.addEventListener("resize",() => {
+      moveCarousel(carasuelTrackContainer,value)
+    })
+    moveCarousel(carasuelTrackContainer,value);
     buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
