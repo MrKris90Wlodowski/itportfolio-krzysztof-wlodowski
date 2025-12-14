@@ -262,7 +262,7 @@ function createCarauselElement(array, container) {
 }
 
 // FUNCTION: move carousel
-function moveCarousel(track,value) {
+function moveCarousel(track, value) {
   // let carouselIndexVertical = 3;
   // let carouselIndexHorizontal = 3;
   const heightCard = 460;
@@ -279,10 +279,14 @@ function moveCarousel(track,value) {
 
   if (window.innerWidth > 1024) {
     track.style.transform = `translateY(-${0}px)`;
-    track.style.transform = `translateX(-${starterPosition + (value * totalCardWidth)}px)`;
+    track.style.transform = `translateX(-${
+      starterPosition + value * totalCardWidth
+    }px)`;
   } else {
     track.style.transform = `translateX(-${0}px)`;
-    track.style.transform = `translateY(-${starterPosition + (value * totalCardHeight)}px)`;
+    track.style.transform = `translateY(-${
+      starterPosition + value * totalCardHeight
+    }px)`;
   }
 }
 
@@ -724,7 +728,7 @@ function renderSection(target) {
     carasuelMainContainer.appendChild(carasuelContainer);
 
     // if (userInfo.cardsProjects.length > 3) {}
-    let value = 0
+    let value = 0;
     const buttonNavigateFirst = renderBasicElement({
       element: "button",
       classElement: [
@@ -734,9 +738,9 @@ function renderSection(target) {
       ],
     });
     buttonNavigateFirst.addEventListener("click", () => {
-      value -- 
-      moveCarousel(carasuelTrackContainer,value);
-      console.log(value)
+      value--;
+      moveCarousel(carasuelTrackContainer, value);
+      console.log(value);
     });
     const buttonNavigateSecond = renderBasicElement({
       element: "button",
@@ -747,9 +751,9 @@ function renderSection(target) {
       ],
     });
     buttonNavigateSecond.addEventListener("click", () => {
-      value ++
-      moveCarousel(carasuelTrackContainer,value);
-      console.log(value)
+      value++;
+      moveCarousel(carasuelTrackContainer, value);
+      console.log(value);
     });
     const buttonsContainer = renderBasicElement({
       classElement: [
@@ -778,10 +782,10 @@ function renderSection(target) {
         altMobile: "icon up arrow",
       })
     );
-    window.addEventListener("resize",() => {
-      moveCarousel(carasuelTrackContainer,value)
-    })
-    moveCarousel(carasuelTrackContainer,value);
+    window.addEventListener("resize", () => {
+      moveCarousel(carasuelTrackContainer, value);
+    });
+    moveCarousel(carasuelTrackContainer, value);
     buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
@@ -869,6 +873,7 @@ function renderSection(target) {
   // ABOUT ME
   // ======================
   else if (target === "about") {
+    // MAIN STRUCTURE
     const mainAboutMecontainer = renderBasicElement({
       clearMain: true,
       element: "div",
@@ -884,6 +889,7 @@ function renderSection(target) {
       classElement: ["imageMaleContainer"],
     });
     mainAboutMecontainer.appendChild(imageMaleContainer);
+    // DYNAMIC CONTENT
     createArticle({
       heading: "My background",
       description: userInfo.info.myBackground,
@@ -901,12 +907,17 @@ function renderSection(target) {
       "displayFlexJustifyCenter",
       "buttonContactMeMargin"
     );
-
     const buttonContactMe = renderBasicElement({
       element: "button",
       classElement: ["flexStyleCenter", "gapInsideButton"],
       textElement: "Contact me",
     });
+    const imageButton = renderBasicImage({
+      classImage: ["iconArrowButton"],
+      sourceImage: "./images/Arrow right.svg",
+      alterImage: "icon arrow sign",
+    });
+    // NAVIGATION HANDLER
     buttonContactMe.addEventListener("click", () => {
       const contactItems = document.querySelectorAll(`[data-target="contact"]`);
       navItems.forEach((item) => {
@@ -921,11 +932,7 @@ function renderSection(target) {
         headerInfo.contact.paragraph
       );
     });
-    const imageButton = renderBasicImage({
-      classImage: ["iconArrowButton"],
-      sourceImage: "./images/Arrow right.svg",
-      alterImage: "icon arrow sign",
-    });
+    // ASSEMBLE STRUCTURE
     buttonContactMe.appendChild(imageButton);
     buttoncontainer.appendChild(buttonContactMe);
     mainAboutMecontainer.appendChild(buttoncontainer);
