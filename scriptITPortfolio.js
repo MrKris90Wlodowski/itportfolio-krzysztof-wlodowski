@@ -452,12 +452,18 @@ function createMessage(name, email, message, container) {
   container.appendChild(messageContainer);
 }
 
-function updateElementPosition(newParent, oldParent, child) {
+// FUNCTION: update element position and classes based on screen size
+function updateElementsLayout(newParent, oldParent, child, casualElement) {
+  const childNextSibling = oldParent.children[0];
   if (window.innerWidth < 1024) {
     child.style.backgroundColor = "#F9F9F9";
+    child.classList.add("paddingSectionContact")
     newParent.insertBefore(child, newParent.firstChild);
+    casualElement.classList.remove("paddingSectionContact")
   } else {
-    oldParent.appendChild(child);
+    oldParent.insertBefore(child, childNextSibling);
+    child.classList.remove("paddingSectionContact")
+    casualElement.classList.add("paddingSectionContact")
   }
 }
 
@@ -948,6 +954,7 @@ function renderSection(target) {
   // CONTACT
   // ======================
   else if (target === "contact") {
+    // MAIN STRUCTURE
     const mainContactContainer = renderBasicElement({
       clearMain: true,
       element: "div",
@@ -955,9 +962,9 @@ function renderSection(target) {
     });
     const headingContactMe = renderBasicElement({
       element: "h3",
-      classElement: ["contactHeadingMargin"],
       textElement: "Contact me",
     });
+    // FORM STRUCTURE
     const formContact = renderBasicElement({
       element: "form",
     });
@@ -974,7 +981,8 @@ function renderSection(target) {
       classElement: ["flexStyleColumn", "gapBetweenColumnInInput"],
     });
 
-    // NAME FIELD
+    // DYNAMIC FIELDS
+    // name field
     const inputName = renderBasicInput({
       idInput: "inputName",
       placeholderInput: structureApp.formInfo.inputPlaceholder.name,
@@ -1005,7 +1013,7 @@ function renderSection(target) {
       errorForm: errorName,
     });
 
-    // EMAIL FIELD
+    // email field
     const inputEmail = renderBasicInput({
       idInput: "inpuEmail",
       placeholderInput: structureApp.formInfo.inputPlaceholder.email,
@@ -1036,7 +1044,7 @@ function renderSection(target) {
       errorForm: errorEmail,
     });
 
-    // INFO FIELD
+    // message/info field
     const inputInfo = renderBasicInput({
       idInput: "inputInfo",
       placeholderInput: structureApp.formInfo.inputPlaceholder.message,
@@ -1067,6 +1075,7 @@ function renderSection(target) {
       errorForm: errorInfo,
     });
 
+    // BUTTON
     const buttonContainer = renderBasicElement({
       element: "div",
       classElement: [
@@ -1079,6 +1088,8 @@ function renderSection(target) {
       element: "button",
       textElement: "Send message",
     });
+
+    // VALIDATION HANDLER
     let isValidate = false;
     let isName = false;
     let isEmail = false;
@@ -1165,6 +1176,8 @@ function renderSection(target) {
         (inputName.value = ""), (inputEmail.value = ""), (inputInfo.value = "");
       }
     });
+
+     // ASSEMBLE STRUCTURE
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
     inputsContactContainer.append(
@@ -1178,12 +1191,14 @@ function renderSection(target) {
     mainContactContainer.appendChild(formContact);
     mainContainer.appendChild(mainContactContainer);
 
+    // RESPONSIVE LAYOUT ADJUSTMENT
     window.addEventListener("resize", () => {
       const bodyElelment = document.body;
-      updateElementPosition(
+      updateElementsLayout(
         bodyElelment,
         formContactContainer,
-        inputsContactContainer
+        inputsContactContainer,
+        mainContactContainer
       );
     });
   }
