@@ -262,31 +262,19 @@ function createCarauselElement(array, container) {
 }
 
 // FUNCTION: move carousel
-function moveCarousel(track, value) {
-  // let carouselIndexVertical = 3;
-  // let carouselIndexHorizontal = 3;
+function moveCarousel(track, index) {
   const heightCard = 460;
   const widthCard = 360;
   const gapBetweenCards = 41;
   const totalCardHeight = heightCard + gapBetweenCards;
   const totalCardWidth = widthCard + gapBetweenCards;
-  const starterPosition =
-    userInfo.cardsProjects.length <= 3
-      ? 0
-      : window.innerWidth > 1024
-      ? totalCardWidth * 3
-      : totalCardHeight * 3;
 
   if (window.innerWidth > 1024) {
     track.style.transform = `translateY(-${0}px)`;
-    track.style.transform = `translateX(-${
-      starterPosition + value * totalCardWidth
-    }px)`;
+    track.style.transform = `translateX(-${index * totalCardWidth}px)`;
   } else {
     track.style.transform = `translateX(-${0}px)`;
-    track.style.transform = `translateY(-${
-      starterPosition + value * totalCardHeight
-    }px)`;
+    track.style.transform = `translateY(-${index * totalCardHeight}px)`;
   }
 }
 
@@ -479,7 +467,6 @@ function updateElementPosition(newParent, oldParent, child) {
 
 // FUNCTION: create modal form
 function createModal() {
-
   // MAIN STRUCTURE
   const modal = renderBasicElement({
     element: "div",
@@ -671,7 +658,6 @@ function createModal() {
   document.body.appendChild(modal);
 }
 
-
 // FUNCTION: allow to create new message in section message
 
 // FUNCTION: dynamically render section in the main container
@@ -740,7 +726,7 @@ function renderSection(target) {
     carasuelMainContainer.appendChild(carasuelContainer);
 
     // if (userInfo.cardsProjects.length > 3) {}
-    let value = 0;
+    let index = 3;
     const buttonNavigateFirst = renderBasicElement({
       element: "button",
       classElement: [
@@ -750,9 +736,12 @@ function renderSection(target) {
       ],
     });
     buttonNavigateFirst.addEventListener("click", () => {
-      value--;
-      moveCarousel(carasuelTrackContainer, value);
-      console.log(value);
+      if (index < 1) {
+        index = carasuelTrackContainer.children.length - 4
+      }
+      index--;
+      moveCarousel(carasuelTrackContainer, index);
+      console.log(index);
     });
     const buttonNavigateSecond = renderBasicElement({
       element: "button",
@@ -763,9 +752,13 @@ function renderSection(target) {
       ],
     });
     buttonNavigateSecond.addEventListener("click", () => {
-      value++;
-      moveCarousel(carasuelTrackContainer, value);
-      console.log(value);
+      if (index > carasuelTrackContainer.children.length - 4) {
+        index = 1
+      }
+      index++;
+      moveCarousel(carasuelTrackContainer, index);
+      console.log(index);
+      console.log(carasuelTrackContainer.children.length);
     });
     const buttonsContainer = renderBasicElement({
       classElement: [
@@ -795,9 +788,9 @@ function renderSection(target) {
       })
     );
     window.addEventListener("resize", () => {
-      moveCarousel(carasuelTrackContainer, value);
+      moveCarousel(carasuelTrackContainer, index);
     });
-    moveCarousel(carasuelTrackContainer, value);
+    moveCarousel(carasuelTrackContainer, index);
     buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
@@ -959,6 +952,11 @@ function renderSection(target) {
       clearMain: true,
       element: "div",
       classElement: ["paddingSectionContact", "container"],
+    });
+    const headingContactMe = renderBasicElement({
+      element: "h3",
+      classElement: ["contactHeadingMargin"],
+      textElement: "Contact me",
     });
     const formContact = renderBasicElement({
       element: "form",
@@ -1170,6 +1168,7 @@ function renderSection(target) {
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
     inputsContactContainer.append(
+      headingContactMe,
       inputsNameAndEmailContainer,
       messageFormField
     );
