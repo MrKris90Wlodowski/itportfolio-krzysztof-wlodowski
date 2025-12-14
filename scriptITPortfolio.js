@@ -473,10 +473,13 @@ function updateElementPosition(newParent, oldParent, child) {
   }
 }
 
-// MODAL
+// ======================
+//          MODAL
+// ======================
 
-// FUNCTION: allow to create modal form
+// FUNCTION: create modal form
 function createModal() {
+
   // MAIN STRUCTURE
   const modal = renderBasicElement({
     element: "div",
@@ -496,8 +499,10 @@ function createModal() {
       "alignItemsFlexStart",
     ],
   });
+
   // CLOSE BUTTON
   const closeButtonContainer = renderBasicElement({});
+
   const closeButton = renderBasicElement({
     element: "button",
     classElement: ["closeLogoX"],
@@ -513,7 +518,8 @@ function createModal() {
     document.body.classList.remove("noScroll");
   });
   closeButtonContainer.appendChild(closeButton);
-  // PROJECT NAME FIELD
+
+  // FORM FIELD: PROJECT NAME
   const inputProject = renderBasicInput({
     idInput: "inputProjectName",
     placeholderInput: structureApp.formInfo.inputPlaceholder.project,
@@ -522,7 +528,6 @@ function createModal() {
   const errorProject = renderBasicElement({
     element: "p",
     classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
-    // textElement: structureApp.formInfo.errorMessage.min("technology", 5),
   });
   const projectNamecontainer = renderFormField({
     fieldForm: renderBasicElement({
@@ -539,7 +544,8 @@ function createModal() {
     inputForm: inputProject,
     errorForm: errorProject,
   });
-  // TECHNOLOGY FIELD
+
+  // FORM FIELD: TECHNOLOGY
   const inputTechnology = renderBasicInput({
     idInput: "inputTechnology",
     placeholderInput: structureApp.formInfo.inputPlaceholder.technology,
@@ -548,7 +554,6 @@ function createModal() {
   const errorTechnology = renderBasicElement({
     element: "p",
     classElement: ["errorInfo", "hiddenElement", "absoluteModalError"],
-    // textElement: structureApp.formInfo.errorMessage.min("technology", 5),
   });
   const projectTechContainer = renderFormField({
     fieldForm: renderBasicElement({
@@ -565,7 +570,8 @@ function createModal() {
     inputForm: inputTechnology,
     errorForm: errorTechnology,
   });
-  // ADD BUTTON
+
+  // SUBMIT BUTTON
   const addProjectContainer = renderBasicElement({
     classElement: ["displayFlexJustifyCenter", "fullWidth"],
   });
@@ -574,10 +580,16 @@ function createModal() {
     classElement: ["flexStyleCenter", "gapInsideButton", "marginButtonModal"],
     textElement: "Add project",
   });
+
+  // FORM VALIDATION STATE
   let isValidate = false;
   let isProject = false;
   let isTech = false;
+
   buttonAddProject.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // INITIAL VALIDATION
     const projectValue = inputProject.value.trim().length;
     isProject = errorMessage({
       min: 3,
@@ -598,13 +610,13 @@ function createModal() {
       minErrorText: structureApp.formInfo.errorMessage.technology,
     });
 
+    // REAL-TIME VALIDATION (after first click)
     if (!isValidate) {
       inputProject.addEventListener("input", () => {
-        const projectValue = inputProject.value.trim().length;
         errorMessage({
           min: 3,
           max: 30,
-          value: projectValue,
+          value: inputProject.value.trim().length,
           textElement: errorProject,
           inputElement: inputProject,
           minErrorText: structureApp.formInfo.errorMessage.min("technology", 3),
@@ -612,25 +624,23 @@ function createModal() {
         });
       });
       inputTechnology.addEventListener("input", () => {
-        const projectTechnology = inputTechnology.value.trim().length;
         errorMessage({
           min: 1,
           max: +Infinity,
-          value: projectTechnology,
+          value: inputTechnology.value.trim().length,
           textElement: errorTechnology,
           inputElement: inputTechnology,
           minErrorText: structureApp.formInfo.errorMessage.technology,
         });
       });
     }
-
     isValidate = true;
-    event.preventDefault();
-    const projectsContainer = document.getElementById("projectsContainer");
-    const uniqeDataset = crypto.randomUUID();
-    const index = projectsContainer.children.length;
 
+    // SUCCESS HANDLER
     if (isProject && isTech) {
+      const projectsContainer = document.getElementById("projectsContainer");
+      const uniqeDataset = crypto.randomUUID();
+      const index = projectsContainer.children.length;
       addNewProject({
         project: inputProject,
         technology: inputTechnology,
@@ -638,15 +648,16 @@ function createModal() {
         container: projectsContainer,
         index: index,
       });
-      modal.remove();
-      document.body.classList.remove("noScroll");
       userInfo.cardsProjects.push({
         project: inputProject.value.trim(),
         technology: inputTechnology.value.trim().split(",").join(","),
       });
+      modal.remove();
+      document.body.classList.remove("noScroll");
     }
   });
   addProjectContainer.appendChild(buttonAddProject);
+
   // ASSEMBLE STRUCTURE
   modalForm.append(
     closeButtonContainer,
@@ -659,6 +670,7 @@ function createModal() {
   modal.appendChild(modalContainer);
   document.body.appendChild(modal);
 }
+
 
 // FUNCTION: allow to create new message in section message
 
@@ -1213,6 +1225,6 @@ renderInfoHeader(
   structureApp.headerInfo.home.heading,
   structureApp.headerInfo.home.paragraph
 );
-
+// FOOTER: set dynamic info
 email.textContent = userInfo.email;
 tel.textContent = `+ ${userInfo.tel}`;
