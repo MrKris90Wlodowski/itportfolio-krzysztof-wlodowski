@@ -279,6 +279,115 @@ function moveCarousel(track, index) {
 }
 
 // FUNCTION: conditional render carousel and navigation buttons
+function renderCarousel(container, length) {
+  // GUARD: no projects → no carousel
+  if (length === 0) return;
+
+
+  // CAROUSEL TRACK
+  const carasuelTrackContainer = renderBasicElement({ idElement: "carouselTrack" });
+
+  userInfo.cardsProjects.forEach((card) => {
+    addNewProject({
+      project: { value: card.project },
+      technology: { value: card.technology },
+      uniqeDataset: crypto.randomUUID(),
+      container: carasuelTrackContainer,
+      isDeleteButton: false,
+    });
+  });
+
+  createCarauselElement(userInfo.cardsProjects, carasuelTrackContainer);
+
+  // CAROUSEL CONTAINER
+  const carasuelContainer = renderBasicElement({ idElement: "carousel" });
+  const carasuelMainContainer = renderBasicElement({
+    idElement: "carouselContainer",
+    classElement: ["marginProjectsCarousel"],
+  });
+
+  carasuelContainer.appendChild(carasuelTrackContainer);
+  carasuelMainContainer.appendChild(carasuelContainer);
+  container.appendChild(carasuelMainContainer);
+
+  // GUARD: max 3 items → no navigation buttons
+  if (length <= 3) return;
+
+  // NAVIGATION BUTTONS
+  let index = 3;
+
+  const buttonsMainContainer = renderBasicElement({
+    idElement: "navButtonsDesktop",
+  });
+
+  const buttonsContainer = renderBasicElement({
+    classElement: [
+      "displayFlexJustifyCenter",
+      "alignItemsFlexCenter",
+      "marginAndGapButton",
+      "buttonsDesktop",
+    ],
+  });
+
+  const buttonNavigateFirst = renderBasicElement({
+    element: "button",
+    classElement: [
+      "dismensionButtonArrow",
+      "displayFlexJustifyCenter",
+      "alignItemsFlexCenter",
+    ],
+  });
+
+  const buttonNavigateSecond = renderBasicElement({
+    element: "button",
+    classElement: [
+      "dismensionButtonArrow",
+      "displayFlexJustifyCenter",
+      "alignItemsFlexCenter",
+    ],
+  });
+
+  // ICONS
+  buttonNavigateFirst.appendChild(
+    updateElement({
+      imgDesktop: "./images/IconLeft.svg",
+      altDesktop: "icon left arrow",
+      imgMobile: "./images/IconDown.svg",
+      altMobile: "icon down arrow",
+    })
+  );
+
+  buttonNavigateSecond.appendChild(
+    updateElement({
+      imgDesktop: "./images/IconRight.svg",
+      altDesktop: "icon right arrow",
+      imgMobile: "./images/IconUp.svg",
+      altMobile: "icon up arrow",
+    })
+  );
+
+  // EVENTS
+  buttonNavigateFirst.addEventListener("click", () => {
+    index = index <= 0 ? carasuelTrackContainer.children.length - 4 : index - 1;
+    moveCarousel(carasuelTrackContainer, index);
+  });
+
+  buttonNavigateSecond.addEventListener("click", () => {
+    index = index >= carasuelTrackContainer.children.length - 4 ? 0 : index + 1;
+    moveCarousel(carasuelTrackContainer, index);
+  });
+
+  // ASSEMBLE
+  buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
+  buttonsMainContainer.appendChild(buttonsContainer);
+  container.appendChild(buttonsMainContainer);
+
+  // RESPONSIVE UPDATE
+  window.addEventListener("resize", () => moveCarousel(carasuelTrackContainer, index));
+  moveCarousel(carasuelTrackContainer, index);
+}
+
+
 
 // PROJECTS
 
@@ -742,110 +851,12 @@ function renderSection(target) {
       classDescriptionArticle: ["preLine"],
       container: homeContainer,
     });
-    const carasuelTrackContainer = renderBasicElement({
-      idElement: "carouselTrack",
-    });
-
-    userInfo.cardsProjects.forEach((card) => {
-      const index = carasuelTrackContainer.children.length;
-      const uniqeDataset = crypto.randomUUID();
-      addNewProject({
-        project: { value: card.project },
-        technology: { value: card.technology },
-        uniqeDataset: uniqeDataset,
-        container: carasuelTrackContainer,
-        index: index,
-        isDeleteButton: false,
-      });
-    });
-
-    createCarauselElement(userInfo.cardsProjects, carasuelTrackContainer);
-
-    const carasuelContainer = renderBasicElement({
-      idElement: "carousel",
-    });
-    const carasuelMainContainer = renderBasicElement({
-      idElement: "carouselContainer",
-      classElement: ["marginProjectsCarousel"],
-    });
-    carasuelContainer.appendChild(carasuelTrackContainer);
-    carasuelMainContainer.appendChild(carasuelContainer);
-
-    // if (userInfo.cardsProjects.length > 3) {}
-    let index = 3;
-    const buttonNavigateFirst = renderBasicElement({
-      element: "button",
-      classElement: [
-        "dismensionButtonArrow",
-        "displayFlexJustifyCenter",
-        "alignItemsFlexCenter",
-      ],
-    });
-    buttonNavigateFirst.addEventListener("click", () => {
-      if (index < 1) {
-        index = carasuelTrackContainer.children.length - 4;
-      }
-      index--;
-      moveCarousel(carasuelTrackContainer, index);
-      console.log(index);
-    });
-    const buttonNavigateSecond = renderBasicElement({
-      element: "button",
-      classElement: [
-        "dismensionButtonArrow",
-        "displayFlexJustifyCenter",
-        "alignItemsFlexCenter",
-      ],
-    });
-    buttonNavigateSecond.addEventListener("click", () => {
-      if (index > carasuelTrackContainer.children.length - 4) {
-        index = 1;
-      }
-      index++;
-      moveCarousel(carasuelTrackContainer, index);
-      console.log(index);
-      console.log(carasuelTrackContainer.children.length);
-    });
-    const buttonsContainer = renderBasicElement({
-      classElement: [
-        "displayFlexJustifyCenter",
-        "alignItemsFlexCenter",
-        "marginAndGapButton",
-        "buttonsDesktop",
-      ],
-    });
-    const buttonsMainContainer = renderBasicElement({
-      idElement: "navButtonsDesktop",
-    });
-    buttonNavigateFirst.appendChild(
-      updateElement({
-        imgDesktop: "./images/IconLeft.svg",
-        altDesktop: "icon left arrow",
-        imgMobile: "./images/IconDown.svg",
-        altMobile: "icon down arrow",
-      })
-    );
-    buttonNavigateSecond.appendChild(
-      updateElement({
-        imgDesktop: "./images/IconRight.svg",
-        altDesktop: "icon right arrow",
-        imgMobile: "./images/IconUp.svg",
-        altMobile: "icon up arrow",
-      })
-    );
-    window.addEventListener("resize", () => {
-      moveCarousel(carasuelTrackContainer, index);
-    });
-    moveCarousel(carasuelTrackContainer, index);
-    buttonsContainer.append(buttonNavigateFirst, buttonNavigateSecond);
-    buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
       homeContainer,
       headingMySkills,
       techContainer,
-      carasuelMainContainer,
-      buttonsMainContainer
     );
+    renderCarousel(mainHomeContainer,projectLenght);
 
     mainContainer.appendChild(mainHomeContainer);
   }
