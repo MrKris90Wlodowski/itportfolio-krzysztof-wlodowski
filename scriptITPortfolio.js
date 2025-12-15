@@ -278,6 +278,8 @@ function moveCarousel(track, index) {
   }
 }
 
+// FUNCTION: conditional render carousel and navigation buttons
+
 // PROJECTS
 
 // FUNCTION: allow create info message
@@ -312,7 +314,6 @@ function updateLayoutAndMessage(container) {
     container.classList.remove("flexStyleCenter");
   }
 }
-
 
 // FUNCTION: add new project card in projects section
 function addNewProject({
@@ -706,6 +707,7 @@ function renderSection(target) {
   // HOME
   // ======================
   if (target === "home") {
+    const projectLenght = userInfo.cardsProjects.length;
     const mainHomeContainer = renderBasicElement({
       clearMain: true,
       classElement: ["paddingSectionHome", "container"],
@@ -713,7 +715,11 @@ function renderSection(target) {
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
     });
-
+    const headingMySkills = renderBasicElement({
+      element: "h3",
+      classElement: ["marginHeadingMySkills"],
+      textElement: "My Skills",
+    });
     const techContainer = renderBasicElement({
       classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
     });
@@ -835,6 +841,7 @@ function renderSection(target) {
     buttonsMainContainer.appendChild(buttonsContainer);
     mainHomeContainer.append(
       homeContainer,
+      headingMySkills,
       techContainer,
       carasuelMainContainer,
       buttonsMainContainer
