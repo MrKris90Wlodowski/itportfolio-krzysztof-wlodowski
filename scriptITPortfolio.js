@@ -280,6 +280,40 @@ function moveCarousel(track, index) {
 
 // PROJECTS
 
+// FUNCTION: allow create info message
+function updateLayoutAndMessage(container) {
+  const message = container.querySelector("#noProjectsMessage");
+  const length = userInfo.cardsProjects.length;
+
+  // EMPTY STATE
+  if (length === 0) {
+    if (!message) {
+      container.appendChild(
+        renderBasicElement({
+          idElement: "noProjectsMessage",
+          element: "p",
+          classElement: ["flexStyleCenter"],
+          textElement: "There are no projects to display",
+        })
+      );
+    }
+    container.classList.remove("displayGrid", "gridColumnsProject");
+    container.classList.add("flexStyleCenter");
+    return;
+  }
+  message?.remove();
+
+  // LAYOUT STATE
+  if (length < 3) {
+    container.classList.remove("displayGrid", "gridColumnsProject");
+    container.classList.add("flexStyleCenter");
+  } else {
+    container.classList.add("displayGrid", "gridColumnsProject");
+    container.classList.remove("flexStyleCenter");
+  }
+}
+
+
 // FUNCTION: add new project card in projects section
 function addNewProject({
   project,
@@ -336,12 +370,12 @@ function addNewProject({
           index: index,
         });
       });
+      updateLayoutAndMessage(projectsContainer);
     });
   }
-
   container.appendChild(newProject);
-  // checkAmountProjectCard();
 }
+
 // FUNCTION: check validate input
 function errorMessage({
   min = null,
@@ -457,13 +491,13 @@ function updateElementsLayout(newParent, oldParent, child, casualElement) {
   const childNextSibling = oldParent.children[0];
   if (window.innerWidth < 1024) {
     child.style.backgroundColor = "#F9F9F9";
-    child.classList.add("paddingSectionContact")
+    child.classList.add("paddingSectionContact");
     newParent.insertBefore(child, newParent.firstChild);
-    casualElement.classList.remove("paddingSectionContact")
+    casualElement.classList.remove("paddingSectionContact");
   } else {
     oldParent.insertBefore(child, childNextSibling);
-    child.classList.remove("paddingSectionContact")
-    casualElement.classList.add("paddingSectionContact")
+    child.classList.remove("paddingSectionContact");
+    casualElement.classList.add("paddingSectionContact");
   }
 }
 
@@ -495,7 +529,6 @@ function createModal() {
 
   // CLOSE BUTTON
   const closeButtonContainer = renderBasicElement({});
-
   const closeButton = renderBasicElement({
     element: "button",
     classElement: ["closeLogoX"],
@@ -645,6 +678,7 @@ function createModal() {
         project: inputProject.value.trim(),
         technology: inputTechnology.value.trim().split(",").join(","),
       });
+      updateLayoutAndMessage(projectsContainer);
       modal.remove();
       document.body.classList.remove("noScroll");
     }
@@ -743,7 +777,7 @@ function renderSection(target) {
     });
     buttonNavigateFirst.addEventListener("click", () => {
       if (index < 1) {
-        index = carasuelTrackContainer.children.length - 4
+        index = carasuelTrackContainer.children.length - 4;
       }
       index--;
       moveCarousel(carasuelTrackContainer, index);
@@ -759,7 +793,7 @@ function renderSection(target) {
     });
     buttonNavigateSecond.addEventListener("click", () => {
       if (index > carasuelTrackContainer.children.length - 4) {
-        index = 1
+        index = 1;
       }
       index++;
       moveCarousel(carasuelTrackContainer, index);
@@ -813,6 +847,7 @@ function renderSection(target) {
   // PROJECTS
   // ======================
   else if (target === "projects") {
+    // MAIN STRUCTURE
     const mainProjectsContainer = renderBasicElement({
       clearMain: true,
       element: "div",
@@ -823,7 +858,7 @@ function renderSection(target) {
         "container",
       ],
     });
-
+    // ADD PROJECT BUTTON
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add(
       "displayFlexJustifyCenter",
@@ -839,17 +874,19 @@ function renderSection(target) {
       sourceImage: "./images/Vector.svg",
       alterImage: "icon plus sign",
     });
+    // OPEN MODAL HANDLER
     buttonAddProject.addEventListener("click", () => {
       createModal();
       document.body.classList.add("noScroll");
     });
     buttonAddProject.appendChild(imageButton);
     buttonContainer.appendChild(buttonAddProject);
-
+    // PROJECTS LIST CONTAINER
     const projectsContainer = renderBasicElement({
       classElement: ["displayGrid", "gapInsideMyProject", "gridColumnsProject"],
       idElement: "projectsContainer",
     });
+    // RENDER PROJECT CARDS
     userInfo.cardsProjects.forEach((card) => {
       const index = projectsContainer.children.length;
       const uniqeDataset = crypto.randomUUID();
@@ -861,20 +898,7 @@ function renderSection(target) {
         index: index,
       });
     });
-    if (userInfo.cardsProjects.length === 0) {
-      // const noProjectsMessageContainer = renderBasicElement({
-      //   idElement: "noProjectsMessageContainer"
-      // })
-      const noProjectMessage = renderBasicElement({
-        idElement: "noProjectsMessage",
-        element: "p",
-        classElement: ["flexStyleCenter"],
-        textElement: "There are no project to display",
-      });
-      // noProjectsMessageContainer.appendChild(noProjectMessage)
-      // projectsContainer.appendChild(noProjectsMessageContainer)
-      projectsContainer.appendChild(noProjectMessage);
-    }
+    // ASSEMBLE STRUCTURE
     mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
@@ -1177,7 +1201,7 @@ function renderSection(target) {
       }
     });
 
-     // ASSEMBLE STRUCTURE
+    // ASSEMBLE STRUCTURE
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
     inputsContactContainer.append(
