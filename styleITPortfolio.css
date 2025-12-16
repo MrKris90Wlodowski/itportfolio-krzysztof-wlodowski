@@ -367,9 +367,7 @@ main {
 
 .imageProjectContainer {
     position: relative;
-    width: 100%;
-    /* max-width: 22.5rem; default */
-    min-width: 22.5rem;
+    width: 22.5rem;
     min-height: 28.75rem;
     background-image: url(./images/Rectangle\ 5\ \(3\).png);
     background-size: cover;
@@ -844,11 +842,11 @@ main {
     }
 
     .imageProjectCarousel {  
-        max-width: 18.75rem;
+        width: 18.75rem;
     }
 
     .imageProjectContainer {
-        max-width: 18.75rem;
+        width: 18.75rem;
     }
 
     #carouselContainer {

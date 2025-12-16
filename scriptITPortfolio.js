@@ -257,14 +257,17 @@ function createCarauselElement(array, container) {
       technology: { value: element.technology },
       isDeleteButton: false,
       container: container,
+      isProjectContainer: false
     });
   });
 }
 
 // FUNCTION: move carousel
 function moveCarousel(track, index) {
+  const card = track.querySelector(".imageProjectCarousel")
   const heightCard = 460;
-  const widthCard = 360;
+  // const widthCard = 360;
+  const widthCard = card.offsetWidth ?? 360;
   const gapBetweenCards = 41;
   const totalCardHeight = heightCard + gapBetweenCards;
   const totalCardWidth = widthCard + gapBetweenCards;
@@ -294,6 +297,7 @@ function renderCarousel(container, length) {
       uniqeDataset: crypto.randomUUID(),
       container: carasuelTrackContainer,
       isDeleteButton: false,
+      isProjectContainer: false
     });
   });
 
@@ -432,6 +436,7 @@ function addNewProject({
   container,
   index,
   isDeleteButton = true,
+  isProjectContainer = true
 }) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
@@ -443,7 +448,7 @@ function addNewProject({
   const newProject = document.createElement("div");
   newProject.dataset.id = uniqeDataset;
   newProject.dataset.index = index;
-  newProject.classList.add("imageProjectContainer");
+  newProject.classList.add(isProjectContainer ? "imageProjectContainer" : "imageProjectCarousel");
   const nameProject = document.createElement("h4");
   nameProject.textContent = `${projectValue}`;
   newProject.appendChild(nameProject);
@@ -920,6 +925,7 @@ function renderSection(target) {
     mainProjectsContainer.appendChild(buttonContainer);
     mainProjectsContainer.appendChild(projectsContainer);
     mainContainer.appendChild(mainProjectsContainer);
+    updateLayoutAndMessage(projectsContainer);
   }
 
   // ======================
