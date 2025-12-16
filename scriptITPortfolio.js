@@ -257,17 +257,17 @@ function createCarauselElement(array, container) {
       technology: { value: element.technology },
       isDeleteButton: false,
       container: container,
-      isProjectContainer: false
+      isProjectContainer: false,
     });
   });
 }
 
 // FUNCTION: move carousel
 function moveCarousel(track, index) {
-  const card = track.querySelector(".imageProjectCarousel")
+  const card = track.querySelector(".imageProjectCarousel");
   const heightCard = 460;
   // const widthCard = 360;
-  const widthCard = card.offsetWidth ?? 360;
+  const widthCard = card.offsetWidth;
   const gapBetweenCards = 41;
   const totalCardHeight = heightCard + gapBetweenCards;
   const totalCardWidth = widthCard + gapBetweenCards;
@@ -286,9 +286,10 @@ function renderCarousel(container, length) {
   // GUARD: no projects → no carousel
   if (length === 0) return;
 
-
   // CAROUSEL TRACK
-  const carasuelTrackContainer = renderBasicElement({ idElement: "carouselTrack" });
+  const carasuelTrackContainer = renderBasicElement({
+    idElement: "carouselTrack",
+  });
 
   userInfo.cardsProjects.forEach((card) => {
     addNewProject({
@@ -297,7 +298,7 @@ function renderCarousel(container, length) {
       uniqeDataset: crypto.randomUUID(),
       container: carasuelTrackContainer,
       isDeleteButton: false,
-      isProjectContainer: false
+      isProjectContainer: false,
     });
   });
 
@@ -387,11 +388,11 @@ function renderCarousel(container, length) {
   container.appendChild(buttonsMainContainer);
 
   // RESPONSIVE UPDATE
-  window.addEventListener("resize", () => moveCarousel(carasuelTrackContainer, index));
+  window.addEventListener("resize", () =>
+    moveCarousel(carasuelTrackContainer, index)
+  );
   moveCarousel(carasuelTrackContainer, index);
 }
-
-
 
 // PROJECTS
 
@@ -436,7 +437,7 @@ function addNewProject({
   container,
   index,
   isDeleteButton = true,
-  isProjectContainer = true
+  isProjectContainer = true,
 }) {
   const projectValue = project.value.trim();
   const technologyValue = technology.value
@@ -448,7 +449,9 @@ function addNewProject({
   const newProject = document.createElement("div");
   newProject.dataset.id = uniqeDataset;
   newProject.dataset.index = index;
-  newProject.classList.add(isProjectContainer ? "imageProjectContainer" : "imageProjectCarousel");
+  newProject.classList.add(
+    isProjectContainer ? "imageProjectContainer" : "imageProjectCarousel"
+  );
   const nameProject = document.createElement("h4");
   nameProject.textContent = `${projectValue}`;
   newProject.appendChild(nameProject);
@@ -818,51 +821,90 @@ function createModal() {
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
   // ======================
-  // HOME
+  // HOME (dynamic render)
   // ======================
   if (target === "home") {
-    const projectLenght = userInfo.cardsProjects.length;
+    // DATA
+    const projectLength = userInfo.cardsProjects.length;
+
+    // MAIN STRUCTURE
     const mainHomeContainer = renderBasicElement({
       clearMain: true,
       classElement: ["paddingSectionHome", "container"],
     });
-    const imageMaleContainer = renderBasicElement({
-      classElement: ["imageMaleContainer"],
-    });
-    const headingMySkills = renderBasicElement({
-      element: "h3",
-      classElement: ["marginHeadingMySkills"],
-      textElement: "My Skills",
-    });
-    const techContainer = renderBasicElement({
-      classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
-    });
 
-    userInfo.techSkill.forEach((tech) => {
-      createTechSkill(tech.skill, tech.experience, techContainer);
-    });
-    const homeContainer = renderBasicElement({
+    const flexCenterContainer = renderBasicElement({
       classElement: [
         "flexStyleColumn",
         "justify-content",
         "alignItemsFlexCenter",
       ],
     });
-    homeContainer.appendChild(imageMaleContainer);
+
+    // ABOUT ME SECTION (HOME)
+    const mainAboutMeContainer = renderBasicElement({
+      classElement: [
+        "flexStyleColumn",
+        "alignItemsFlexCenter",
+        "mainContainerAboutMe",
+      ],
+    });
+
+    const imageMaleContainer = renderBasicElement({
+      classElement: ["imageMaleContainer"],
+    });
+
+    // TEXT CONTENT
+    const textContainer = renderBasicElement({
+      classElement: ["fullWidthContainer"],
+    });
+
+    // DYNAMIC ARTICLE
     createArticle({
       heading: "About me",
       description: userInfo.info.introduce,
       classHeadingArticle: ["marginHeadingAboutMe"],
       classDescriptionArticle: ["preLine"],
-      container: homeContainer,
+      container: textContainer,
     });
-    mainHomeContainer.append(
-      homeContainer,
-      headingMySkills,
-      techContainer,
-    );
-    renderCarousel(mainHomeContainer,projectLenght);
 
+    // SKILLS HEADING
+    const headingMySkills = renderBasicElement({
+      element: "h3",
+      classElement: ["marginHeadingMySkills"],
+      textElement: "My skills",
+    });
+    textContainer.appendChild(headingMySkills);
+
+    // SKILLS CONTAINERS
+    const generalMainSkillContainer = renderBasicElement({
+      idElement: "generalMainSkillContainer",
+    });
+
+    const mainSkillContainer = renderBasicElement({
+      idElement: "mainSkillContainer",
+      classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
+    });
+
+    // DYNAMIC SKILLS RENDER
+    userInfo.techSkill.forEach((tech) => {
+      createTechSkill(tech.skill, tech.experience, mainSkillContainer);
+    });
+
+    // ASSEMBLE ABOUT ME SECTION
+    generalMainSkillContainer.appendChild(mainSkillContainer);
+    mainAboutMeContainer.append(
+      imageMaleContainer,
+      textContainer,
+      generalMainSkillContainer
+    );
+    flexCenterContainer.appendChild(mainAboutMeContainer);
+
+    // CAROUSEL (PROJECTS)
+    mainHomeContainer.appendChild(flexCenterContainer);
+    renderCarousel(mainHomeContainer, projectLength);
+
+    // FINAL RENDER
     mainContainer.appendChild(mainHomeContainer);
   }
 

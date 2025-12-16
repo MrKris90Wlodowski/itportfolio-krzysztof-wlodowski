@@ -354,6 +354,11 @@ main {
   gap: 2.5625rem; 
 }
 
+.fullWidthContainer {
+    width: 100%;
+    /* max-width: 59.875rem; */
+}
+
 /* SECTION MY PROJECTS */
 
 .paddingSectionProjectMe {
@@ -842,7 +847,7 @@ main {
     }
 
     .imageProjectCarousel {  
-        width: 18.75rem;
+        min-width: 18.75rem;
     }
 
     .imageProjectContainer {
