@@ -999,18 +999,25 @@ function renderSection(target) {
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
     });
+    const flexCenterContainer = renderBasicElement({
+      classElement: [
+        "flexStyleColumn",
+        "justify-content",
+        "alignItemsFlexCenter"
+      ],
+    });
     mainAboutMecontainer.appendChild(imageMaleContainer);
     // DYNAMIC CONTENT
     createArticle({
       heading: "My background",
       description: userInfo.info.myBackground,
-      classArticleContainer: "articleContainer",
+      classArticleContainer: ["articleContainer"],
       container: mainAboutMecontainer,
     });
     createArticle({
       heading: "My hobbies and interests",
       description: userInfo.info.hobbies,
-      classArticleContainer: "articleContainer",
+      classArticleContainer: ["articleContainer"],
       container: mainAboutMecontainer,
     });
     const buttoncontainer = document.createElement("div");
@@ -1046,6 +1053,7 @@ function renderSection(target) {
     // ASSEMBLE STRUCTURE
     buttonContactMe.appendChild(imageButton);
     buttoncontainer.appendChild(buttonContactMe);
+    flexCenterContainer.appendChild(mainAboutMecontainer,buttoncontainer)
     mainAboutMecontainer.appendChild(buttoncontainer);
     mainContainer.appendChild(mainAboutMecontainer);
   }
@@ -1081,7 +1089,6 @@ function renderSection(target) {
       element: "div",
       classElement: ["flexStyleColumn", "gapBetweenColumnInInput"],
     });
-
     // DYNAMIC FIELDS
     // name field
     const inputName = renderBasicInput({
@@ -1113,7 +1120,6 @@ function renderSection(target) {
       inputForm: inputName,
       errorForm: errorName,
     });
-
     // email field
     const inputEmail = renderBasicInput({
       idInput: "inpuEmail",
@@ -1144,7 +1150,6 @@ function renderSection(target) {
       inputForm: inputEmail,
       errorForm: errorEmail,
     });
-
     // message/info field
     const inputInfo = renderBasicInput({
       idInput: "inputInfo",
@@ -1175,7 +1180,6 @@ function renderSection(target) {
       inputForm: inputInfo,
       errorForm: errorInfo,
     });
-
     // BUTTON
     const buttonContainer = renderBasicElement({
       element: "div",
@@ -1189,7 +1193,6 @@ function renderSection(target) {
       element: "button",
       textElement: "Send message",
     });
-
     // VALIDATION HANDLER
     let isValidate = false;
     let isName = false;
@@ -1224,7 +1227,6 @@ function renderSection(target) {
         minErrorText: structureApp.formInfo.errorMessage.message,
         maxErrorText: structureApp.formInfo.errorMessage.max("message", 100),
       });
-
       if (!isValidate) {
         inputName.addEventListener("input", () => {
           const nameValue = inputName.value.trim().length;
@@ -1264,10 +1266,8 @@ function renderSection(target) {
           });
         });
       }
-
       isValidate = true;
       event.preventDefault();
-
       if (isName && isEmail && isInfo) {
         userInfo.messages.push({
           name: inputName.value.trim(),
@@ -1277,7 +1277,6 @@ function renderSection(target) {
         (inputName.value = ""), (inputEmail.value = ""), (inputInfo.value = "");
       }
     });
-
     // ASSEMBLE STRUCTURE
     buttonContainer.appendChild(buttonSendMessage);
     inputsNameAndEmailContainer.append(nameFormField, emailFormField);
@@ -1287,11 +1286,9 @@ function renderSection(target) {
       messageFormField
     );
     formContactContainer.append(inputsContactContainer, buttonContainer);
-
     formContact.appendChild(formContactContainer);
     mainContactContainer.appendChild(formContact);
     mainContainer.appendChild(mainContactContainer);
-
     // RESPONSIVE LAYOUT ADJUSTMENT
     const bodyElelment = document.body;
     activeResizeHandler = () =>
@@ -1301,7 +1298,6 @@ function renderSection(target) {
         inputsContactContainer,
         mainContactContainer
       );
-
     activeResizeHandler();
     window.addEventListener("resize", activeResizeHandler);
   }

@@ -52,10 +52,7 @@
 
 body {
     background-color: var(--midnightBlue);
-    /* width: 100%; */
     min-height: 100vh;
-    /* min-width: 320px; */
-    /* max-width: 1920px; */
     margin: 0 auto;
 }
 
@@ -345,18 +342,8 @@ main {
     width: 100%;
 }
 
-.clone {
-    pointer-events: none;
-  }
-
-#carouselTrack.cloneItem {
-  justify-content: center;
-  gap: 2.5625rem; 
-}
-
 .fullWidthContainer {
     width: 100%;
-    /* max-width: 59.875rem; */
 }
 
 /* SECTION MY PROJECTS */
@@ -537,18 +524,6 @@ main {
     position: absolute;
     left: 0rem;
     top: 1.75rem;
-}
-
-/* SECTION CONTACT FORM MOBILE */
-
-.formMobileSectionSendMessage {
-    background-color: var(--snowWhite);
-}
-
-/* SECTION CONTACT BUTTON MOBILE */
-
-.buttonMobileSectionSendMessage {
-    background-color: var(--snowWhite);
 }
 
 /* SECTION MESSAGES */
@@ -803,14 +778,6 @@ main {
     /* SECTION HOME */
 
     .buttonsMobile {
-        display: none;
-    }
-
-    .buttonMobileSectionSendMessage {
-        display: none;
-    }
-
-    .formMobileSectionSendMessage {
         display: none;
     }
 }
