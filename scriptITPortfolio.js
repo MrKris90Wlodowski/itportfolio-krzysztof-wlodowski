@@ -331,7 +331,10 @@ function renderCarousel(container, length) {
   container.appendChild(carasuelMainContainer);
 
   // GUARD: max 3 items → no navigation buttons
-  if (length <= 3) return;
+  if (length <= 3) {
+    carasuelTrackContainer.classList.add("flexStyleCenter")
+    return;
+  }
 
   // NAVIGATION BUTTONS
   let index = 3;
@@ -840,7 +843,7 @@ function renderSection(target) {
   cleanupGlobalListeners();
 
   // ======================
-  // HOME 
+  // HOME
   // ======================
   if (target === "home") {
     // DATA
@@ -1003,7 +1006,7 @@ function renderSection(target) {
       classElement: [
         "flexStyleColumn",
         "justify-content",
-        "alignItemsFlexCenter"
+        "alignItemsFlexCenter",
       ],
     });
     mainAboutMecontainer.appendChild(imageMaleContainer);
@@ -1053,7 +1056,7 @@ function renderSection(target) {
     // ASSEMBLE STRUCTURE
     buttonContactMe.appendChild(imageButton);
     buttoncontainer.appendChild(buttonContactMe);
-    flexCenterContainer.appendChild(mainAboutMecontainer,buttoncontainer)
+    flexCenterContainer.appendChild(mainAboutMecontainer, buttoncontainer);
     mainAboutMecontainer.appendChild(buttoncontainer);
     mainContainer.appendChild(mainAboutMecontainer);
   }
