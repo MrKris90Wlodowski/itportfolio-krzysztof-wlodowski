@@ -255,6 +255,7 @@ function createTechSkill(skill, num, container) {
   container.appendChild(skillContainer);
 }
 
+// FUNCTION: allow create carousel card
 function createCarauselElement(array, container) {
   container.innerHTML = "";
   const oldArray = array;
@@ -265,7 +266,6 @@ function createCarauselElement(array, container) {
   ];
   const lastThreeElements = [array[0], array[1], array[2]];
   const newArray = [...firstThreeElements, ...array, ...lastThreeElements];
-  // console.log(newCarausel);
 
   (array.length <= 3 ? oldArray : newArray).forEach((element) => {
     addNewProject({
@@ -282,7 +282,6 @@ function createCarauselElement(array, container) {
 function moveCarousel(track, index) {
   const card = track.querySelector(".imageProjectCarousel");
   const heightCard = 460;
-  // const widthCard = 360;
   const widthCard = card.offsetWidth;
   const gapBetweenCards = 41;
   const totalCardHeight = heightCard + gapBetweenCards;
@@ -846,13 +845,11 @@ function renderSection(target) {
   if (target === "home") {
     // DATA
     const projectLength = userInfo.cardsProjects.length;
-
     // MAIN STRUCTURE
     const mainHomeContainer = renderBasicElement({
       clearMain: true,
       classElement: ["paddingSectionHome", "container"],
     });
-
     const flexCenterContainer = renderBasicElement({
       classElement: [
         "flexStyleColumn",
@@ -860,7 +857,6 @@ function renderSection(target) {
         "alignItemsFlexCenter",
       ],
     });
-
     // ABOUT ME SECTION (HOME)
     const mainAboutMeContainer = renderBasicElement({
       classElement: [
@@ -869,16 +865,13 @@ function renderSection(target) {
         "mainContainerAboutMe",
       ],
     });
-
     const imageMaleContainer = renderBasicElement({
       classElement: ["imageMaleContainer"],
     });
-
     // TEXT CONTENT
     const textContainer = renderBasicElement({
       classElement: ["fullWidthContainer"],
     });
-
     // DYNAMIC ARTICLE
     createArticle({
       heading: "About me",
@@ -887,7 +880,6 @@ function renderSection(target) {
       classDescriptionArticle: ["preLine"],
       container: textContainer,
     });
-
     // SKILLS HEADING
     const headingMySkills = renderBasicElement({
       element: "h3",
@@ -895,22 +887,18 @@ function renderSection(target) {
       textElement: "My skills",
     });
     textContainer.appendChild(headingMySkills);
-
     // SKILLS CONTAINERS
     const generalMainSkillContainer = renderBasicElement({
       idElement: "generalMainSkillContainer",
     });
-
     const mainSkillContainer = renderBasicElement({
       idElement: "mainSkillContainer",
       classElement: ["flexWrapLogoSkill", "gapInsideLogoSkillContainer"],
     });
-
     // DYNAMIC SKILLS RENDER
     userInfo.techSkill.forEach((tech) => {
       createTechSkill(tech.skill, tech.experience, mainSkillContainer);
     });
-
     // ASSEMBLE ABOUT ME SECTION
     generalMainSkillContainer.appendChild(mainSkillContainer);
     mainAboutMeContainer.append(
@@ -919,7 +907,6 @@ function renderSection(target) {
       generalMainSkillContainer
     );
     flexCenterContainer.appendChild(mainAboutMeContainer);
-
     // CAROUSEL (PROJECTS)
     mainHomeContainer.appendChild(flexCenterContainer);
     requestAnimationFrame(() => {
@@ -927,7 +914,6 @@ function renderSection(target) {
         renderCarousel(mainHomeContainer, projectLength);
       });
     });
-
     // FINAL RENDER
     mainContainer.appendChild(mainHomeContainer);
   }
