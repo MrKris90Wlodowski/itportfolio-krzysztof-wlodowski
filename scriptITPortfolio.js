@@ -9,6 +9,8 @@ const navItems = document.querySelectorAll("nav li");
 const normalMenuMobile = document.getElementById("normalMenuMobile");
 const goldMenuMobile = document.getElementById("goldMenuMobile");
 const menuListMobile = document.getElementById("menuListMobile");
+// ELEMENT: safer allow control listener on window
+let activeResizeHandler = null;
 
 // FUNCTION: show and hide hamburger menu
 function showHideMobileMenu() {
@@ -119,6 +121,20 @@ function renderBasicImage({
   image.src = sourceImage;
   image.alt = alterImage;
   return image;
+}
+
+// FUNCTION: allow rehandler listener
+function cleanupGlobalListeners() {
+  if (activeResizeHandler) {
+    window.removeEventListener("resize", activeResizeHandler);
+    activeResizeHandler = null;
+  }
+  const inputsContactContainer = document.getElementById(
+    "inputsContactContainer"
+  );
+  if (inputsContactContainer) {
+    inputsContactContainer.remove();
+  }
 }
 
 //FUNCTION: update basic render element basic info condition to size screen
@@ -612,10 +628,12 @@ function updateElementsLayout(newParent, oldParent, child, casualElement) {
     child.classList.add("paddingSectionContact");
     newParent.insertBefore(child, newParent.firstChild);
     casualElement.classList.remove("paddingSectionContact");
+    return 1;
   } else {
     oldParent.insertBefore(child, childNextSibling);
     child.classList.remove("paddingSectionContact");
     casualElement.classList.add("paddingSectionContact");
+    return 1;
   }
 }
 
@@ -820,6 +838,8 @@ function createModal() {
 
 // FUNCTION: dynamically render section in the main container
 function renderSection(target) {
+  cleanupGlobalListeners();
+
   // ======================
   // HOME (dynamic render)
   // ======================
@@ -902,7 +922,11 @@ function renderSection(target) {
 
     // CAROUSEL (PROJECTS)
     mainHomeContainer.appendChild(flexCenterContainer);
-    renderCarousel(mainHomeContainer, projectLength);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        renderCarousel(mainHomeContainer, projectLength);
+      });
+    });
 
     // FINAL RENDER
     mainContainer.appendChild(mainHomeContainer);
@@ -1067,6 +1091,7 @@ function renderSection(target) {
       classElement: ["displayFlexInputNameAndEmail"],
     });
     const inputsContactContainer = renderBasicElement({
+      idElement: "inputsContactContainer",
       element: "div",
       classElement: ["flexStyleColumn", "gapBetweenColumnInInput"],
     });
@@ -1282,15 +1307,17 @@ function renderSection(target) {
     mainContainer.appendChild(mainContactContainer);
 
     // RESPONSIVE LAYOUT ADJUSTMENT
-    window.addEventListener("resize", () => {
-      const bodyElelment = document.body;
+    const bodyElelment = document.body;
+    activeResizeHandler = () =>
       updateElementsLayout(
         bodyElelment,
         formContactContainer,
         inputsContactContainer,
         mainContactContainer
       );
-    });
+
+    activeResizeHandler();
+    window.addEventListener("resize", activeResizeHandler);
   }
 
   // ======================
