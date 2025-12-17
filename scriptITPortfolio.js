@@ -840,7 +840,7 @@ function renderSection(target) {
   cleanupGlobalListeners();
 
   // ======================
-  // HOME (dynamic render)
+  // HOME 
   // ======================
   if (target === "home") {
     // DATA
@@ -1046,8 +1046,8 @@ function renderSection(target) {
       });
       renderSection("contact");
       renderInfoHeader(
-        headerInfo.contact.heading,
-        headerInfo.contact.paragraph
+        structureApp.headerInfo.contact.heading,
+        structureApp.headerInfo.contact.paragraph
       );
     });
     // ASSEMBLE STRUCTURE
@@ -1230,7 +1230,7 @@ function renderSection(target) {
       if (!isValidate) {
         inputName.addEventListener("input", () => {
           const nameValue = inputName.value.trim().length;
-          errorMessage({
+          isName = errorMessage({
             min: 3,
             max: 20,
             value: nameValue,
@@ -1241,7 +1241,7 @@ function renderSection(target) {
           });
           inputEmail.addEventListener("input", () => {
             const emailValue = inputEmail.value.trim();
-            errorMessage({
+            isEmail = errorMessage({
               isEmail: true,
               value: emailValue,
               textElement: errorEmail,
@@ -1250,7 +1250,7 @@ function renderSection(target) {
             });
             inputInfo.addEventListener("input", () => {
               const infoValue = inputInfo.value.trim().length;
-              errorMessage({
+              isInfo = errorMessage({
                 min: 1,
                 max: 100,
                 value: infoValue,

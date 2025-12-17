@@ -617,7 +617,7 @@ main {
   }
 
 .dismensionModal {
-    width: 55.55%;
+    width: 50rem;
     height: auto;
     padding: 3.75rem 7.5rem;
     background-color: var(--snowWhite);
@@ -903,7 +903,7 @@ main {
 
     .dismensionModal {
         padding: 2.5rem 0.625rem;
-        width: 87.5%;
+        width: 18.75rem;
     }
 
     .marginButtonModal {
